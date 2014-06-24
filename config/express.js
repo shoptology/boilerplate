@@ -1,4 +1,5 @@
-var express = require('express');
+var express = require('express'),
+    cors = require('cors');
 
 module.exports = function(app, config) {
   app.configure(function () {
