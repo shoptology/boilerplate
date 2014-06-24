@@ -6,8 +6,9 @@
     "start": "app.js"
   },
   "dependencies": {
+    "cors": "^2.3.1",
     "express": "~3.3.4",
-    "jade": "~0.34.0",
+    "hbs": "^2.7.0",
     "mongoose": "~3.6.14"
   },
   "devDependencies": {
@@ -17,6 +18,7 @@
     "grunt-contrib-compass": "~0.6.0",
     "request": "~2.27.0",
     "time-grunt": "~0.1.1",
-    "load-grunt-tasks": "~0.2.0"
+    "load-grunt-tasks": "~0.2.0",
+    "underscore": "^1.6.0"
   }
 }
