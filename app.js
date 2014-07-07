@@ -66,9 +66,21 @@ var csrfExclude = ['/url1', '/url2'];
  * Express configuration.
  */
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 8080);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
+/**
+ * Dev settings
+ */
+if(process.env.NODE_ENV == 'dev') {
+    var dev = {
+        livereload : process.env.livereload ? process.env.livereload : true,
+        browsersync : process.env.browsersync ? process.env.browsersync : true
+    }
+}
+
+
 app.use(compress());
 
 app.use(logger('dev'));
@@ -95,6 +107,7 @@ app.use(function(req, res, next) {
 app.use(function(req, res, next) {
   // Make user object available in templates.
   res.locals.user = req.user;
+  res.locals.dev = dev;
   next();
 });
 app.use(function(req, res, next) {

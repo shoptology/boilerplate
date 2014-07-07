@@ -18,9 +18,9 @@
   <title>{{title}}</title>
   <link rel="stylesheet" href="/css/styles.css" />
   <script src="/js/lib/jquery-2.1.1.min.js"></script>
-  {{#livereload}}
+  {{#if dev.livereload}}
     <script src="http://localhost:35729/livereload.js"></script>
-  {{/livereload}}
+  {{/if}}
 </head>
 <body>
 
@@ -84,5 +84,9 @@
     </footer>
 
     <script src="/js/main.js"></script>
-
+    {{#if dev.browsersync}}
+        <script src='//10.0.1.5:3000/socket.io/socket.io.js'></script>
+        <script>var ___socket___ = io.connect('http://10.0.1.5:3000');</script>
+        <script src='//10.0.1.5:3001/client/browser-sync-client.0.8.2.js'></script>
+    {{/if}}
 </body>
