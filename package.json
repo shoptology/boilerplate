@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "install": "git clone --depth=1 https://github.com/shoptology/patternlab-php.git styleguide && cd styleguide && rm -rf .git",
+    "install-styleguide": "git clone --depth=1 https://github.com/shoptology/patternlab-php.git styleguide && cd styleguide && rm -rf .git && npm install && npm run generate",
     "test": "mocha"
   },
   "dependencies": {
@@ -60,6 +60,11 @@
     "yui": "^3.17.1"
   },
   "devDependencies": {
+    "blessed": "0.0.33",
+    "browser-sync": "~0.8.2",
+    "browserify": "~3.36.0",
+    "browserify-shim": "~3.4.1",
+    "chai": "^1.9.1",
     "grunt": "~0.4.1",
     "grunt-contrib-compass": "~0.6.0",
     "grunt-contrib-less": "^0.11.1",
@@ -76,16 +81,11 @@
     "gulp-open": "~0.2.8",
     "gulp-util": "~2.2.19",
     "gulp-watchify": "0.2.0",
-    "watchify": "^0.6.1",
-    "pretty-hrtime": "~0.2.1",
-    "browser-sync": "~0.8.2",
-    "browserify-shim": "~3.4.1",
-    "browserify": "~3.36.0",
-    "blessed": "0.0.33",
-    "chai": "^1.9.1",
     "mocha": "^1.20.1",
     "multiline": "^0.3.4",
+    "pretty-hrtime": "~0.2.1",
     "supertest": "^0.13.0",
-    "vinyl-source-stream": "~0.1.1"
+    "vinyl-source-stream": "~0.2.3",
+    "watchify": "^0.6.1"
   }
 }
