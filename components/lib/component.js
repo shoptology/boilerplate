@@ -19,7 +19,9 @@ var Component = function(options, base_path) {
 
 		if(fs.existsSync(base_path + options.files.template)) {
 			console.log("EXISTS!!!");
-			template = require(base_path + options.files.template);
+			template = fs.readFileSync(base_path + options.files.template);
+
+			console.log(template);
 		}
 		/*
 		if(options.files.styles) {
