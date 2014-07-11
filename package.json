@@ -85,7 +85,7 @@
     "multiline": "^0.3.4",
     "pretty-hrtime": "~0.2.1",
     "supertest": "^0.13.0",
-    "vinyl-source-stream": "~0.2.3",
+    "vinyl-source-stream": "~0.1.1",
     "watchify": "^0.6.1"
   }
 }

@@ -9,8 +9,9 @@ require('./lib/requireLocal');
 var components = {
 	get_component : function(component_path, data) {
 		var component = require('./components/' + component_path);
-		
 		var component_rendered = component.get(data);
+
+		return component_rendered;
 	},
 	get_component_template : function() {
 

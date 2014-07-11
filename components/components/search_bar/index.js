@@ -16,9 +16,9 @@ var options = {
 }
 
 var SearchBar = function() {
-	// Some custom functionality
-};
+	// some custom functionality
+}
 
 SearchBar.prototype = new Component(options, __dirname);
 
-module.exports = SearchBar;
+module.exports = new SearchBar();
