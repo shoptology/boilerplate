@@ -8,7 +8,7 @@ var Component = requireLocal('lib/component');
 
 var options = {
 	files : {
-		template : 'template.hbs',
+		template : 'search_bar.hbs',
 		styles : 'styles.css',
 		helpers : 'helpers.js'
 	},

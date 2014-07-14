@@ -3,7 +3,10 @@
 /**
  * Handlebars helpers
  */
-var hbs = require('hbs');
+var hbs = require('hbs'),
+    _ = require('lowdash');
+
+var components = require('./components');
 
 var Helpers = {
     register : function() {
@@ -69,8 +72,34 @@ var Helpers = {
 
             return new hbs.SafeString(partial(context));
         },
-        get_component : function() {
+        /**
+         * Returns a component template
+         *
+         * Usage:
+         * {{get_component 'component/name' opts='{"option" : "value"}' data='{"data" : "value"}'}}
+         *  opts - Stringified JSON object of below options
+         *      //TODO
+         *
+         *  data - Stringified JSON object of data to pass to template
+         */
+        get_component : function(component, args) {
+            var options,
+                data;
 
+            try {
+                options = JSON.parse(args.hash.opts);
+            } catch(e) {
+                console.log(e);
+            }
+
+            try {
+                data = JSON.parse(args.hash.data);
+            } catch(e) {
+                console.log(e);
+            }
+
+            // TODO - Options for deciding how the template is pulled
+            return new hbs.SafeString(components.get_component_template(component, data));
         }
     }
 };

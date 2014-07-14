@@ -1,6 +1,6 @@
 <div class="component search-bar">
-	{{#input_label}}
-		<label>{{input_label}}</label>
-	{{/input_label}}
-	<input type="{{input_type}}" value="{{input_value}}" placeholder="{{input_placeholder}}">
+    {{#if input_label}}
+        <label>{{input_label}}</label>
+    {{/if }}
+    <input type="{{input_type}}" value="{{input_value}}" placeholder="{{input_placeholder}}">
 </div>
