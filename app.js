@@ -74,7 +74,7 @@ var csrfExclude = ['/url1', '/url2'];
  */
 
 app.set('port', process.env.PORT || 8080);
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '/app/views'));
 app.set('view engine', 'hbs');
 
 /**
@@ -239,6 +239,7 @@ var files = glob.sync("./app/patterns/**/*.hbs"), partials = {};
 files.forEach(function(filename) {
     var name = filename.match(/[^\/]+[.+\.].*$/, '');
     name = name[0].replace(/\.hbs$/, '');
+    console.log('Registering: '+name);
     hbs.registerPartial(name, fs.readFileSync(filename, 'utf8'));
 });
 
