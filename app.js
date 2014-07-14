@@ -21,6 +21,10 @@ var passport = require('passport');
 var expressValidator = require('express-validator');
 var connectAssets = require('connect-assets');
 
+var hbs = require('hbs');
+var glob = require('glob');
+var fs = require('fs');
+
 /**
  * Controllers (route handlers).
  */
@@ -222,6 +226,20 @@ app.get('/auth/venmo/callback', passport.authorize('venmo', { failureRedirect: '
  */
 
 app.use(errorHandler());
+
+
+/**
+ * Find all the patterns in our patterns directory and register with Handlebars
+ */
+
+var files = glob.sync("./patterns/**/*.hbs"), partials = {};
+files.forEach(function(filename) {
+    var name = filename.match(/[^\/]+[.+\.].*$/, '');
+    name = name[0].replace(/\.hbs$/, '');
+    console.log('Registering: '+name);
+    hbs.registerPartial(name, fs.readFileSync(filename, 'utf8'));
+});
+
 
 /**
  * Start Express server.

@@ -28,6 +28,7 @@
     "express-validator": "^2.3.0",
     "fbgraph": "^0.2.10",
     "github-api": "^0.7.0",
+    "glob": "^4.0.4",
     "grunt-shell-spawn": "~0.3.0",
     "hbs": "^2.7.0",
     "instagram-node": "^0.4.0",
