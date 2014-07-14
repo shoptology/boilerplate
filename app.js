@@ -232,7 +232,7 @@ app.use(errorHandler());
  * Find all the patterns in our patterns directory and register with Handlebars
  */
 
-var files = glob.sync("./patterns/**/*.hbs"), partials = {};
+var files = glob.sync("./app/patterns/**/*.hbs"), partials = {};
 files.forEach(function(filename) {
     var name = filename.match(/[^\/]+[.+\.].*$/, '');
     name = name[0].replace(/\.hbs$/, '');
