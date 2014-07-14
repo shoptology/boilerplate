@@ -3,7 +3,7 @@
 /**
  * Handlebars helpers
  */
-var hbs = require('Handlebars');
+var hbs = require('hbs');
 
 var Helpers = {
     register : function() {

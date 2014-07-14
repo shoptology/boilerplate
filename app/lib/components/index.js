@@ -5,7 +5,8 @@
  */
 
 require('./lib/requireLocal');
-var hbs = require('Handlebars');
+
+var hbs = require('hbs');
 var _ = require('lodash');
 
 var components = {
