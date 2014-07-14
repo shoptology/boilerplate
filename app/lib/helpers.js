@@ -3,7 +3,8 @@
 /**
  * Handlebars helpers
  */
-var hbs = require('hbs');
+var hbs = require('hbs'),
+    _ = require('lowdash');
 
 var components = require('./components');
 
