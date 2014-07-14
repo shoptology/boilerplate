@@ -6,7 +6,7 @@
 
 require('./lib/requireLocal');
 
-var hbs = require('hbs');
+var hbs = require('Handlebars');
 var _ = require('lodash');
 
 var components = {
@@ -59,6 +59,7 @@ hbs.registerHelper('$', function(partial) {
     context = _.extend({}, opts.context||this, _.omit(opts, 'context', 'fn', 'inverse'));
 
     // Parse any JSON objects in hash
+    // and promote properties in hash to context
     for(var h in context.hash) {
         var hash = context.hash;
 
@@ -67,7 +68,17 @@ hbs.registerHelper('$', function(partial) {
         } catch(e) {
             console.log(e);
         }
+
+        if(typeof hash[h] === 'object') {
+            for(var p in hash[h]) {
+                context[p] = hash[h][p];
+            }
+        } else {
+            context[h] = hash[h];
+        }
     }
+
+    console.log('Context: ', context);
 
     return new hbs.SafeString(partial(context));
 });
