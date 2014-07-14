@@ -29,17 +29,17 @@ var fs = require('fs');
  * Controllers (route handlers).
  */
 
-var homeController = require('./controllers/home');
-var userController = require('./controllers/user');
-var apiController = require('./controllers/api');
-var contactController = require('./controllers/contact');
+var homeController = require('./app/controllers/home');
+var userController = require('./app/controllers/user');
+var apiController = require('./app/controllers/api');
+var contactController = require('./app/controllers/contact');
 
 /**
  * API keys and Passport configuration.
  */
 
-var secrets = require('./config/secrets');
-var passportConf = require('./config/passport');
+var secrets = require('./app/config/secrets');
+var passportConf = require('./app/config/passport');
 
 /**
  * Create Express server.
