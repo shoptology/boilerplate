@@ -16,15 +16,19 @@ var components = {
 
 		return component_rendered;
 	},
-	get_component_template : function() {
+	get_component_template : function(component_path, data) {
+        var component = require('../../patterns/components/' + component_path);
+        var component_rendered = component.get(data);
 
+        return component_rendered;
 	},
     get_component_template_partial : function() {
 
     }
 };
 
-/*
+/**
+ * Test Area -- Disregard
 hbs.registerHelper('$', function(partial) {
     var values, opts, done, value, context;
 
@@ -83,12 +87,50 @@ hbs.registerHelper('$', function(partial) {
     return new hbs.SafeString(partial(context));
 });
 
+hbs.registerHelper('get_component', function(component, args) {
+    var options,
+        data;
+
+    try {
+        options = JSON.parse(args.hash.opts);
+    } catch(e) {
+        console.log(e);
+    }
+
+    try {
+        data = JSON.parse(args.hash.data);
+    } catch(e) {
+        console.log(e);
+    }
+
+    // TODO - Options for deciding how the template is pulled
+    return new hbs.SafeString(components.get_component_template(component, data));
+});
+
 var test = function() {
     var data = {
         name : 'John'
     }
 
-    var template = 'Template Name: {{$ "name" name="test" obj=\'{"poop":3}\'}}';
+    var template = 'Template Name: {{$ "name" name="test" obj=\'\
+        {\
+            "poop" : 3\
+        }\
+    \'}}';
+
+    template = 'Component: {{get_component "search_bar" opts=\'\
+        {\
+            "just_template" : "true"\
+        }\
+    \'\
+    data=\'\
+        {\
+            "input_label" : "a label",\
+            "input_type" : "text",\
+            "input_value" : "",\
+            "input_placeholder" : "Search"\
+        }\
+    \'}}';
 
     var partial = "{{hash.name}} {{hash.obj.poop}}";
 
