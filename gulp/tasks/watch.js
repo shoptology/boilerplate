@@ -3,10 +3,10 @@ var gulp = require('gulp'),
 
 gulp.task('watch', ['setWatch', 'browserSync'], function() {
     var lr = livereload();
-	/*gulp.watch('src/sass/**', ['compass']);
-	gulp.watch('src/images/**', ['images']);
+	gulp.watch('public/css/**/*.scss', ['compass']);
+	/*gulp.watch('src/images/**', ['images']);
 	gulp.watch('src/htdocs/**', ['copy']);*/
-    gulp.watch('views/**').on('change',
+    gulp.watch('app/views/**').on('change',
         function(file) {
             lr.changed(file.path);
         }

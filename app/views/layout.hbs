@@ -86,8 +86,8 @@
 
     <script src="/js/main.js"></script>
     {{#if dev.browsersync}}
-        <script src='//10.0.1.5:3000/socket.io/socket.io.js'></script>
-        <script>var ___socket___ = io.connect('http://10.0.1.5:3000');</script>
-        <script src='//10.0.1.5:3001/client/browser-sync-client.0.8.2.js'></script>
+        <script src='//{{dev.localIpAddress}}:3000/socket.io/socket.io.js'></script>
+        <script>var ___socket___ = io.connect('http://{{dev.localIpAddress}}:3000');</script>
+        <script src='//{{dev.localIpAddress}}:3001/client/browser-sync-client.0.8.2.js'></script>
     {{/if}}
 </body>

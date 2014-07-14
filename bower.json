@@ -5,5 +5,10 @@
     "**/.*",
     "node_modules",
     "components"
-  ]
+  ],
+  "dependencies": {
+    "font-awesome": "~4.1.0",
+    "sass-bootstrap": "~3.0.2",
+    "bootstrap-social": "~4.5.1"
+  }
 }

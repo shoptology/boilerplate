@@ -81,9 +81,29 @@ app.set('view engine', 'hbs');
  * Dev settings
  */
 if(process.env.NODE_ENV == 'dev') {
+
+    /**
+     * Get Local IP for browserify
+     */
+
+    var os=require('os');
+    var ifaces=os.networkInterfaces();
+    localIpAddress = null;
+    for (var dev in ifaces) {
+        if(dev !== "en1" && dev !== "en0") {
+            continue;
+        }
+        ifaces[dev].forEach(function(details){
+            if (details.family==='IPv4') {
+                localIpAddress = details.address;
+            }
+        });
+    }
+
     var dev = {
         livereload : process.env.livereload ? process.env.livereload : true,
-        browsersync : process.env.browsersync ? process.env.browsersync : true
+        browsersync : process.env.browsersync ? process.env.browsersync : true,
+        localIpAddress : localIpAddress
     }
 }
 
@@ -248,12 +268,13 @@ files.forEach(function(filename) {
  */
 helpers.register();
 
+
 /**
  * Start Express server.
  */
 
 app.listen(app.get('port'), function() {
-  console.log('Express server listening on port %d in %s mode', app.get('port'), app.get('env'));
+    console.log('Express server listening on port %d in %s mode', app.get('port'), app.get('env'));
 });
 
 module.exports = app;
