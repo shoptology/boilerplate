@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Requires files relative to project root
+ * Requires files relative to module root
  */
 
 var dir = __dirname.substr(0, __dirname.lastIndexOf('lib'));

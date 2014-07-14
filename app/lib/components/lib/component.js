@@ -6,7 +6,6 @@
 
 var fs = require('fs');
 
-
 var Component = function(options, base_path) {
 	var template,
 		styles,

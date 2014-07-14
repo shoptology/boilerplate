@@ -25,6 +25,9 @@ var hbs = require('hbs');
 var glob = require('glob');
 var fs = require('fs');
 
+// Handlebars helpers
+var helpers = require('./app/lib/helpers.js');
+
 /**
  * Controllers (route handlers).
  */
@@ -239,6 +242,10 @@ files.forEach(function(filename) {
     hbs.registerPartial(name, fs.readFileSync(filename, 'utf8'));
 });
 
+/**
+ * Register Handlebars helpers
+ */
+helpers.register();
 
 /**
  * Start Express server.
