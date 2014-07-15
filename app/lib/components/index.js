@@ -6,7 +6,7 @@
 
 require('./lib/requireLocal');
 
-var hbs = require('Handlebars');
+var hbs = require('hbs');
 //var _ = require('lodash');
 
 var components = {
@@ -19,6 +19,8 @@ var components = {
 	get_component_template : function(component_path, data) {
         var component = require('../../patterns/components/' + component_path);
         var component_rendered = component.get(data);
+
+        console.log(component_rendered);
 
         return component_rendered;
 	},
@@ -153,4 +155,4 @@ console.log(components.get_component('search_bar', {
 	input_placeholder : 'Search for something'
 }));*/
 
-module.export = components;
+module.exports = components;

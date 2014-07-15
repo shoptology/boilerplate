@@ -41,7 +41,7 @@ var Component = function(options, base_path) {
 		if(template_engine == 'html') {
 			var template_rendered = template;
 		} else {
-			var template_compiled = hbs.compile('"' + template + '"')
+			var template_compiled = hbs.compile(template.toString());
 			var template_rendered = template_compiled(data);
 		}
 
