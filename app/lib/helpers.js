@@ -37,10 +37,10 @@ var Helpers = {
             }
 
             // If partial is not compiled, compile it
-            if(typeof hbs.partials[partial] === 'string') {
-                partial = hbs.compile(hbs.partials[partial]);
+            if(typeof hbs.handlebars.partials[partial] === 'string') {
+                partial = hbs.compile(hbs.handlebars.partials[partial]);
             } else {
-                partial = hbs.partials[partial];
+                partial = hbs.handlebars.partials[partial];
             }
 
             if(!partial) {

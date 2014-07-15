@@ -266,6 +266,7 @@ files.forEach(function(filename) {
 /**
  * Register Handlebars helpers
  */
+
 helpers.register();
 
 
