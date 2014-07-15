@@ -1,15 +1,16 @@
-var gulp        = require('gulp');
-var sass        = require('gulp-ruby-sass');
-var filter      = require('gulp-filter');
-var browserSync = require('browser-sync');
+var gulp = require('gulp'),
+    sass = require('gulp-ruby-sass'),
+    filter = require('gulp-filter'),
+    browserSync = require('browser-sync');
 
 gulp.task('sass', function () {
-    return gulp.src([
-        './public/**/*.scss',
-        './app/patterns/**/*.scss'
-        ])
-        .pipe(sass({sourcemap: true}))
-        .pipe(gulp.dest('./public'))// Write the CSS & Source maps
-        .pipe(filter('**/*.css')) // Filtering stream to only css files
-        .pipe(browserSync.reload({stream:true}));
+    gulp.src([
+        './public/css/styles.scss'
+    ])
+    .pipe(sass({
+        sourcemap: true
+    }))
+    .pipe(gulp.dest('./public/css'))// Write the CSS & Source maps
+    .pipe(filter('**/*.css')) // Filtering stream to only css files
+    .pipe(browserSync.reload({stream:true}));
 });

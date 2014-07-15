@@ -1,6 +1,6 @@
 /*
 Syntax error: Undefined variable: "$line-height-computed".
-        on line 10 of ./components/bootstrap-social/bootstrap-social.scss
+        on line 10 of ./css/external/bootstrap-social/bootstrap-social.scss
 
 5:  * Licensed under the MIT License
 6:  *
@@ -15,7 +15,7 @@ Syntax error: Undefined variable: "$line-height-computed".
 15: .btn-social {
 
 Backtrace:
-./components/bootstrap-social/bootstrap-social.scss:10
+./css/external/bootstrap-social/bootstrap-social.scss:10
 /Library/Ruby/Gems/2.0.0/gems/sass-3.3.10/lib/sass/script/tree/variable.rb:49:in `_perform'
 /Library/Ruby/Gems/2.0.0/gems/sass-3.3.10/lib/sass/script/tree/node.rb:50:in `perform'
 /Library/Ruby/Gems/2.0.0/gems/sass-3.3.10/lib/sass/script/tree/operation.rb:64:in `_perform'
@@ -58,4 +58,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$line-height-computed\".\A         on line 10 of ./components/bootstrap-social/bootstrap-social.scss\A \A 5:  * Licensed under the MIT License\A 6:  *\A 7:  * https://github.com/lipis/bootstrap-social\A 8:  */\A 9: \A 10: $bs-height-base: ($line-height-computed + $padding-base-vertical * 2);\A 11: $bs-height-lg:   (floor($font-size-large * $line-height-base) + $padding-large-vertical * 2);\A 12: $bs-height-sm:   (floor($font-size-small * 1.5) + $padding-small-vertical * 2);\A 13: $bs-height-xs:   (floor($font-size-small * 1.2) + $padding-small-vertical + 1);\A 14: \A 15: .btn-social {"; }
+  content: "Syntax error: Undefined variable: \"$line-height-computed\".\A         on line 10 of ./css/external/bootstrap-social/bootstrap-social.scss\A \A 5:  * Licensed under the MIT License\A 6:  *\A 7:  * https://github.com/lipis/bootstrap-social\A 8:  */\A 9: \A 10: $bs-height-base: ($line-height-computed + $padding-base-vertical * 2);\A 11: $bs-height-lg:   (floor($font-size-large * $line-height-base) + $padding-large-vertical * 2);\A 12: $bs-height-sm:   (floor($font-size-small * 1.5) + $padding-small-vertical * 2);\A 13: $bs-height-xs:   (floor($font-size-small * 1.2) + $padding-small-vertical + 1);\A 14: \A 15: .btn-social {"; }
