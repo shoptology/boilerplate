@@ -3,7 +3,7 @@ var gulp = require('gulp'),
 
 gulp.task('watch', ['setWatch', 'browserSync'], function() {
     var lr = livereload();
-	gulp.watch('public/css/**/*.scss', ['compass']);
+	gulp.watch('public/css/**/*.scss', ['sass']);
 	/*gulp.watch('src/images/**', ['images']);
 	gulp.watch('src/htdocs/**', ['copy']);*/
     gulp.watch('app/views/**').on('change',
