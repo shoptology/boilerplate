@@ -18,6 +18,15 @@ var patternlab_engine = function(grunt){
 	patternlab.package = grunt.file.readJSON('package.json');
 	patternlab.config = grunt.file.readJSON('config.json');
 
+    /**
+     *  Boilerplate specific code
+     */
+
+    var helpers = require('../../app/lib/helpers.js');
+    helpers.register(hbs);
+
+    /** End */
+
 	function getVersion() {
 		grunt.log.ok(patternlab.package.version);
 	}
@@ -26,7 +35,7 @@ var patternlab_engine = function(grunt){
 		grunt.log.subhead('Patternlab Node Help');
 		grunt.log.writeln('===============================');
 		grunt.log.writeln('Command Line Arguments');
-		grunt.log.writeln('patternlab:only_patterns');			
+		grunt.log.writeln('patternlab:only_patterns');
 		grunt.log.writeln(' > Compiles the patterns only, outputting to ./public/patterns');
 		grunt.log.writeln('patternlab:v');
 		grunt.log.writeln(' > Retrieve the version of patternlab-node you have installed');
@@ -55,7 +64,7 @@ var patternlab_engine = function(grunt){
 		patternlab.partials = {};
 
 		grunt.file.recurse('./source/_patterns', function(abspath, rootdir, subdir, filename){
-			//check if the pattern already exists.  
+			//check if the pattern already exists.
 			var patternName = filename.substring(0, filename.indexOf('.'));
 			var patternIndex = patternlab.patternIndex.indexOf(subdir + '-' +  patternName);
 			var currentPattern;
@@ -109,7 +118,7 @@ var patternlab_engine = function(grunt){
 						patternlab.partials[partialname] = currentPattern.template;
 						hbs.registerPartial(partialname, currentPattern.template);
 
-						//done		
+						//done
 					}
 				}
 				//add to patternlab arrays so we can look these up later.  this could probably just be an object.
@@ -161,7 +170,7 @@ var patternlab_engine = function(grunt){
 
 		//build the patternlab website
 		var patternlabSiteTemplate = grunt.file.read('./source/_patternlab-files/index.hbs');
-		
+
 		//loop through all patterns.  deciding to do this separate from the recursion, even at a performance hit, to attempt to separate the tasks of styleguide creation versus site menu creation
 		for(var i = 0; i < patternlab.patterns.length; i++){
 			var pattern = patternlab.patterns[i];
@@ -200,9 +209,9 @@ var patternlab_engine = function(grunt){
 
 				//if it is flat - we should not add the pattern to patternPaths
 				if(flatPatternItem){
-					
+
 					bucket.patternItems.push(navSubItem);
-					
+
 					//add to patternPaths
 					patternlab.patternPaths[bucketName][pattern.patternName] = pattern.subdir + "/" + pattern.filename.substring(0, pattern.filename.indexOf('.'));
 

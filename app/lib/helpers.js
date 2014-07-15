@@ -9,10 +9,12 @@ var hbs = require('hbs'),
 var components = require('./components');
 
 var Helpers = {
-    register : function() {
+    register : function(handlebars) {
+        if(!handlebars) handlebars = hbs;
+
         var functions = Helpers.functions;
         for(var f in functions) {
-            hbs.registerHelper(f, functions[f]);
+            handlebars.registerHelper(f, functions[f]);
         }
         return true;
     },

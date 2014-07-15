@@ -30,6 +30,7 @@
     "github-api": "^0.7.0",
     "glob": "^4.0.4",
     "grunt-shell-spawn": "~0.3.0",
+    "handlebars": "^2.0.0-alpha.4",
     "hbs": "^2.7.0",
     "instagram-node": "^0.4.0",
     "lastfm": "^0.9.0",
