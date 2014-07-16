@@ -3,7 +3,7 @@ var gulp = require('gulp'),
 
 gulp.task('watch', ['setWatch', 'browserSync'], function() {
     var lr = livereload();
-	gulp.watch('public/css/**/*.scss', ['sass']);
+	gulp.watch('public/sass/**/*.scss', ['processSCSS']);
 	/*gulp.watch('src/images/**', ['images']);
 	gulp.watch('src/htdocs/**', ['copy']);*/
     gulp.watch('app/views/**').on('change',
@@ -12,4 +12,9 @@ gulp.task('watch', ['setWatch', 'browserSync'], function() {
         }
     );
 	// Note: The browserify task handles js recompiling with watchify
+});
+
+
+gulp.task('processSCSS', function() {
+    runSequence('globStyles', 'compass', 'removeSCSSFromCSS');
 });
