@@ -78,6 +78,7 @@
     "gulp-notify": "~1.2.4",
     "gulp-open": "~0.2.8",
     "gulp-ruby-sass": "^0.6.0",
+    "gulp-sass": "^0.7.2",
     "gulp-util": "~2.2.19",
     "gulp-watchify": "0.2.0",
     "mocha": "^1.20.1",
