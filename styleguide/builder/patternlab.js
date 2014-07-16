@@ -1,5 +1,5 @@
 /* 
- * patternlab-node - v0.1.2 - 2014-07-15 
+ * patternlab-node - v0.1.2 - 2014-07-16 
  * 
  * Brian Muenzenmeyer, and the web community.
  * Licensed under the MIT license. 
@@ -17,6 +17,7 @@ var patternlab_engine = function(grunt){
 
 	patternlab.package = grunt.file.readJSON('package.json');
 	patternlab.config = grunt.file.readJSON('config.json');
+
 
     /**
      *  Boilerplate specific code
@@ -70,88 +71,65 @@ var patternlab_engine = function(grunt){
 			var currentPattern;
 			var flatPatternPath;
 
-			//ignore _underscored patterns
-			if(filename.charAt(0) === '_'){
+			//ignore _underscored patterns and json
+			if(filename.charAt(0) === '_' || grunt.util._.str.include(filename, 'json')){
 				return;
 			}
 
-			//two reasons could return no pattern, 1) just a bare hbs, or 2) a json found before the hbs
-			//returns -1 if patterns does not exist, otherwise returns the index
-			//add the pattern array if first time, otherwise pull it up
-			if(patternIndex === -1){
-				grunt.verbose.ok('pattern not found, adding to array');
-				var flatPatternName = subdir.replace(/\//g, '-') + '-' + patternName;
-				flatPatternName = flatPatternName.replace(/\//g, '-');
-				currentPattern = new of.oPattern(flatPatternName, subdir, filename, {});
-				currentPattern.patternName = patternName.substring(patternName.indexOf('-') + 1);
 
-				if(grunt.util._.str.include(filename, 'json')){
-					grunt.verbose.ok('json file found first, so add it to the pattern and continuing');
-					currentPattern.data = grunt.file.readJSON(abspath);
-					//done
-				} else{
-					grunt.verbose.ok('hbs file found, assume no data, so compile it right away');
-					currentPattern.template = grunt.file.read(abspath);
+			//make a new Pattern Object
+			var flatPatternName = subdir.replace(/\//g, '-') + '-' + patternName;
+			flatPatternName = flatPatternName.replace(/\//g, '-');
+			currentPattern = new of.oPattern(flatPatternName, subdir, filename, {});
+			currentPattern.patternName = patternName.substring(patternName.indexOf('-') + 1);
+			currentPattern.data = null;
 
-					//render the pattern. pass partials object just in case.
-					currentPattern.patternPartial = renderPattern(currentPattern.template, patternlab.data, patternlab.partials);
-
-					//write the compiled template to the public patterns directory
-					flatPatternPath = currentPattern.name + '/' + currentPattern.name + '.html';
-
-					//add footer info before writing
-					var currentPatternFooter = renderPattern(patternlab.footer, currentPattern);
-
-					grunt.file.write('./public/patterns/' + flatPatternPath, patternlab.header + currentPattern.patternPartial + currentPatternFooter);
-					currentPattern.patternLink = flatPatternPath;
-
-					//add as a partial in case this is referenced later.  convert to syntax needed by existing patterns
-					var sub = subdir.substring(subdir.indexOf('-') + 1);
-					var folderIndex = sub.indexOf('/'); //THIS IS MOST LIKELY WINDOWS ONLY.  path.sep not working yet
-					var cleanSub = sub.substring(0, folderIndex);
-
-					//add any templates found to an object of partials, so downstream templates may use them too
-					//exclude the template patterns - we don't need them as partials because pages will just swap data
-					if(cleanSub !== ''){
-						var partialname = cleanSub + '-' + patternName.substring(patternName.indexOf('-') + 1);
-
-						patternlab.partials[partialname] = currentPattern.template;
-						hbs.registerPartial(partialname, currentPattern.template);
-
-						//done
-					}
-				}
-				//add to patternlab arrays so we can look these up later.  this could probably just be an object.
-				patternlab.patternIndex.push(currentPattern.name);
-				patternlab.patterns.push(currentPattern);
-			} else{
-				//if we get here, we can almost ensure we found the json first, so render the template and pass in the unique json
-				currentPattern = patternlab.patterns[patternIndex];
-				grunt.verbose.ok('pattern found, loaded');
-				//determine if this file is data or pattern
-				if(grunt.util._.str.include(filename, 'hbs')){
-
-					currentPattern.template = grunt.file.read(abspath);
-
-					//render the pattern. pass partials object just in case.
-					currentPattern.patternPartial = renderPattern(currentPattern.template, currentPattern.data, patternlab.partials);
-					grunt.verbose.ok('template compiled with data!');
-
-					//write the compiled template to the public patterns directory
-					flatPatternPath = currentPattern.name + '/' + currentPattern.name + '.html';
-
-					//add footer info before writing
-					var currentPatternFooter = renderPattern(patternlab.footer, currentPattern);
-
-					grunt.file.write('./public/patterns/' + flatPatternPath, patternlab.header + currentPattern.patternPartial + currentPatternFooter);
-
-					currentPattern.patternLink = flatPatternPath;
-
-					//done
-				} else{
-					grunt.log.error('json encountered!? there should only be one');
-				}
+			//look for a json file for this template
+			try {
+				var jsonFilename = abspath.substr(0, abspath.lastIndexOf(".")) + ".json";
+				currentPattern.data = grunt.file.readJSON(jsonFilename);
 			}
+			catch(e) {
+
+			}
+
+			currentPattern.template = grunt.file.read(abspath);
+
+			//render the pattern. pass partials object just in case.
+			if(currentPattern.data) { // Pass JSON as data
+				currentPattern.patternPartial = renderPattern(currentPattern.template, currentPattern.data, patternlab.partials);
+			}else{ // Pass global patternlab data
+				currentPattern.patternPartial = renderPattern(currentPattern.template, patternlab.data, patternlab.partials);
+			}
+
+			//write the compiled template to the public patterns directory
+			flatPatternPath = currentPattern.name + '/' + currentPattern.name + '.html';
+
+			//add footer info before writing
+			var currentPatternFooter = renderPattern(patternlab.footer, currentPattern);
+
+			grunt.file.write('./public/patterns/' + flatPatternPath, patternlab.header + currentPattern.patternPartial + currentPatternFooter);
+			currentPattern.patternLink = flatPatternPath;
+
+			//add as a partial in case this is referenced later.  convert to syntax needed by existing patterns
+			var sub = subdir.substring(subdir.indexOf('-') + 1);
+			var folderIndex = sub.indexOf('/'); //THIS IS MOST LIKELY WINDOWS ONLY.  path.sep not working yet
+			var cleanSub = sub.substring(0, folderIndex);
+
+			//add any templates found to an object of partials, so downstream templates may use them too
+			//exclude the template patterns - we don't need them as partials because pages will just swap data
+			if(cleanSub !== ''){
+				var partialname = cleanSub + '-' + patternName.substring(patternName.indexOf('-') + 1);
+
+				patternlab.partials[partialname] = currentPattern.template;
+				hbs.registerPartial(partialname, currentPattern.template);
+
+				//done
+			}
+
+			//add to patternlab arrays so we can look these up later.  this could probably just be an object.
+			patternlab.patternIndex.push(currentPattern.name);
+			patternlab.patterns.push(currentPattern);
 
 		});
 
