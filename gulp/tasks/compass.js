@@ -11,7 +11,7 @@ gulp.task('compass', function() {
             config_file : './compass.rb',
             css : './public/css/',
             sass : './public/css/',
-            style : 'compressed'
+            style : 'compact'
         }) )
         .pipe(gulp.dest('./public/css/'));
 
