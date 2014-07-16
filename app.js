@@ -259,7 +259,7 @@ var files = glob.sync("./app/patterns/**/*.hbs"), partials = {};
 files.forEach(function(filename) {
     var name = filename.match(/[^\/]+[.+\.].*$/, '');
     name = name[0].replace(/\.hbs$/, '');
-    console.log('Registering: '+name);
+    //console.log('Registering: '+name);
     hbs.registerPartial(name, fs.readFileSync(filename, 'utf8'));
 });
 
