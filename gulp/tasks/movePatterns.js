@@ -6,6 +6,6 @@ var gulp = require('gulp'),
 gulp.task('movePatterns', function() {
 
     return gulp.src(['./app/patterns/**/*.hbs'])
-    .pipe(gulp.dest('./styleguide/source/test/'));
+    .pipe(gulp.dest('./styleguide/source/_patterns/'));
 
 });
