@@ -15,7 +15,6 @@ gulp.task('watch', ['setWatch', 'browserSync'], function() {
 	// Note: The browserify task handles js recompiling with watchify
 });
 
-
 gulp.task('processSCSS', function() {
-    runSequence('globStyles', 'compass', 'removeSCSSFromCSS');
+    runSequence('globStyles', 'compass', 'prefix', 'removeSCSSFromCSS');
 });
