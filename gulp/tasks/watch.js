@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    runSequence = require('run-sequence'),
     livereload = require('gulp-livereload');
 
 gulp.task('watch', ['setWatch', 'browserSync'], function() {

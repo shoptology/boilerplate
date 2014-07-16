@@ -2,9 +2,6 @@
 
 var gulp = require('gulp'),
     compass = require('gulp-compass'),
-    cssGlobbing = require('gulp-css-globbing'),
-    rimraf = require('gulp-rimraf'),
-    runSequence = require('run-sequence'),
     path = require('path');
 
 gulp.task('compass', function() {
