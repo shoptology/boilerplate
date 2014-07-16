@@ -5,6 +5,8 @@ var gulp = require('gulp'),
 gulp.task('watch', ['setWatch', 'browserSync'], function() {
     var lr = livereload();
 	gulp.watch('public/sass/**/*.scss', ['processSCSS']);
+    gulp.watch('app/patterns/**/*.scss', ['processSCSS']);
+    gulp.watch('app/patterns/**/*.hbars', ['movePatterns']);
 	/*gulp.watch('src/images/**', ['images']);
 	gulp.watch('src/htdocs/**', ['copy']);*/
     gulp.watch('app/views/**').on('change',

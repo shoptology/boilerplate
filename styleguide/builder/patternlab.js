@@ -26,6 +26,14 @@ var patternlab_engine = function(grunt){
     var helpers = require('../../app/lib/helpers.js');
     helpers.register(hbs);
 
+    // Goes in the BuildPatterns function.  Only lets handlebars files through
+    //
+    // grunt.file.recurse('../app/patterns/', function(abspath, rootdir, subdir, filename){
+    //
+    //if( ( filename.charAt(0) === '_' ) || !grunt.util._.str.include(filename, 'hbs') ){
+    //    return;
+    //}
+
     /** End */
 
 	function getVersion() {
@@ -64,7 +72,7 @@ var patternlab_engine = function(grunt){
 		patternlab.patternIndex = [];
 		patternlab.partials = {};
 
-		grunt.file.recurse('./source/_patterns', function(abspath, rootdir, subdir, filename){
+		grunt.file.recurse('../app/patterns/', function(abspath, rootdir, subdir, filename){
 			//check if the pattern already exists.
 			var patternName = filename.substring(0, filename.indexOf('.'));
 			var patternIndex = patternlab.patternIndex.indexOf(subdir + '-' +  patternName);
@@ -72,9 +80,11 @@ var patternlab_engine = function(grunt){
 			var flatPatternPath;
 
 			//ignore _underscored patterns and json
-			if(filename.charAt(0) === '_' || grunt.util._.str.include(filename, 'json')){
+			if( ( filename.charAt(0) === '_' ) || !grunt.util._.str.include(filename, 'hbs') ){
 				return;
 			}
+
+            // we only want
 
 
 			//make a new Pattern Object
