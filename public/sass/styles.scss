@@ -12,6 +12,7 @@
 html {
   position: relative;
   min-height: 100%;
+  background-color: white;
 }
 
 body {
@@ -24,7 +25,6 @@ footer {
   bottom: 0;
   width: 100%;
   height: 90px;
-  transition: width 500ms;
 }
 
 
