@@ -2,6 +2,12 @@
 Hackathon Starter [![Dependency Status](http://img.shields.io/gemnasium/sahat/hackathon-starter.svg?style=flat)](https://gemnasium.com/sahat/hackathon-starter) [![Build Status](http://img.shields.io/travis/sahat/hackathon-starter.svg?style=flat)](https://travis-ci.org/sahat/hackathon-starter) [![Analytics](https://ga-beacon.appspot.com/UA-47447818-2/hackathon-starter?pixel)](https://github.com/igrigorik/ga-beacon)
 =======================
 
+
+{{get_component 'search_bar' data='{"input_label" : "test label", "input_type" : "text", "input_value" : "", "input_placeholder" : "Enter your query"}'}}
+
+{{$ 'search_bar' data='{"input_label" : "test label", "input_type" : "text", "input_value" : "", "input_placeholder" : "Enter your query"}'}}
+
+
 :octocat: &nbsp;**Live Demo**: http://hackathonstarter.herokuapp.com 
 
 Jump to [What's new in 2.2.1?](#changelog)
