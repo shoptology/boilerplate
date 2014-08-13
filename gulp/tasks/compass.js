@@ -7,11 +7,11 @@ var gulp = require('gulp'),
 
 gulp.task('compass', function() {
 
-        return gulp.src(['./public/css/styles.scss'])
+        return gulp.src(['./public/sass/styles.scss'])
         .pipe( compass({
             config_file : './compass.rb',
             css : './public/css/',
-            sass : './public/css/',
+            sass : './public/sass/',
             style : 'compact'
         }) )
         .pipe(gulp.dest('./public/css/'))
