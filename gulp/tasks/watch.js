@@ -6,7 +6,9 @@ gulp.task('watch', ['setWatch', 'browserSync'], function() {
     var lr = livereload();
 	gulp.watch('public/sass/**/*.scss', ['processSCSS']);
     gulp.watch('app/patterns/**/*.scss', ['processSCSS']);
-    gulp.watch('app/patterns/**/*.hbars', ['processPatterns']);
+    gulp.watch('app/patterns/**/*.hbs', ['processPatterns', 'server']);
+    gulp.watch(['./app.js', './app/**/*.js', './gulp/**/*.js'], ['server']);
+
 	/*gulp.watch('src/images/**', ['images']);
 	gulp.watch('src/htdocs/**', ['copy']);*/
     gulp.watch('app/views/**').on('change',

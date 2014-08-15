@@ -1,19 +1,27 @@
 var gulp = require('gulp'),
-    nodemon = require('gulp-nodemon');
+    spawn = require('child_process').spawn,
+    node;
 
 gulp.task('develop', function () {
-  nodemon(
-    {
-        script: 'app.js',
-        ext: 'html js hbs',
-        env: {
-            'NODE_ENV' : 'dev',
-            'livereload' : true,
-            'browsersync' : true
+    gulp.run('server');
+    gulp.run('watch');
+});
+
+gulp.task('server', function() {
+    if (node) {
+        node.kill();
+    }
+
+    node = spawn('node', ['app.js'], {stdio: 'inherit'});
+    node.on('close', function (code) {
+        if (code === 8) {
+            gulp.log('Error detected, waiting for changes...');
         }
-    })
-    .on('start', 'watch')
-    .on('restart', function() {
-        console.log('restarted!');
-    })
-})
+    });
+});
+
+process.on('exit', function() {
+    if (node) {
+        node.kill();
+    }
+});

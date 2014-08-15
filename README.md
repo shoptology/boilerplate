@@ -27,7 +27,7 @@ Atoms are defined as the smallest building blocks of style, with molecules addin
 Templates and Pages are used primarily for the style guide at this time, however we are looking into the best way to merge these with the app level views so that the style guide and app ready views are created in one spot.  More to come on this...
 
 - Styleguide setup
-
+The styleguide 
 
 - Components Guide
 - Preprocessing
