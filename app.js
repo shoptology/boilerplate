@@ -41,6 +41,9 @@ var contactController = require('./app/controllers/contact');
  * API keys and Passport configuration.
  */
 
+var dotenv = require('dotenv');
+dotenv.load();
+
 var secrets = require('./app/config/secrets');
 var passportConf = require('./app/config/passport');
 

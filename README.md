@@ -15,6 +15,26 @@ Additions and changes we have made to the hackathon-starter project:
 - Added Gulp build tool
 
 
+Details to be added:
+- Environment Files
+All configuration is designed to first look for property values inside of a .env file at the root of the project.  Currently Git ignores .env files so you will need to create one and add variables specific to your environment.
+
+- Patterns Organization and workflow
+Patterns (/app/patterns) are a organization of front end pieces that build into making the entire site.  The principles are based on Atomic Design (read more here: http://bradfrostweb.com/blog/post/atomic-web-design/).
+
+Atoms are defined as the smallest building blocks of style, with molecules adding several atom elements, and so on.  Components are an addition to this methodology and are defined as any widget blocks that run their own javascript with their block (ex. a grid view with sorting buttons).  This can also be a spot to build Web Components.
+
+Templates and Pages are used primarily for the style guide at this time, however we are looking into the best way to merge these with the app level views so that the style guide and app ready views are created in one spot.  More to come on this...
+
+- Styleguide setup
+
+
+- Components Guide
+- Preprocessing
+- Build Tasks
+- Testing
+
+
 
 The Hackathon Starter Readme as of the 2.2.1 version we started with is included below:
 

@@ -6,7 +6,7 @@ gulp.task('watch', ['setWatch', 'browserSync'], function() {
     var lr = livereload();
 	gulp.watch('public/sass/**/*.scss', ['processSCSS']);
     gulp.watch('app/patterns/**/*.scss', ['processSCSS']);
-    gulp.watch('app/patterns/**/*.hbars', ['movePatterns']);
+    gulp.watch('app/patterns/**/*.hbars', ['processPatterns']);
 	/*gulp.watch('src/images/**', ['images']);
 	gulp.watch('src/htdocs/**', ['copy']);*/
     gulp.watch('app/views/**').on('change',
@@ -15,6 +15,10 @@ gulp.task('watch', ['setWatch', 'browserSync'], function() {
         }
     );
 	// Note: The browserify task handles js recompiling with watchify
+});
+
+gulp.task('processPatterns', function() {
+    runSequence('movePatterns', 'processStyleguide');
 });
 
 gulp.task('processSCSS', function() {
