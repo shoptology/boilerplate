@@ -1,16 +1,25 @@
-![Alt](https://lh4.googleusercontent.com/-PVw-ZUM9vV8/UuWeH51os0I/AAAAAAAAD6M/0Ikg7viJftQ/w1286-h566-no/hackathon-starter-logo.jpg)
-Hackathon Starter [![Dependency Status](http://img.shields.io/gemnasium/sahat/hackathon-starter.svg?style=flat)](https://gemnasium.com/sahat/hackathon-starter) [![Build Status](http://img.shields.io/travis/sahat/hackathon-starter.svg?style=flat)](https://travis-ci.org/sahat/hackathon-starter) [![Analytics](https://ga-beacon.appspot.com/UA-47447818-2/hackathon-starter?pixel)](https://github.com/igrigorik/ga-beacon)
+Shoptology Boilerplate [![Dependency Status](http://img.shields.io/gemnasium/shoptology/boilerplate.svg?style=flat)](https://gemnasium.com/shoptology/boilerplate)
 =======================
 
+The goal here is to create a starting point for Node.JS projects
+that we can use for prototyping.
 
-{{get_component 'search_bar' data='{"input_label" : "test label", "input_type" : "text", "input_value" : "", "input_placeholder" : "Enter your query"}'}}
+It was based on https://github.com/sahat/hackathon-starter version 2.2.1.
+It is not a fork of that project so it will not be possible to directly merge in
+upstream changes.
 
-{{$ 'search_bar' data='{"input_label" : "test label", "input_type" : "text", "input_value" : "", "input_placeholder" : "Enter your query"}'}}
+Additions and changes we have made to the hackathon-starter project:
+
+- Swapped LESS for SASS
+- Incorporated [Pattern Lab](https://github.com/shoptology/boilerplate/tree/master/styleguide)
+- Added Gulp build tool
 
 
-:octocat: &nbsp;**Live Demo**: http://hackathonstarter.herokuapp.com 
 
-Jump to [What's new in 2.2.1?](#changelog)
+The Hackathon Starter Readme as of the 2.2.1 version we started with is included below:
+
+Hackathon Starter
+=================
 
 A boilerplate for **Node.js** web applications.
 

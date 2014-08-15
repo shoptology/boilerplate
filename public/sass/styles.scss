@@ -1,9 +1,13 @@
-@import "../bower_components//sass-bootstrap/lib/bootstrap.scss";
+@import "bootstrap-variables";
+@import "bootstrap";
 @import "../bower_components/font-awesome/scss/font-awesome";
 @import "../bower_components/bootstrap-social/bootstrap-social";
 
-/* Pulls all pattern styles through  */
-@import "../../app/patterns/**/*.scss";
+// Pulls all pattern styles through
+// Looks like it's not possible to do a glob...
+// http://stackoverflow.com/questions/4778627/is-it-possible-to-import-a-whole-directory-in-sass-using-import
+// @import "../../app/patterns/**/*.scss";
+@import "../../app/patterns/03-components/00-search_bar/styles.scss";
 
 
 // Scaffolding
