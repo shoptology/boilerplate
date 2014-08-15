@@ -46,7 +46,7 @@
         <div class="alert alert-danger fade in">
             <button type="button" data-dismiss="alert" class="close">×</button>
             {{#each messages.errors}}
-                <div>{{error.msg}}</div>
+                <div>{{msg}}</div>
             {{/each}}
         </div>
     {{/if}}
@@ -55,7 +55,7 @@
         <div class="alert alert-danger fade in">
             <button type="button" data-dismiss="alert" class="close">×</button>
             {{#each messages.info}}
-                <div>{{info.msg}}</div>
+                <div>{{msg}}</div>
             {{/each}}
         </div>
     {{/if}}
@@ -64,7 +64,7 @@
         <div class="alert alert-danger fade in">
             <button type="button" data-dismiss="alert" class="close">×</button>
             {{#each messages.success}}
-                <div>{{success.msg}}</div>
+                <div>{{msg}}</div>
             {{/each}}
         </div>
     {{/if}}
