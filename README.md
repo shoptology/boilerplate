@@ -15,7 +15,13 @@ Additions and changes we have made to the hackathon-starter project:
 - Added Gulp build tool
 
 
+## Get Started
+To get started, just run 'gulp' from the root directory and get to work!
+
+
 Details to be added:
+- All things Gulp
+
 - Environment Files
 All configuration is designed to first look for property values inside of a .env file at the root of the project.  Currently Git ignores .env files so you will need to create one and add variables specific to your environment.
 
@@ -26,10 +32,16 @@ Atoms are defined as the smallest building blocks of style, with molecules addin
 
 Templates and Pages are used primarily for the style guide at this time, however we are looking into the best way to merge these with the app level views so that the style guide and app ready views are created in one spot.  More to come on this...
 
+All hbs templates are loaded in as partials into handlebars, so you can use them via the handlebars partial syntax.
+
 - Styleguide setup
-The styleguide 
+The styleguide is tied to the patterns folder and will pull in all of the templates being built inside if it.  It automatically pulls from the public/styles.css file and moves all of the patterns into its structure.  The main gulp file will compile the patterns into the styleguide.
+
+Run the styleguide by opening the styleguide/public/index.html file in any browser.
 
 - Components Guide
+    Loading components
+
 - Preprocessing
 - Build Tasks
 - Testing
