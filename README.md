@@ -35,6 +35,12 @@ The styleguide is tied to the patterns folder and will pull in all of the templa
 
 Run the styleguide by opening the styleguide/public/index.html file in any browser.
 
+## Handlebars Helpers
+
+We have a ton of utility handlebars helpers.  Just register them in from node_modules/handlebars-helpers/lib/helpers.  More documentation on what's available here: http://assemble.io/helpers/
+
+
+
 *Details to be added:*
 - All things Gulp
 - Components Guide

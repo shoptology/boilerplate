@@ -79,7 +79,7 @@
     "gulp-shell": "^0.2.9",
     "gulp-util": "~2.2.19",
     "gulp-watchify": "0.2.0",
-    "handlebars-helpers": "^0.5.5",
+    "handlebars-helpers": "^0.5.6",
     "mocha": "^1.20.1",
     "multiline": "^0.3.4",
     "pretty-hrtime": "~0.2.1",
