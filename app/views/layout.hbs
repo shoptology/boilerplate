@@ -42,35 +42,36 @@
       </div>
     </div>
 
-    {{#if messages.errors}}
-        <div class="alert alert-danger fade in">
-            <button type="button" data-dismiss="alert" class="close">×</button>
-            {{#each messages.errors}}
-                <div>{{msg}}</div>
-            {{/each}}
-        </div>
-    {{/if}}
-
-    {{#if messages.info}}
-        <div class="alert alert-danger fade in">
-            <button type="button" data-dismiss="alert" class="close">×</button>
-            {{#each messages.info}}
-                <div>{{msg}}</div>
-            {{/each}}
-        </div>
-    {{/if}}
-
-    {{#if messages.success}}
-        <div class="alert alert-danger fade in">
-            <button type="button" data-dismiss="alert" class="close">×</button>
-            {{#each messages.success}}
-                <div>{{msg}}</div>
-            {{/each}}
-        </div>
-    {{/if}}
-
     <div class="container">
+        {{#if messages.errors}}
+            <div class="alert alert-danger fade in">
+                <button type="button" data-dismiss="alert" class="close">×</button>
+                {{#each messages.errors}}
+                    <div>{{msg}}</div>
+                {{/each}}
+            </div>
+        {{/if}}
+
+        {{#if messages.info}}
+            <div class="alert alert-danger fade in">
+                <button type="button" data-dismiss="alert" class="close">×</button>
+                {{#each messages.info}}
+                    <div>{{msg}}</div>
+                {{/each}}
+            </div>
+        {{/if}}
+
+        {{#if messages.success}}
+            <div class="alert alert-danger fade in">
+                <button type="button" data-dismiss="alert" class="close">×</button>
+                {{#each messages.success}}
+                    <div>{{msg}}</div>
+                {{/each}}
+            </div>
+        {{/if}}
+
         {{{body}}}
+
     </div>
 
     <footer>
