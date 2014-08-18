@@ -1,13 +1,11 @@
-@import "bootstrap-variables";
-@import "bootstrap";
+@import "global/bootstrap-variables";
+@import "global/bootstrap";
 @import "../bower_components/font-awesome/scss/font-awesome";
 @import "../bower_components/bootstrap-social/bootstrap-social";
 
-// Pulls all pattern styles through
-// Looks like it's not possible to do a glob...
-// http://stackoverflow.com/questions/4778627/is-it-possible-to-import-a-whole-directory-in-sass-using-import
+
+// Pulls all pattern styles through (Uses Gulp's cssGlobber task)
 @import "../../patterns/**/*.scss";
-// @import "../../app/patterns/03-components/00-search_bar/styles.scss";
 
 
 // Scaffolding
@@ -24,8 +22,9 @@ body {
   margin-bottom: 120px;
 }
 
+
 h1 {
-    color: red !important;
+    color: pink !important;
 }
 
 

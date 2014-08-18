@@ -4,7 +4,7 @@ var gulp = require('gulp'),
 
 gulp.task('watch', ['setWatch', 'browserSync'], function() {
     var lr = livereload();
-	gulp.watch('app/public/sass/**/*.scss', ['processSCSS']);
+	gulp.watch(['app/public/sass/**/*.scss', '!app/public/sass/styles.scss'], ['processSCSS']);
     gulp.watch('app/patterns/**/*.scss', ['processSCSS']);
     gulp.watch('app/patterns/**/*.hbs', ['processPatterns', 'server']);
     gulp.watch(['./app.js', './app/**/*.js', './gulp/**/*.js'], ['server']);
@@ -21,8 +21,4 @@ gulp.task('watch', ['setWatch', 'browserSync'], function() {
 
 gulp.task('processPatterns', function() {
     runSequence('movePatterns', 'processStyleguide');
-});
-
-gulp.task('processSCSS', function() {
-    runSequence('globStyles', 'compass', 'prefix', 'removeSCSSFromCSS');
 });
