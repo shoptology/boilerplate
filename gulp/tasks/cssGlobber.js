@@ -7,8 +7,8 @@ var gulp = require('gulp'),
 gulp.task('globStyles', function() {
 
     // Glob style.css first to get all dependencies
-    return gulp.src(['./public/sass/styles.scss'])
+    return gulp.src(['./app/public/sass/styles.scss'])
     .pipe(cssGlobbing({ extensions: ['.scss'] }))
-    .pipe(gulp.dest('./public/css/'));
+    .pipe(gulp.dest('./app/public/css/'));
 
 });

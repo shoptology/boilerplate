@@ -6,8 +6,8 @@
 // Pulls all pattern styles through
 // Looks like it's not possible to do a glob...
 // http://stackoverflow.com/questions/4778627/is-it-possible-to-import-a-whole-directory-in-sass-using-import
-// @import "../../app/patterns/**/*.scss";
-@import "../../app/patterns/03-components/00-search_bar/styles.scss";
+@import "../../patterns/**/*.scss";
+// @import "../../app/patterns/03-components/00-search_bar/styles.scss";
 
 
 // Scaffolding
@@ -23,6 +23,11 @@ body {
   padding-top: 60px;
   margin-bottom: 120px;
 }
+
+h1 {
+    color: red !important;
+}
+
 
 footer {
   position: absolute;

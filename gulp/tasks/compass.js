@@ -7,14 +7,14 @@ var gulp = require('gulp'),
 
 gulp.task('compass', function() {
 
-        return gulp.src(['./public/sass/styles.scss'])
+        return gulp.src(['./app/public/sass/styles.scss'])
         .pipe( compass({
             config_file : './compass.rb',
-            css : './public/css/',
-            sass : './public/sass/',
+            css : './app/public/css/',
+            sass : './app/public/sass/',
             style : 'compact'
         }) )
-        .pipe(gulp.dest('./public/css/'))
+        .pipe(gulp.dest('./app/public/css/'))
         .pipe(browserSync.reload({stream:true}));
 
 });

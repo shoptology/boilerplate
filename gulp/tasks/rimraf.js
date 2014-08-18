@@ -6,7 +6,7 @@ var gulp = require('gulp'),
 
 gulp.task('removeSCSSFromCSS', function() {
 
-    return gulp.src('./public/css/styles.scss', { read: false })
+    return gulp.src('./app/public/css/styles.scss', { read: false })
     .pipe(rimraf());
 
 });

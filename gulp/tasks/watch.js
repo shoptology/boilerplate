@@ -4,7 +4,7 @@ var gulp = require('gulp'),
 
 gulp.task('watch', ['setWatch', 'browserSync'], function() {
     var lr = livereload();
-	gulp.watch('public/sass/**/*.scss', ['processSCSS']);
+	gulp.watch('app/public/sass/**/*.scss', ['processSCSS']);
     gulp.watch('app/patterns/**/*.scss', ['processSCSS']);
     gulp.watch('app/patterns/**/*.hbs', ['processPatterns', 'server']);
     gulp.watch(['./app.js', './app/**/*.js', './gulp/**/*.js'], ['server']);
