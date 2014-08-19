@@ -1,1 +1,135 @@
-<p>{{ description }}</p>
+ <!-- Body copy -->
+  <h2 id="type-body-copy">Body copy</h2>
+  <p>Bootstrap's global default <code>font-size</code> is <strong>14px</strong>, with a <code>line-height</code> of <strong>1.428</strong>. This is applied to the <code>&lt;body&gt;</code> and all paragraphs. In addition, <code>&lt;p&gt;</code> (paragraphs) receive a bottom margin of half their computed line-height (10px by default).</p>
+    <p>Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
+    <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec ullamcorper nulla non metus auctor fringilla. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Donec ullamcorper nulla non metus auctor fringilla.</p>
+    <p>Maecenas sed diam eget risus varius blandit sit amet non magna. Donec id elit non mi porta gravida at eget metus. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+  </div>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;p&gt;</span>...<span class="nt">&lt;/p&gt;</span></code></pre></div>
+
+  <!-- Body copy .lead -->
+  <h3>Lead body copy</h3>
+  <p>Make a paragraph stand out by adding <code>.lead</code>.</p>
+    <p class="lead">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus.</p>
+  </div>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"lead"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/p&gt;</span></code></pre></div>
+
+  <!-- Inline text elements -->
+  <h2 id="type-inline-text">Inline text elements</h2>
+  <h3>Marked text</h3>
+  <p>For highlighting a run of text due to its relevance in another context, use the <code>&lt;mark&gt;</code> tag.</p>
+    <p>You can use the mark tag to <mark>highlight</mark> text.</p>
+  </div>
+<div class="highlight"><pre><code class="html">You can use the mark tag to <span class="nt">&lt;mark&gt;</span>highlight<span class="nt">&lt;/mark&gt;</span> text.</code></pre></div>
+
+
+  <h3>Deleted text</h3>
+  <p>For indicating blocks of text that have been deleted use the <code>&lt;del&gt;</code> tag.</p>
+    <p><del>This line of text is meant to be treated as deleted text.</del></p>
+  </div>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;del&gt;</span>This line of text is meant to be treated as deleted text.<span class="nt">&lt;/del&gt;</span></code></pre></div>
+
+  <h3>Strikethrough text</h3>
+  <p>For indicating blocks of text that are no longer relevant use the <code>&lt;s&gt;</code> tag.</p>
+    <p><s>This line of text is meant to be treated as no longer accurate.</s></p>
+  </div>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;s&gt;</span>This line of text is meant to be treated as no longer accurate.<span class="nt">&lt;/s&gt;</span></code></pre></div>
+
+  <h3>Inserted text</h3>
+  <p>For indicating additions to the document use the <code>&lt;ins&gt;</code> tag.</p>
+    <p><ins>This line of text is meant to be treated as an addition to the document.</ins></p>
+  </div>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;ins&gt;</span>This line of text is meant to be treated as an addition to the document.<span class="nt">&lt;/ins&gt;</span></code></pre></div>
+
+  <h3>Underlined text</h3>
+  <p>To underline text use the <code>&lt;u&gt;</code> tag.</p>
+    <p><u>This line of text will render as underlined</u></p>
+  </div>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;u&gt;</span>This line of text will render as underlined<span class="nt">&lt;/u&gt;</span></code></pre></div>
+
+  <p>Make use of HTML's default emphasis tags with lightweight styles.</p>
+
+  <h3>Small text</h3>
+  <p>For de-emphasizing inline or blocks of text, use the <code>&lt;small&gt;</code> tag to set text at 85% the size of the parent. Heading elements receive their own <code>font-size</code> for nested <code>&lt;small&gt;</code> elements.</p>
+  <p>You may alternatively use an inline element with <code>.small</code> in place of any <code>&lt;small&gt;</code>.</p>
+    <p><small>This line of text is meant to be treated as fine print.</small></p>
+  </div>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;small&gt;</span>This line of text is meant to be treated as fine print.<span class="nt">&lt;/small&gt;</span></code></pre></div>
+
+
+  <h3>Bold</h3>
+  <p>For emphasizing a snippet of text with a heavier font-weight.</p>
+    <p>The following snippet of text is <strong>rendered as bold text</strong>.</p>
+  </div>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;strong&gt;</span>rendered as bold text<span class="nt">&lt;/strong&gt;</span></code></pre></div>
+
+  <h3>Italics</h3>
+  <p>For emphasizing a snippet of text with italics.</p>
+    <p>The following snippet of text is <em>rendered as italicized text</em>.</p>
+  </div>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;em&gt;</span>rendered as italicized text<span class="nt">&lt;/em&gt;</span></code></pre></div>
+
+  <div class="bs-callout bs-callout-info">
+    <h4>Alternate elements</h4>
+    <p>Feel free to use <code>&lt;b&gt;</code> and <code>&lt;i&gt;</code> in HTML5. <code>&lt;b&gt;</code> is meant to highlight words or phrases without conveying additional importance while <code>&lt;i&gt;</code> is mostly for voice, technical terms, etc.</p>
+  </div>
+
+  <h2 id="type-alignment">Alignment classes</h2>
+  <p>Easily realign text to components with text alignment classes.</p>
+    <p class="text-left">Left aligned text.</p>
+    <p class="text-center">Center aligned text.</p>
+    <p class="text-right">Right aligned text.</p>
+    <p class="text-justify">Justified text.</p>
+    <p class="text-nowrap">No wrap text.</p>
+  </div>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"text-left"</span><span class="nt">&gt;</span>Left aligned text.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"text-center"</span><span class="nt">&gt;</span>Center aligned text.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"text-right"</span><span class="nt">&gt;</span>Right aligned text.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"text-justify"</span><span class="nt">&gt;</span>Justified text.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"text-nowrap"</span><span class="nt">&gt;</span>No wrap text.<span class="nt">&lt;/p&gt;</span></code></pre></div>
+
+  <h2 id="type-transformation">Transformation classes</h2>
+  <p>Transform text in components with text capitalization classes.</p>
+    <p class="text-lowercase">Lowercased text.</p>
+    <p class="text-uppercase">Uppercased text.</p>
+    <p class="text-capitalize">Capitalized text.</p>
+  </div>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"text-lowercase"</span><span class="nt">&gt;</span>Lowercased text.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"text-uppercase"</span><span class="nt">&gt;</span>Uppercased text.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"text-capitalize"</span><span class="nt">&gt;</span>Capitalized text.<span class="nt">&lt;/p&gt;</span></code></pre></div>
+
+
+  <h2 id="code-inline">Inline Code</h2>
+  <p>Wrap inline snippets of code with <code>&lt;code&gt;</code>.</p>
+  For example, <code>&lt;section&gt;</code> should be wrapped as inline.
+</div>
+<div class="highlight"><pre><code class="html">For example, <span class="nt">&lt;code&gt;</span><span class="ni">&amp;lt;</span>section<span class="ni">&amp;gt;</span><span class="nt">&lt;/code&gt;</span> should be wrapped as inline.</code></pre></div>
+
+  <h2 id="code-user-input">User input</h2>
+  <p>Use the <code>&lt;kbd&gt;</code> to indicate input that is typically entered via keyboard.</p>
+  To switch directories, type <kbd>cd</kbd> followed by the name of the directory.<br>
+  To edit settings, press <kbd><kbd>ctrl</kbd> + <kbd>,</kbd></kbd>
+</div>
+<div class="highlight"><pre><code class="html">To switch directories, type <span class="nt">&lt;kbd&gt;</span>cd<span class="nt">&lt;/kbd&gt;</span> followed by the name of the directory.</code></pre></div>
+
+  <h2 id="code-block">Basic code block</h2>
+  <p>Use <code>&lt;pre&gt;</code> for multiple lines of code. Be sure to escape any angle brackets in the code for proper rendering.</p>
+  <pre>&lt;p&gt;Sample text here...&lt;/p&gt;</pre>
+</div>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;pre&gt;</span><span class="ni">&amp;lt;</span>p<span class="ni">&amp;gt;</span>Sample text here...<span class="ni">&amp;lt;</span>/p<span class="ni">&amp;gt;</span><span class="nt">&lt;/pre&gt;</span></code></pre></div>
+
+  <p>You may optionally add the <code>.pre-scrollable</code> class, which will set a max-height of 350px and provide a y-axis scrollbar.</p>
+  <h2 id="code-variables">Variables</h2>
+  <p>For indicating variables use the <code>&lt;var&gt;</code> tag.</p>
+
+    <p><var>y</var> = <var>m</var><var>x</var> + <var>b</var></p>
+
+  </div>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;var&gt;</span>y<span class="nt">&lt;/var&gt;</span> = <span class="nt">&lt;var&gt;</span>m<span class="nt">&lt;/var&gt;&lt;var&gt;</span>x<span class="nt">&lt;/var&gt;</span> + <span class="nt">&lt;var&gt;</span>b<span class="nt">&lt;/var&gt;</span></code></pre></div>
+
+  <h2 id="code-sample-output">Sample output</h2>
+  <p>For indicating blocks sample output from a program use the <code>&lt;samp&gt;</code> tag.</p>
+
+    <p><samp>This text is meant to be treated as sample output from a computer program.</samp></p>
+  </div>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;samp&gt;</span>This text is meant to be treated as sample output from a computer program.<span class="nt">&lt;/samp&gt;</span></code></pre></div>

@@ -1,5 +1,5 @@
-  <p>A list of items in which the order does <em>not</em> explicitly matter.</p>
-    <ul>
+  <p>Remove the default <code>list-style</code> and left margin on list items (immediate children only). <strong>This only applies to immediate children list items</strong>, meaning you will need to add the class for any nested lists as well.</p>
+    <ul class="list-unstyled">
       <li>Lorem ipsum dolor sit amet</li>
       <li>Consectetur adipiscing elit</li>
       <li>Integer molestie lorem at massa</li>
@@ -17,6 +17,6 @@
       <li>Eget porttitor lorem</li>
     </ul>
   </div>
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;ul&gt;</span>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"list-unstyled"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;li&gt;</span>...<span class="nt">&lt;/li&gt;</span>
 <span class="nt">&lt;/ul&gt;</span></code></pre></div>
