@@ -85,6 +85,7 @@
     "multiline": "^0.3.4",
     "pretty-hrtime": "~0.2.1",
     "run-sequence": "^0.3.6",
+    "sinon": "^1.10.3",
     "supertest": "^0.13.0",
     "vinyl-source-stream": "~0.1.1",
     "watchify": "^0.6.1"
