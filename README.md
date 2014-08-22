@@ -1,4 +1,4 @@
-Shoptology Boilerplate [![Dependency Status](http://img.shields.io/gemnasium/shoptology/boilerplate.svg?style=flat)](https://gemnasium.com/shoptology/boilerplate)
+Shoptology Boilerplates [![Dependency Status](http://img.shields.io/gemnasium/shoptology/boilerplate.svg?style=flat)](https://gemnasium.com/shoptology/boilerplate)
 =======================
 
 The goal here is to create a starting point for Node.JS projects
@@ -23,6 +23,7 @@ All configuration is designed to first look for property values inside of a .env
 
 - Patterns Organization and workflow
 Patterns (/app/patterns) are a organization of front end pieces that build into making the entire site.  The principles are based on Atomic Design (read more here: http://bradfrostweb.com/blog/post/atomic-web-design/).
+
 
 Atoms are defined as the smallest building blocks of style, with molecules adding several atom elements, and so on.  Components are an addition to this methodology and are defined as any widget blocks that run their own javascript with their block (ex. a grid view with sorting buttons).  This can also be a spot to build Web Components.
 
