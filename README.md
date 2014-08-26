@@ -44,14 +44,40 @@ We have a ton of utility handlebars helpers.  Just register them in from node_mo
 *Details to be added:*
 - All things Gulp
 - Components Guide
-    Loading components
+    - Loading components
 - Preprocessing
 - Build Tasks
 - Testing
 
 
+## Testing Guidelines
 
-The Hackathon Starter Readme as of the 2.2.1 version we started with is included below:
+This boilerplate comes preconfigured to run tests using the [Mocha](http://visionmedia.github.io/mocha/) testing framework.
+Out of the box, Mocha is configured to run either TDD (Test Driven Development) or BDD (Behavior Driven Development) using [ChaiJS](http://chaijs.com/) as the assertion library <font size="-2">*(information on the Expect/Should API and the Assert API can be found [here](http://chaijs.com/api/))*</font>.
+Additionally, [SinonJS](http://sinonjs.org/) is available for use to fake XHRs, spy/stub/mock objects and force your tests down expected paths.
+
+For brevity, the testing we're concerning ourselves with are:
+ - Unit
+ - Integration
+
+##### Unit Testing  
+Unit Testing is __testing the unit in question, and *only* the unit in question__. Tests are meant to detail
+that the module, or unit under test, functions in a way that is expected. Tests should be written to demonstrate what
+happens to the unit when expected data is returned, as well as unexpected data. Forcing the unit down these paths can
+be easily achieved with tools like SinonJS.
+
+
+ that provide the data
+to a unit as expected, and unexpected - in order to verify that failing datasets or garbage data is handled properly.
+
+##### Integration Testing
+*TBD*
+
+____  
+
+The Hackathon Starter Readme as of the 2.2.1 version we started with is included below:  
+____
+
 
 Hackathon Starter
 =================
