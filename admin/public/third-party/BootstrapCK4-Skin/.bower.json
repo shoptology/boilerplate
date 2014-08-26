@@ -1,0 +1,13 @@
+{
+  "name": "BootstrapCK4-Skin",
+  "homepage": "https://github.com/Kunstmaan/BootstrapCK4-Skin",
+  "_release": "81648ed28a",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "81648ed28a83f20ff1c5fce3ba95c7a8c17d802a"
+  },
+  "_source": "https://github.com/Kunstmaan/BootstrapCK4-Skin.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/Kunstmaan/BootstrapCK4-Skin.git"
+}

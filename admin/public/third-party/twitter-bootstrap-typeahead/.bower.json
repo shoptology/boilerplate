@@ -1,0 +1,13 @@
+{
+  "name": "twitter-bootstrap-typeahead",
+  "homepage": "https://github.com/tcrosen/twitter-bootstrap-typeahead",
+  "_release": "373cb5372f",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "373cb5372f39300b2752b2bba575ac6cb6db7241"
+  },
+  "_source": "https://github.com/tcrosen/twitter-bootstrap-typeahead.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/tcrosen/twitter-bootstrap-typeahead.git"
+}
