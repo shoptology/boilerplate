@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * This is a manifest file that will be compiled into application.js, which will
  * include all the files listed below.

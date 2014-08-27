@@ -1,3 +1,5 @@
+'use strict';
+
 var path = require("path");
 
 // Filters out non .coffee and .js files. Prevents
