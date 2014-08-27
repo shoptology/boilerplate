@@ -16,21 +16,15 @@ var Component = function(options, base_path) {
 	var construct = function() {
 		base_path = base_path + '/';
 
-		// Going to change this to automatically include the files available
-		// instead of requiring an explicit file list
 		if(fs.existsSync(base_path + options.files.template)) {
-			console.log("EXISTS!!!");
 			template = fs.readFileSync(base_path + options.files.template);
 		}
 		if(fs.existsSync(base_path + options.files.styles)) {
-			console.log("EXISTS!!!");
 			styles = fs.readFileSync(base_path + options.files.styles);
 		}
-		/*
 		if(fs.existsSync(base_path + options.files.helpers)) {
-			console.log("EXISTS!!!");
-			helpers = fs.readFileSync(base_path + options.files.helpers);
-		}*/
+			helpers = require(base_path + options.files.helpers);
+		}
 		if(options.template_engine == 'handlebars') {
 			template_engine = 'handlebars';
 			hbs = require('handlebars');
@@ -38,18 +32,19 @@ var Component = function(options, base_path) {
 	};
 
 	this.get = function(data) {
+        data.id = get_id();
+
 		if(template_engine == 'html') {
 			var template_rendered = template;
 		} else {
+            if(helpers) {
+                helpers.register(hbs);
+            }
 			var template_compiled = hbs.compile(template.toString());
 			var template_rendered = template_compiled(data);
 		}
 
 		return template_rendered;
-	};
-
-	this.get_template = function(data) {
-
 	};
 
 	this.get_styles = function() {
@@ -58,9 +53,9 @@ var Component = function(options, base_path) {
 		}
 	};
 
-	this.get_controller = function() {
-
-	};
+    var get_id = function() {
+       return 'c-' + new Date().getTime() + Math.floor((Math.random() * (1000 - 1)) + 1);
+    }
 
 	construct();
 };

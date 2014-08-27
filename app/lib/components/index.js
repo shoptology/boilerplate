@@ -3,7 +3,6 @@
 /**
  * Component API Controller
  */
-
 require('./lib/requireLocal');
 
 var hbs = require('hbs'),
@@ -16,13 +15,16 @@ var components = {
 
 		return component_rendered;
 	},
-	get_component_template : function(component_path, data) {
-        console.log(components.get_component_path(component_path));
-        
-        var component = require('../../../' + components.get_component_path(component_path));
-        var component_rendered = component.get(data);
+	get_component_controller : function(component_path) {
+		var component = require('../../../' + components.get_component_path(component_path));
 
-        return component_rendered;
+		return component;
+	},
+	get_component_template : function(component_path, data) {
+		var component = require('../../../' + components.get_component_path(component_path));
+		var component_rendered = component.get(data);
+
+		return component_rendered;
 	},
     get_component_template_partial : function() {
 

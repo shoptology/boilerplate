@@ -1,5 +1,5 @@
+var Components = require('./lib/components');
+
 $(document).ready(function() {
-
-  // Place JavaScript code here...
-
+	Components = new Components();
 });
