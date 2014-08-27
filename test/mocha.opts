@@ -1,6 +1,0 @@
---reporter spec
---globals suite,test,suiteSetup,setup,teardown,suiteTeardown,describe,it,before,after,beforeEach,afterEach
---ui tdd
---timeout 5000
---debug
---growl

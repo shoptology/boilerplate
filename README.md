@@ -50,28 +50,51 @@ We have a ton of utility handlebars helpers.  Just register them in from node_mo
 - Testing
 
 
-## Testing Guidelines
-
-This boilerplate comes preconfigured to run tests using the [Mocha](http://visionmedia.github.io/mocha/) testing framework.
-Out of the box, Mocha is configured to run either TDD (Test Driven Development) or BDD (Behavior Driven Development) using [ChaiJS](http://chaijs.com/) as the assertion library <font size="-2">*(information on the Expect/Should API and the Assert API can be found [here](http://chaijs.com/api/))*</font>.
-Additionally, [SinonJS](http://sinonjs.org/) is available for use to fake XHRs, spy/stub/mock objects and force your tests down expected paths.
-
+## Testing Information
 For brevity, the testing we're concerning ourselves with are:
  - Unit
  - Integration
 
-##### Unit Testing  
-Unit Testing is __testing the unit in question, and *only* the unit in question__. Tests are meant to detail
-that the module, or unit under test, functions in a way that is expected. Tests should be written to demonstrate what
-happens to the unit when expected data is returned, as well as unexpected data. Forcing the unit down these paths can
-be easily achieved with tools like SinonJS.
+##### Unit Testing
+Unit Testing is __testing the unit in question, and *only* the unit in
+question__. Tests are meant to detail that the module, or unit under test,
+functions in a way that is expected. Tests should be written to demonstrate what
+happens to the unit when expected data is returned, as well as unexpected data.
 
+The boilerplate comes preconfigured to run tests using [Karma](http://karma-runner.github.io/0.12/index.html).
+Karma is configured to run tests using the [Mocha](http://visionmedia.github.io/mocha/)
+testing framework. Out of the box, the test runner is configured to run TDD
+(Test Driven Development - suite/test/setup/suiteSetup/teardown/suiteTeardown)
+syntax using [ChaiJS](http://chaijs.com/) as the assertion library <font size="-2">
+*(information on the Expect/Should API and the Assert API can be found
+    [here](http://chaijs.com/api/))*
+</font>. Additionally, [SinonJS](http://sinonjs.org/) is available for use to
+fake XHRs, spy/stub/mock objects and force your tests down predefined paths.
 
- that provide the data
-to a unit as expected, and unexpected - in order to verify that failing datasets or garbage data is handled properly.
+Karma is configured with plugins to bundle only the module under test, as opposed
+to the entire browserify bundle of the application. Additionally Karma is configured
+to run standalone via the test command, or via the Gulp build system.
 
 ##### Integration Testing
-*TBD*
+*TBD*  
+Integration Testing, is __testing the application as a whole, ensuring all
+pieces function as expected__. Tests are meant to detail the behavior a user
+would experience while using the application. Tests should be written to
+demonstrate typical and atypical usage of the application.
+
+TODO:
+ - setup and configure integration test runner
+  - possibly look into: [Nightwatch.js](http://nightwatchjs.org/)
+ - write a sample integration test
+ - explain usage details of selenium and runner/nightwatch
+ - look into browser option used in `benefit-fake`
+
+
+##### Continous Integration
+*TBD*  
+potential candidates:
+ - [Jenkins](http://jenkins-ci.org/)
+ - [drone.io](https://drone.io/)
 
 ____  
 
