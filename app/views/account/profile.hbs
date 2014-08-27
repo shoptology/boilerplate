@@ -1,167 +1,161 @@
 <div class="page-header">
-	<h3>Profile Information</h3>
+    <h3>Profile Information</h3>
 </div>
 <form action="/account/profile" method="POST" class="form-horizontal">
-	<input type="hidden" name="_csrf" value="{{_csrf}}">
-	<div class="form-group">
-		<label for="email" class="col-sm-2 control-label">Email</label>
-		<div class="col-sm-4">
-			<input class="form-control" type="email" name="email" id="email" value="{{user.email}}">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="name" class="col-sm-2 control-label">Name</label>
-		<div class="col-sm-4">
-			<input class="form-control" type="text" name="name" id="name" value="{{user.profile.name}}">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="gender" class="col-sm-2 control-label">Gender</label>
-		<div class="col-sm-4">
-			<label class="radio">
-				<input type="radio" {{#if user.profile.gender == 'male'}} checked {{/if}} name="gender" value="male" data-toggle="radio">
-				<span>Male</span>
-			</label>
-			<label class="radio">
-				<input type="radio" {{#if user.profile.gender == 'female'}} checked {{/if}} name="gender" value="female" data-toggle="radio">
-				<span>Female</span>
-			</label>
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="location" class="col-sm-2 control-label">Location</label>
-		<div class="col-sm-4">
-			<input class="form-control" type="text" name="location" id="location" value="{{user.profile.location}}">
-		</div>
-	</div>
-	<div class="form-goup">
-		<label for="website" class="col-sm-2 control-label">Website</label>
-		<div class="col-sm-4">
-			<input class="form-control" type="text" name="website" id="website" value="{{user.profile.website}}">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="gravatar" class="col-sm-2 control-label">Gravatar</label>
-		<div class="col-sm-4">
-			<!--I guess we need a helper for this?-->
-			<img src="{{user.gravatar}}" class="profile" width="100" height="100">
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="col-sm-offset-2 col-sm-4">
-			<button class="btn btn-primary" type="submit">
-				<i class="fa fa-magnet"> | Update Profile</i>
-			</button>
-		</div>
-	</div>
+    <input type="hidden" name="_csrf" value="{{_csrf}}">
+    <div class="form-group">
+        <label for="email" class="col-sm-1 control-label">Email</label>
+        <div class="col-sm-4">
+            <input class="form-control" type="email" name="email" id="email" value="{{user.email}}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="name" class="col-sm-1 control-label">Name</label>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" name="name" id="name" value="{{user.profile.name}}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="location" class="col-sm-1 control-label">Location</label>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" name="location" id="location" value="{{user.profile.location}}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="gravatar" class="col-sm-1 control-label">Gravatar</label>
+        <div class="col-sm-4">
+            <!--I guess we need a helper for this?-->
+            <img src="{{gravatar user.email}}" class="profile" width="100" height="100">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-1 col-sm-6">
+            <p class="help-block">Don't have a gravatar photo?  <a href="http://en.gravatar.com/" target="_blank">Sign up here and upload one.</a></p>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-1 col-sm-4">
+            <button class="btn btn-primary" type="submit">
+                <i class="fa fa-magnet"> | Update Profile</i>
+            </button>
+        </div>
+    </div>
 </form>
 
 <div class="page-header">
-	<h3>Change Password</h3>
-</div>
-
-<form action="/account/password" method="POST" class="form-horizontal">
-	<input type="hidden" name="_csrf", value="_csrf">
-	<div class="form-group">
-		<label for="password" class="col-sm-3 control-label">
-		<div class="col-sm-4">
-			<input class="form-control" type="password" name="password" id="password">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="confirm-password" class="col-sm-3 control-label">Confirm Password</label>
-		<div class="col-sm-4">
-			<input class="form-control" type="password" name="confirmPassword" id="confirmPassword">
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="col-sm-offset-3 col-sm-4">
-			<button class="btn btn-primary" type="submit">
-				<i class="fa fa-keyboard-o"> | Change Password</i>
-			</button>
-		</div>
-	</div>
-</form>
-
-<div class="page-header">
-	<h3>Delete Account</h3>
-</div>
-
-<p>
-	You can delete your account, but keep in mind this action is irreversible.
-</p>
-<form action="/account/delete" method="POST">
-	<input type="hidden" name="_csrf" vlaue="_csrf">
-	<button class="btn btn-danger" type="submit">
-		<i class="fa fa-trash-o"> | Delete my account</i>
-	</button>
-</form>
-
-<div class="page-header">
-	<h3>Linked Accounts</h3>
+    <h3>Linked Accounts</h3>
 </div>
 
 {{#if user.instagram}}
-	<p>
-		<a href="/account/unlink/instagram" class="text-danger">Unlink your Instagram account</a>
-	</p>
+    <p>
+        <a href="/account/unlink/instagram" class="btn btn-block btn-instagram btn-social"><i class="fa fa-instagram"></i> Unlink your Instagram account</a>
+    </p>
 {{else}}
-	<p>
-		<a href="/auth/instagram" class="text-danger">Link your Instagram account</a>
-	</p>
+    <p>
+        <a href="/auth/instagram" class="btn btn-block btn-instagram btn-social"><i class="fa fa-instagram"></i> Link your Instagram account</a>
+    </p>
 {{/if}}
 
-{{#if user.google}}
-	<p>
-		<a href="/account/unlink/google" class="text-danger">Unlink your Google account</a>
-	</p>
+<!--{{#if user.google}}
+    <p>
+        <a href="/account/unlink/google" class="btn btn-block btn-google-plus btn-social"><i class="fa fa-google-plus"></i> Unlink your Google account</a>
+    </p>
 {{else}}
-	<p>
-		<a href="/auth/google" class="text-danger">Link your Google account</a>
-	</p>
-{{/if}}
+    <p>
+        <a href="/auth/google" class="btn btn-block btn-google-plus btn-social"><i class="fa fa-google-plus"></i> Link your Google account</a>
+    </p>
+{{/if}}-->
 
 {{#if user.facebook}}
-	<p>
-		<a href="/account/unlink/facebook" class="text-danger">Unlink your Facebook account</a>
-	</p>
+    <p>
+        <a href="/account/unlink/facebook" class="btn btn-block btn-facebook btn-social">
+            <i class="fa fa-facebook"></i>
+            Unlink your Facebook account
+        </a>
+    </p>
 {{else}}
-	<p>
-		<a href="/auth/facebook" class="text-danger">Link your Facebook account</a>
-	</p>
+    <p>
+        <a href="/auth/facebook" class="btn btn-block btn-facebook btn-social">
+            <i class="fa fa-facebook"></i>
+            Link your Facebook account
+        </a>
+    </p>
 {{/if}}
 
 {{#if user.twitter}}
-	<p>
-		<a href="/account/unlink/twitter" class="text-danger">Unlink your Twitter account</a>
-	</p>
+    <p>
+        <a href="/account/unlink/twitter" class="btn btn-block btn-twitter btn-social"><i class="fa fa-twitter"></i> Unlink your Twitter account</a>
+    </p>
 {{else}}
-	<p>
-		<a href="/auth/twitter" class="text-danger">Link your Twitter account</a>
-	</p>
+    <p>
+        <a href="/auth/twitter" class="btn btn-block btn-twitter btn-social"><i class="fa fa-twitter"></i> Link your Twitter account</a>
+    </p>
 {{/if}}
 
-{{#if user.github}}
-	<p>
-		<a href="/account/unlink/github" class="text-danger">Unlink your Github account</a>
-	</p>
+<!--{{#if user.linkedin}}
+    <p>
+        <a href="/account/unlink/linkedin" class="btn btn-block btn-linkedin btn-social"><i class="fa fa-linkedin"></i> Unlink your Linkedin account</a>
+    </p>
 {{else}}
-	<p>
-		<a href="/auth/github" class="text-danger">Link your Github account</a>
-	</p>
+    <p>
+        <a href="/auth/linkedin" class="btn btn-block btn-linkedin btn-social"><i class="fa fa-linkedin"></i> Link your Linkedin account</a>
+    </p>
+{{/if}}-->
+
+{{#if user.foursquare}}
+    <p>
+        <a href="/account/unlink/foursquare" class="btn btn-block btn-foursquare btn-social"><i class="fa fa-foursquare"></i> Unlink your Foursquare account</a>
+    </p>
+{{else}}
+    <p>
+        <a href="/auth/foursquare" class="btn btn-block btn-foursquare btn-social"><i class="fa fa-foursquare"></i> Link your Foursquare account</a>
+    </p>
 {{/if}}
 
-{{#if user.linkedin}}
-	<p>
-		<a href="/account/unlink/linkedin" class="text-danger">Unlink your Linkedin account</a>
-	</p>
-{{else}}
-	<p>
-		<a href="/auth/linkedin" class="text-danger">Link your Linkedin account</a>
-	</p>
-{{/if}}
 
 
+
+
+<div class="page-header">
+    <h3>Change Password</h3>
+</div>
+
+<form action="/account/password" method="POST" class="form-horizontal">
+    <input type="hidden" name="_csrf", value="_csrf">
+    <div class="form-group">
+        <label for="password" class="col-sm-2 control-label">New Password</label>
+        <div class="col-sm-4">
+            <input class="form-control" type="password" name="password" id="password">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="confirm-password" class="col-sm-2 control-label">Confirm Password</label>
+        <div class="col-sm-4">
+            <input class="form-control" type="password" name="confirmPassword" id="confirmPassword">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-4">
+            <button class="btn btn-primary" type="submit">
+                <i class="fa fa-keyboard-o"> | Change Password</i>
+            </button>
+        </div>
+    </div>
+</form>
+
+<div class="page-header">
+    <h3>Delete Account</h3>
+</div>
+
+<p>
+    You can delete your account, but keep in mind this action is irreversible.
+</p>
+<form action="/account/delete" method="POST">
+    <input type="hidden" name="_csrf" vlaue="_csrf">
+    <button class="btn btn-danger" type="submit">
+        <i class="fa fa-trash-o"> | Delete my account</i>
+    </button>
+</form>
 
 
 

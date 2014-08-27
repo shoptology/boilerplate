@@ -4,6 +4,7 @@
  * Handlebars helpers
  */
 var hbs = require('hbs'),
+    md5 = require('MD5'),
     _ = require('lodash');
 
 var components = require('./components');
@@ -74,6 +75,12 @@ var Helpers = {
 
             return new hbs.SafeString(partial(context));
         },
+
+        gravatar : function(email) {
+            var hash = md5(email);
+            return 'http://www.gravatar.com/avatar/'+hash;
+        },
+
         /**
          * Returns a component template
          *
