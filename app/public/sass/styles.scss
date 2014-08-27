@@ -2,67 +2,7 @@
 @import "global/bootstrap";
 @import "../bower_components/font-awesome/scss/font-awesome";
 @import "../bower_components/bootstrap-social/bootstrap-social";
-
+@import "global/global.scss";
 
 // Pulls all pattern styles through (Uses Gulp's cssGlobber task)
 @import "../../patterns/**/*.scss";
-
-
-// Scaffolding
-// -------------------------
-
-html {
-  position: relative;
-  min-height: 100%;
-  background-color: white;
-}
-
-body {
-  padding-top: 60px;
-  margin-bottom: 120px;
-}
-
-
-h1 {
-    color: pink !important;
-}
-
-
-// Navbar
-// -------------------------
-
-.navbar-nav img {
-  width: 30px;
-  height: 30px;
-  margin: -15px 15px -15px;
-}
-
-.navbar-brand {
-  background: url(../img/npm.png) no-repeat left center;
-  background-size: 40px;
-  padding-left: 50px;
-  margin-left: 15px;
-}
-
-// Alerts
-// -------------------------
-
-.alert {
-  margin-top: 20px;
-}
-
-// Thumbnails
-// -------------------------
-
-.thumbnail {
-  padding: 0;
-  border-radius: 0;
-  box-shadow: 0 0 5px #ccc, inset 0 0 0 #000;
-}
-
-// Font Awesome
-// -------------------------
-
-.fa {
-  margin-right: 5px;
-}
