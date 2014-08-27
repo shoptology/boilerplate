@@ -73,6 +73,7 @@
     "gulp-browserify": "^0.5.0",
     "gulp-changed": "~0.3.0",
     "gulp-compass": "^1.1.9",
+    "gulp-compile-handlebars": "git+https://github.com/kaanon/gulp-compile-handlebars.git",
     "gulp-css-globbing": "^0.1.2",
     "gulp-filter": "^0.5.0",
     "gulp-imagemin": "~0.1.5",

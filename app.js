@@ -27,7 +27,10 @@ var hbs = require('hbs');
 var glob = require('glob');
 var fs = require('fs');
 
-// Handlebars helpers
+/**
+ * Handlebars helpers
+ */
+
 var helpers = require('./app/lib/helpers.js');
 
 /**
@@ -153,8 +156,6 @@ app.use(express.static(path.join(__dirname, 'app/public'), { maxAge: week }));
  */
 
 require('./app/config/routes')(app, passport, passportConf);
-
-
 
 /**
  * 500 Error Handler.
