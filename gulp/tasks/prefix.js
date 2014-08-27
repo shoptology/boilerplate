@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp'),
     prefix = require('gulp-autoprefixer')
 

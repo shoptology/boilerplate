@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp'),
     spawn = require('child_process').spawn,
     node;

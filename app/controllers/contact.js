@@ -1,3 +1,5 @@
+'use strict';
+
 var secrets = require('../config/secrets');
 var nodemailer = require("nodemailer");
 var smtpTransport = nodemailer.createTransport('SMTP', {

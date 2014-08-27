@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp'),
     runSequence = require('run-sequence'),
     livereload = require('gulp-livereload');
@@ -8,6 +10,7 @@ gulp.task('watch', ['setWatch', 'browserSync'], function() {
     gulp.watch('app/patterns/**/*.scss', ['processSCSS']);
     gulp.watch('app/patterns/**/*.hbs', ['processPatterns', 'server']);
     gulp.watch(['./app.js', './app/**/*.js', './gulp/**/*.js'], ['server', 'browserify']);
+    gulp.watch( [ './app/**/*.js' , './test/unit/**/*.js' , '!./test/unit/coverage/**/*.*' ] , [ 'unitTests' ] );
 
 	/*gulp.watch('src/images/**', ['images']);
 	gulp.watch('src/htdocs/**', ['copy']);*/

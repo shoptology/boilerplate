@@ -3071,22 +3071,18 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 .btn-yahoo.disabled, .btn-yahoo.disabled:hover, .btn-yahoo.disabled:focus, .btn-yahoo.disabled:active, .btn-yahoo.disabled.active, .btn-yahoo[disabled], .btn-yahoo[disabled]:hover, .btn-yahoo[disabled]:focus, .btn-yahoo[disabled]:active, .btn-yahoo[disabled].active, fieldset[disabled] .btn-yahoo, fieldset[disabled] .btn-yahoo:hover, fieldset[disabled] .btn-yahoo:focus, fieldset[disabled] .btn-yahoo:active, fieldset[disabled] .btn-yahoo.active { background-color: #720e9e; border-color: rgba(0, 0, 0, 0.2); }
 .btn-yahoo .badge { color: #720e9e; background-color: white; }
 
-.search-bar { background-color: white; }
-
 html { position: relative; min-height: 100%; background-color: white; }
 
 body { padding-top: 60px; margin-bottom: 120px; }
 
-h1 { color: pink !important; }
-
-footer { position: absolute; bottom: 0; width: 100%; height: 90px; }
-
 .navbar-nav img { width: 30px; height: 30px; margin: -15px 15px -15px; }
 
-.navbar-brand { background: url(../img/npm.png) no-repeat left center; background-size: 40px; padding-left: 50px; margin-left: 15px; }
+.navbar-brand { background: url(../img/logo.png) no-repeat left center; background-size: 40px; padding-left: 50px; margin-left: 15px; }
 
 .alert { margin-top: 20px; }
 
 .thumbnail { padding: 0; border-radius: 0; box-shadow: 0 0 5px #ccc, inset 0 0 0 #000; }
 
 .fa { margin-right: 5px; }
+
+.search-bar { background-color: white; }

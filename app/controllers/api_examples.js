@@ -1,3 +1,5 @@
+'use strict';
+
 var secrets = require('../config/secrets');
 var User = require('../models/User');
 var querystring = require('querystring');

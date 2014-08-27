@@ -35,8 +35,14 @@
             <li><a href="/contact">Contact</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/login">Login</a></li>
-            <li><a href="/signup">Create Account</a></li>
+            {{#if user._id}}
+              <li><a href="/account" title="My Account"><img src="{{gravatar user.email}}" /></a></li>
+              <li><a href="/logout">Logout</a></li>
+            {{else}}
+              <li><a href="/login">Login</a></li>
+              <li><a href="/signup">Create Account</a></li>
+            {{/if}}
+
           </ul>
         </div>
       </div>
