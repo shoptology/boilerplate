@@ -45,14 +45,71 @@ We have a ton of utility handlebars helpers.  Just register them in from node_mo
 *Details to be added:*
 - All things Gulp
 - Components Guide
-    Loading components
+    - Loading components
 - Preprocessing
 - Build Tasks
 - Testing
 
 
+## Testing Information
+For brevity, the testing we're concerning ourselves with are:
+ - Unit
+ - Integration
 
-The Hackathon Starter Readme as of the 2.2.1 version we started with is included below:
+##### Unit Testing
+Unit Testing is __testing the unit in question, and *only* the unit in
+question__. Tests are meant to detail that the module, or unit under test,
+functions in a way that is expected. Tests should be written to demonstrate what
+happens to the unit when expected data is returned, as well as unexpected data.
+
+The boilerplate comes preconfigured to run tests using [Karma](http://karma-runner.github.io/0.12/index.html).
+Karma is configured to run tests in [PhantomJS](http://phantomjs.org/) using the
+[Mocha](http://visionmedia.github.io/mocha/) testing framework. Out of the box,
+the test runner is configured to run TDD
+(Test Driven Development - suite/test/setup/suiteSetup/teardown/suiteTeardown)
+syntax using [ChaiJS](http://chaijs.com/) as the assertion library <font size="-2">
+*(information on the Expect/Should API and the Assert API can be found
+    [here](http://chaijs.com/api/))*
+</font>. Additionally, [SinonJS](http://sinonjs.org/) is available for use to
+fake XHRs, spy/stub/mock objects and force your tests down predefined paths.
+
+Karma is configured with the following plugins:  
+ - karma-browserify
+  - to bundle only the module under test, as opposed to the entire codebase
+ - karma-chai-sinon
+  - provides the chai assertion library and sinon spies/stubs/mocks/etc.
+ - karma-coverage
+  - provides a code coverage reporter, and generates reports under `/test/unit/coverage`
+
+Additionally Karma is configured to run standalone via the test command, or
+via the Gulp watch/build system.
+
+##### Integration Testing
+*TBD*  
+Integration Testing, is __testing the application as a whole, ensuring all
+pieces function as expected__. Tests are meant to detail the behavior a user
+would experience while using the application. Tests should be written to
+demonstrate typical and atypical usage of the application.
+
+TODO:
+ - setup and configure integration test runner
+  - possibly look into: [Nightwatch.js](http://nightwatchjs.org/)
+ - write a sample integration test
+ - explain usage details of selenium and runner/nightwatch
+ - look into browser option used in `benefit-fake`
+
+
+##### Continous Integration
+*TBD*  
+potential candidates:
+ - [Jenkins](http://jenkins-ci.org/)
+ - [drone.io](https://drone.io/)
+
+____  
+
+The Hackathon Starter Readme as of the 2.2.1 version we started with is included below:  
+____
+
 
 Hackathon Starter
 =================

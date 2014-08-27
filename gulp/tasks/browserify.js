@@ -8,7 +8,8 @@
    of browserify for faster bundling using caching.
 */
 
-var browserify   = require('browserify');
+var path         = require('path');
+var browserify   = require('gulp-browserify');
 var watchify     = require('watchify');
 var bundleLogger = require('../util/bundleLogger');
 var gulp         = require('gulp');
@@ -22,6 +23,7 @@ gulp.task('browserify', function() {
 	var bundler = bundleMethod({
 		// Specify the entry point of your app
 		entries: ['./app/public/js/main.js'],
+        paths: [path.join(process.cwd(), 'node_modules'), path.join(process.cwd(), './app/patterns'), path.join(process.cwd(), './app/lib')],
 		// Add file extentions to make optional in your requires
 		extensions: ['.js', '.hbs']
 	});
@@ -38,9 +40,9 @@ gulp.task('browserify', function() {
 			// Use vinyl-source-stream to make the
 			// stream gulp compatible. Specifiy the
 			// desired output filename here.
-			.pipe(source('app.js'))
+			.pipe(source('bundle.js'))
 			// Specify the output destination
-			.pipe(gulp.dest('./build/'))
+			.pipe(gulp.dest('./app/public/js/'))
 			// Log when bundling completes!
 			.on('end', bundleLogger.end);
 	};
