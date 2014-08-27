@@ -62,8 +62,9 @@ functions in a way that is expected. Tests should be written to demonstrate what
 happens to the unit when expected data is returned, as well as unexpected data.
 
 The boilerplate comes preconfigured to run tests using [Karma](http://karma-runner.github.io/0.12/index.html).
-Karma is configured to run tests using the [Mocha](http://visionmedia.github.io/mocha/)
-testing framework. Out of the box, the test runner is configured to run TDD
+Karma is configured to run tests in [PhantomJS](http://phantomjs.org/) using the
+[Mocha](http://visionmedia.github.io/mocha/) testing framework. Out of the box,
+the test runner is configured to run TDD
 (Test Driven Development - suite/test/setup/suiteSetup/teardown/suiteTeardown)
 syntax using [ChaiJS](http://chaijs.com/) as the assertion library <font size="-2">
 *(information on the Expect/Should API and the Assert API can be found
@@ -71,9 +72,16 @@ syntax using [ChaiJS](http://chaijs.com/) as the assertion library <font size="-
 </font>. Additionally, [SinonJS](http://sinonjs.org/) is available for use to
 fake XHRs, spy/stub/mock objects and force your tests down predefined paths.
 
-Karma is configured with plugins to bundle only the module under test, as opposed
-to the entire browserify bundle of the application. Additionally Karma is configured
-to run standalone via the test command, or via the Gulp build system.
+Karma is configured with the following plugins:  
+ - karma-browserify
+  - to bundle only the module under test, as opposed to the entire codebase
+ - karma-chai-sinon
+  - provides the chai assertion library and sinon spies/stubs/mocks/etc.
+ - karma-coverage
+  - provides a code coverage reporter, and generates reports under `/test/unit/coverage`
+
+Additionally Karma is configured to run standalone via the test command, or
+via the Gulp watch/build system.
 
 ##### Integration Testing
 *TBD*  
