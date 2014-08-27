@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Module dependencies.
  */
@@ -50,7 +52,7 @@ var app = express();
 
 mongoose.connect(secrets.db);
 mongoose.connection.on('error', function() {
-  console.error('MongoDB Connection Error. Make sure MongoDB is running.');
+    console.error('MongoDB Connection Error. Make sure MongoDB is running.');
 });
 
 var hour = 3600000;
@@ -74,7 +76,7 @@ app.set('view engine', 'hbs');
 /**
  * Dev settings
  */
-if(process.env.NODE_ENV == 'dev') {
+if(process.env.NODE_ENV === 'dev') {
 
     /**
      * Get Local IP for browserify
@@ -82,7 +84,7 @@ if(process.env.NODE_ENV == 'dev') {
 
     var os=require('os');
     var ifaces=os.networkInterfaces();
-    localIpAddress = null;
+    var localIpAddress = null;
     for (var dev in ifaces) {
         if(dev !== "en1" && dev !== "en0") {
             continue;
@@ -98,7 +100,7 @@ if(process.env.NODE_ENV == 'dev') {
         livereload : process.env.livereload ? process.env.livereload : true,
         browsersync : process.env.browsersync ? process.env.browsersync : true,
         localIpAddress : localIpAddress
-    }
+    };
 }
 
 
@@ -106,39 +108,43 @@ app.use(compress());
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended : true }));
 app.use(expressValidator());
 app.use(methodOverride());
 app.use(cookieParser());
 app.use(session({
-  secret: secrets.sessionSecret,
-  store: new MongoStore({
-    url: secrets.db,
-    auto_reconnect: true
-  })
+    resave: true,
+    saveUninitialized : true,
+    secret: secrets.sessionSecret,
+    store: new MongoStore({
+        url: secrets.db,
+        auto_reconnect: true
+    })
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use(function(req, res, next) {
   // CSRF protection.
-  if (_.contains(csrfExclude, req.path)) return next();
-  csrf(req, res, next);
+    if (_.contains(csrfExclude, req.path)) {
+        return next();
+    }
+    csrf(req, res, next);
 });
 app.use(function(req, res, next) {
-  // Make user object available in templates.
-  res.locals.user = req.user;
-  res.locals.dev = dev;
-  next();
+    // Make user object available in templates.
+    res.locals.user = req.user;
+    res.locals.dev = dev;
+    next();
 });
 app.use(function(req, res, next) {
-  // Remember original destination before login.
-  var path = req.path.split('/')[1];
-  if (/auth|login|logout|signup|img|fonts|favicon/i.test(path)) {
-    return next();
-  }
-  req.session.returnTo = req.path;
-  next();
+    // Remember original destination before login.
+    var path = req.path.split('/')[1];
+    if (/auth|login|logout|signup|img|fonts|favicon/i.test(path)) {
+        return next();
+    }
+    req.session.returnTo = req.path;
+    next();
 });
 app.use(express.static(path.join(__dirname, 'app/public'), { maxAge: week }));
 
