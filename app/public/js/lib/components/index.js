@@ -1,24 +1,26 @@
-var dependencies = require('./dependencies');
+'use strict';
+
+/**
+ * Manages components on the front-end
+ */
+
+// File that contains a series of require statements
+// to load controllers for components into the front-end
+var controllers = require('./dependencies');
 
 var Components = function() {
     var self = this;
 
-    var controllers = {};
     var components = {};
 
     var init = function() {
-        processDependencies();
         attachControllers()
     };
 
-    var processDependencies = function() {
-        for(var d in dependencies) {
-            var dep = dependencies[d];
-
-            controllers[d] = dep;
-        }
-    };
-
+    // Loop through loaded contollers
+    // Look for templates in the DOM expecting a controller
+    // Attach a new instance of the controller to the DOM element
+    // Store all component categories and instances in var components
     var attachControllers = function() {
         for(var c in controllers) {
             var elements = document.querySelectorAll('.c-' + c);
