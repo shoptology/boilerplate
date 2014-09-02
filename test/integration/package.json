@@ -1,0 +1,55 @@
+{
+  "name": "shoptology-integration-test-runner",
+  "version": "0.0.1",
+  "description": "an integration test runner using selenium webdriver.",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "node .",
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+  "author": "James Dean \"DefiantBidet\"",
+  "contributors": [
+  {
+    "name": "Rob Marscher",
+    "url": "http:goshoptology.com"
+  },
+  {
+    "name": "Ivan Mayes",
+    "url": "http:goshoptology.com"
+  },
+  {
+    "name": "Michael May",
+    "url": "http:goshoptology.com"
+  }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "chai": "^1.9.1",
+    "chalk": "^0.5.1",
+    "chromedriver": "^2.10.0-1",
+    "mocha": "^1.21.4",
+    "prompt": "^0.2.13",
+    "q": "^1.0.1",
+    "selenium-launcher": "^1.1.10",
+    "selenium-webdriver": "^2.42.1",
+    "sinon": "^1.10.3",
+    "which": "^1.0.5"
+  },
+  "devDependencies": {
+    "util-extend": "^1.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shoptology/play"
+  },
+  "keywords": [
+    "integration",
+    "test",
+    "mocha",
+    "selenium"
+  ],
+  "bugs": {
+    "url": "https://github.com/shoptology/play/issues"
+  },
+  "homepage": "https://github.com/shoptology/play"
+}
