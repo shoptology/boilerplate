@@ -23,7 +23,7 @@ gulp.task('enumerateComponents', function() {
 
         file += '\t' + c.component_name + ' : ' + '\'' + c.component_path + '\'';
 
-        if(i < component_list.length - 2) {
+        if(component_list.length > 1 && i !== component_list.length - 1) {
             file += ',';
         }
 
