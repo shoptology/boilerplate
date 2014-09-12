@@ -29,6 +29,28 @@ var components = {
     get_component_template_partial : function() {
 
     },
+    get_component_list : function() {
+        var path = components.find_matching_folder('app/patterns/', 'components');
+        var components_folder = path.split('/');
+        var components_folder_segment = components_folder[components_folder.length - 2];
+        var dir = fs.readdirSync(path);
+        var component_folders = [];
+
+
+        for(var f in dir) {
+            var fileSync = path + dir[f];
+            var stat = fs.statSync(fileSync);
+
+            if(stat.isDirectory()) {
+                component_folders.push({
+                    component_name : dir[f].match(/[^-]+$/)[0],
+                    component_path : components_folder_segment + '/' + dir[f]
+                });
+            }
+        }
+
+        return component_folders;
+    },
     get_component_path : function(component_path) {
         var components_folder = components.find_matching_folder('app/patterns/', 'components');
         var component_folder = '';
