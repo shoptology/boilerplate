@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-12 col-lg-8">
+            <div id="collection-form" data-collection-name="<%= collection.name %>"
+                <%= sessionUser.hasPermissions(collection, 'c') ? 'data-permission-c' : '' %>
+                <%= sessionUser.hasPermissions(collection, 'r') ? 'data-permission-r' : '' %>
+                <%= sessionUser.hasPermissions(collection, 'u') ? 'data-permission-u' : '' %>
+                <%= sessionUser.hasPermissions(collection, 'd') ? 'data-permission-d' : '' %>
+            ></div>
+
+            <div id="form-controls">
+                <div class="btn-group pull-left left"></div>
+                <div class="btn-group pull-right right"></div>
+            </div>
+        </div>
+    </div>
+</div>

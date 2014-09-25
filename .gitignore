@@ -1,0 +1,8 @@
+config/private--*
+public/third-party
+node_modules
+.bower-registry
+.bower-tmp
+.bower-cache
+public/init-build.js
+.*.swp

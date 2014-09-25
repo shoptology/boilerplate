@@ -1,0 +1,51 @@
+{
+  "name": "mongorilla",
+  "description": "Mongorilla is a simple, clean, and powerful NodeJS based content moderator for MongoDB.",
+  "version": "0.0.3",
+  "private": false,
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install && ./node_modules/requirejs/bin/r.js -o public/app.build.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bower": "*",
+    "express": "3.x",
+    "glob": "^4.0.5",
+    "gridfs-stream": "*",
+    "knox": "*",
+    "moment": "*",
+    "mongodb": "^1.4.0",
+    "mongoose": "*",
+    "mongoose-when": "*",
+    "requirejs": "^2.1.11",
+    "sha1": "^1.1.0",
+    "uinexpress": "*",
+    "underscore": "*"
+  },
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gerardobort/mongorilla.git"
+  },
+  "keywords": [
+    "mongodb",
+    "cms",
+    "nodejs",
+    "backbone",
+    "backbone-forms",
+    "bootstrap"
+  ],
+  "author": "Gerardo Bort",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gerardobort/mongorilla/issues"
+  },
+  "homepage": "https://github.com/gerardobort/mongorilla",
+  "engines": {
+    "node": "*"
+  },
+  "bin": {
+    "mongorilla": "./server.js"
+  }
+}
