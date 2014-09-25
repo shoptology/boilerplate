@@ -1,0 +1,37 @@
+{
+    "s3": {
+        "bucket": "mongorilla"
+    },
+    "project_name": "Mongorilla CMS",
+    "roles": [
+        {
+            "name": "admin",
+            "permissions": {
+                "developer": "crud",
+                "company": "crud",
+                "mongorillaRole": "crud",
+                "mongorillaUser": "crud",
+                "mongorillaCollection": "crud",
+                "fruit": "crud"
+            },
+            "scope": {
+                "company": { 
+                    "$or": [ { "uri": "comp" }, { "uri": "erser" } ] 
+                }
+            }
+        },
+        {
+            "name": "editor",
+            "permissions": {
+                "developer": "cru",
+                "company": "cru"
+            }
+        }
+    ],
+    "users": [
+        { "username": "test", "password": "123", "fullname": "Test User", "roles": ["editor"] },
+        { "username": "admin", "password": "123", "fullname": "Administrator", "roles": ["admin", "editor"] },
+        { "username": "guest", "password": "", "fullname": "Guest User", "roles": ["admin", "editor"] }
+    ],
+    "collections": []
+}

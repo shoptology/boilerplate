@@ -1,0 +1,19 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6"
+            data-view="dashboard/widget/collections-pie/view"
+            data-collection-names="<%= _(config.collections).pluck('name').join() %>"
+            ><div class="box"><br><br><br><br></div></div>
+        <div class="col-xs-12 col-sm-6 col-md-6"
+            data-view="dashboard/widget/editions-chart/view"
+            ><div class="box"><br><br><br><br></div></div>
+    <% _(config.collections).each(function (collection, i) { %>
+        <% if (sessionUser.hasPermissions(collection, 'r')) { %>
+        <div class="col-xs-12 col-sm-6 col-md-6"
+            data-view="dashboard/widget/recent/view"
+            data-collection-name="<%= collection.name %>"
+            ><div class="box"><br><br><br><br></div></div>
+        <% } %>
+    <% }) %>
+    </div>
+</section>
