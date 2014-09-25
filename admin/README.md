@@ -1,4 +1,4 @@
-## Mongorilla is a simple and powerful CMS for MongoDB
+## Mongorilla is a simple and powerful CMS for MongoDB - Shoptology version
 
 [![Build Status](https://travis-ci.org/gerardobort/mongorilla.svg?branch=master)](https://travis-ci.org/gerardobort/mongorilla)
 
