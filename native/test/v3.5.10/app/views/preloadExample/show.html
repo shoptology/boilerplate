@@ -1,0 +1,36 @@
+<script>
+
+  steroids.view.navigationBar.show("Preloaded WebView");
+
+  var uptime = 0;
+
+  window.setInterval(function() {
+
+    // Updates the uptime counter
+
+    uptime++;
+
+    var uptimeElem = document.querySelector("#uptime");
+    uptimeElem.textContent = uptime;
+
+    // Sends message for the main view that listens with addEventListener("message")
+
+    var msg = { uptime: uptime };
+    window.postMessage(msg, "*");
+
+  }, 1000);
+
+</script>
+
+<div class="padding">
+
+  <p>Uptime: <span id="uptime">0</span> seconds</p>
+
+  <p>The value of this input stays even if you pop this layer with the back button!</p>
+
+  <label class="item item-input">
+    <span class="input-label">Test</span>
+    <input type="text" value="Testing...">
+  </label>
+
+</div>

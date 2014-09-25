@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width">
+    <title>Cordova Geolocation Example</title>
+
+    <link rel="stylesheet" href="/vendor/ionic/css/ionic.css" />
+    <link rel="stylesheet" href="/stylesheets/application.css" />
+
+    <!-- cordova.js is served from localhost to ensure the correct version -->
+    <script src="http://localhost/cordova.js"></script>
+    <script src="/components/steroids-js/steroids.js"></script>
+
+    <script>
+
+    steroids.view.navigationBar.show("Geolocation Example");
+
+    // Define our results DOM element object
+    var resultsElem = null;
+
+    // Wait for Cordova to load
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    function onDeviceReady() {
+        navigator.geolocation.watchPosition(geolocationDataReceived, geolocationError, { enableHighAccuracy: true });
+        resultsElem = document.querySelector('#geolocation-results');
+    }
+
+    function geolocationDataReceived(position) {
+        resultsElem.innerHTML = '<strong>Latitude:</strong> '           + position.coords.latitude         + '<br>' +
+                                '<strong>Longitude:</strong> '          + position.coords.longitude        + '<br>' +
+                                '<strong>Altitude:</strong> '           + position.coords.altitude         + '<br>' +
+                                '<strong>Accuracy:</strong> '           + position.coords.accuracy         + '<br>' +
+                                '<strong>Altitude Accuracy:</strong> '  + position.coords.altitudeAccuracy + '<br>' +
+                                '<strong>Heading:</strong> '            + position.coords.heading          + '<br>' +
+                                '<strong>Speed:</strong> '              + position.coords.speed            + '<br>' +
+                                '<strong>Timestamp:</strong> '          + position.timestamp;
+    }
+
+    // The error callback receives a PositionError object
+    function geolocationError(error) {
+        alert('Geolocation error! \n\n Error code: ' + error.code + '\n' + 'Error message: ' + error.message);
+    }
+
+    </script>
+  </head>
+  <body class="content">
+    <div class="padding">
+      <p id="geolocation-results">Waiting for geolocation data...</p>
+    </div>
+  </body>
+</html>

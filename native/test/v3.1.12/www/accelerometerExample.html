@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Accelerometer Example</title>
+
+    <link rel="stylesheet" href="vendor/topcoat/css/topcoat-mobile-light.css" />
+    <link rel="stylesheet" href="stylesheets/application.css" />
+
+    <!-- cordova.js is served from localhost to ensure the correct version -->
+    <script src="http://localhost/cordova.js"></script>
+    <script src="/components/steroids-js/steroids.js"></script>
+
+    <script>
+
+    // The watch id references the current `watchAcceleration`
+    var watchID = null;
+
+    // Wait for Cordova to load
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // Cordova is ready
+    function onDeviceReady() {
+        startWatch();
+    }
+
+    function startWatch() {  
+        // Update acceleration every 120 ms
+        var options = { frequency: 120 };
+        watchID = navigator.accelerometer.watchAcceleration(accelerationReceived, accelerometerError, options);
+    }
+
+    function stopWatch() {
+        // Stop watching if there's an active watchAcceleration
+        if (watchID) {
+            navigator.accelerometer.clearWatch(watchID);
+            watchID = null;
+        }
+    }
+
+    // watcher's onSuccess callback: insert the current acceleration into the DOM
+    function accelerationReceived(acceleration) {
+        var resultElement = document.getElementById('accelerometer');
+        resultElement.innerHTML = '<strong>Acceleration X:</strong> ' + acceleration.x + '<br>' +
+                                  '<strong>Acceleration Y:</strong> ' + acceleration.y + '<br>' +
+                                  '<strong>Acceleration Z:</strong> ' + acceleration.z + '<br><br>' +
+                                  '<strong>Timestamp:</strong> '      + acceleration.timestamp;
+    }
+
+    // watcher's onError callback:
+    // accelerometer data couldn't be received or accelerometer isn't accessible
+    function accelerometerError() {
+        alert('Error getting accelerometer data!');
+        // Also stop watching for accelerometer data
+        if (watchID) {
+            navigator.accelerometer.clearWatch(watchID);
+            watchID = null;
+        }
+    }
+
+    </script>
+  </head>
+  <body>
+    <div class="content-padded">
+      <p>
+        <div id="accelerometer">Waiting for accelerometer...</div>
+      </p>
+    </div>
+  </body>
+</html>

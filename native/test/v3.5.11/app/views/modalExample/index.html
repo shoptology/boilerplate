@@ -1,0 +1,19 @@
+<script>
+  // Initialize the modal
+  var modalView = new steroids.views.WebView("/views/modalExample/show.html");
+
+  steroids.view.navigationBar.show("Modal Example");
+
+  // Helper functions
+  function openModal() {
+    steroids.modal.show(modalView);
+  }
+
+</script>
+
+
+<div class="padding">
+
+  <button class="button button-block" onclick="openModal()">Open modal</button>
+
+</div>

@@ -1,0 +1,20 @@
+
+#bold[ Command          Shortcut      Description]
+------------------------------------------------------------------------------
+ #bold[push]             <enter>       Push code to connected devices
+
+ #bold[sim] #cyan[<device>]     s             Launch iOS Simulator; <device> can be:
+                                 #cyan[iphone_4s, iphone_5, iphone_5s, iphone_6,
+                                 iphone_6_plus, ipad_2, ipad_retina, ipad_air]
+
+                                Optionally, append #cyan[@<iOS-version>] to launch with a specific iOS
+                                version; e.g. #cyan[ipad@5.1]
+
+ #bold[qr]               -             Show the QR code for connecting devices
+
+ #bold[edit]             e             Launch editor (set in application.coffee), defaults to #cyan[subl]
+
+ #bold[debug <path>]     d             Open Safari debugger for matching path in URL location
+                                #underline[Note:] Enable Develop menu in: Safari -> Preferences -> Advanced
+
+ #bold[quit]             q             Exits connect. Also: exit

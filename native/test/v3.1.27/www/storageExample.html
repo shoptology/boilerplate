@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cordova Storage Example</title>
+
+    <link rel="stylesheet" href="/vendor/ionic/css/ionic.css" />
+    <link rel="stylesheet" href="/stylesheets/application.css" />
+
+    <!-- cordova.js is served from localhost to ensure the correct version -->
+    <script src="http://localhost/cordova.js"></script>
+    <script src="/components/steroids-js/steroids.js"></script>
+
+    <script>
+
+    // Define our Database object
+    var db = null;
+
+    // Wait for Cordova to load
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // Cordova is ready
+    function onDeviceReady() {
+      // Create a new database
+      db = window.openDatabase(
+        "Database",       // database name
+        "1.0",            // database version
+        "Cordova Demo",   // database display name
+        200000            // database size in bytes
+      );
+
+      // populate the DB, then run a query
+      db.transaction(
+        populateDB,     // transaction to run; a SQLTransaction object is passed to the callback function
+        databaseError,  // error callback function
+        populatingDone  // success callback function; ran after the the transaction is done
+      );
+    }
+
+    function populateDB(tx) {
+      tx.executeSql('DROP TABLE IF EXISTS DEMO');
+      tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id unique, data)');
+      tx.executeSql('INSERT INTO DEMO (id, data) VALUES (1, "First row")');
+      tx.executeSql('INSERT INTO DEMO (id, data) VALUES (2, "Second row")');
+    }
+
+    function populatingDone(){
+      var status = document.querySelector("#status");
+      status.innerText = "Database successfully created!"
+    }
+
+
+    function runQuery() {
+      db.transaction(queryDB, databaseError);
+    }
+
+    // Query the database
+    function queryDB(tx) {
+      tx.executeSql('SELECT * FROM DEMO', [], gotQueryResults, databaseError);
+    }
+
+    // Show the results of the database query
+    function gotQueryResults(tx, results) {
+      var len = results.rows.length;
+      var result = "";
+      result += ("DEMO table: " + len + " rows found. \n\n");
+      for (var i=0; i<len; i++){
+        result += ("Row = " + i + " ID = " + results.rows.item(i).id + " Data =  " + results.rows.item(i).data + "\n");
+      }
+      navigator.notification.alert(result, null, "Database query successful!");
+    }
+
+    // Transaction error callback
+    function databaseError(err) {
+      navigator.notification.alert("Error code: " + err.code + "; message: " + err.message, null, "Error processing SQL!");
+    }
+
+    </script>
+  </head>
+  <body class="content">
+    <div class="padding">
+
+      <h1>Storage Example</h1>
+
+      <span id="status">Creating and populating a database...</span>
+      <br><br>
+      <button class="button button-block" id="query-button" ontouchend="runQuery()" >Run query</button>
+
+    </div>
+  </body>
+</html>

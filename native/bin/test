@@ -1,0 +1,86 @@
+#!/usr/bin/env sh
+
+MODE=$1
+GLOBAL_NODE_MODULES=$(dirname $NVM_PATH)/node_modules
+LOCAL_NODE_MODULES=$(pwd)/node_modules
+
+
+if [ "$MODE" = "fast" ]; then
+  echo "Mode: fast, skipping full generator tests"
+  FILES="spec/Version.spec.coffee \
+  spec/Steroids.spec.coffee \
+  spec/Packager.spec.coffee \
+  spec/Grunt.spec.coffee \
+  spec/Create.spec.coffee \
+  spec/GeneratorFast.spec.coffee \
+  spec/BuildServer.spec.coffee"
+elif [ "$MODE" != "" ]; then
+  echo "Mode: single file: $1"
+  FILES=$1
+else
+  echo "???????????????????????????????????????????????????????????????????????????"
+  echo "Mode: SLOW -- are you sure you don't want to use fast mode (bin/test fast)"
+  echo "           -- or run a single test?"
+  echo "???????????????????????????????????????????????????????????????????????????"
+
+  echo "\nTo ensure clean node_modules in everywhere, we'll uninstall everything else than 'npm' from $GLOBAL_NODE_MODULES"
+  echo "ok? (y/N)"
+
+  read UNINSTALL_GLOBAL_OK
+
+  if [ "$UNINSTALL_GLOBAL_OK" = "y" ]; then
+    echo "deleting other than 'npm' from global.."
+    npm ls -gp | awk -F/ '/node_modules/&&!/node_modules.*node_modules/&&!/npm/{print $NF}' | xargs npm rm -g
+  else
+    echo "not uninstalling"
+  fi
+
+
+  echo "\nThen deleting everything from: $LOCAL_NODE_MODULES"
+  echo "ok? (y/N)"
+
+  read DELETE_LOCAL_OK
+
+  if [ "$DELETE_LOCAL_OK" = "y" ]; then
+    echo "deleting local.."
+    rm -rf $LOCAL_NODE_MODULES
+  else
+    echo "not deleting"
+  fi
+
+  echo "Now running: $ npm install"
+  echo "ok? (y/N)"
+
+  read INSTALL_OK
+
+  if [ "$INSTALL_OK" = "y" ]; then
+    npm install
+  else
+    echo "not installing"
+  fi
+
+  FILES=$(ls spec/*.spec.*)
+fi
+
+ERRORS=false
+
+for FILE in $FILES; do
+  echo "Running $FILE"
+
+  STEROIDS_TEST_RUN=true node_modules/jasmine-node/bin/jasmine-node --verbose --coffee --color $FILE
+  if [ "$?" != 0 ]; then
+    ERRORS=true
+  fi
+
+  echo "done with $FILE"
+done
+
+echo "\n\n"
+if [ "$ERRORS" = true ]; then
+  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  echo "  TEST RUN HAD ERRORS"
+  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  exit 1
+else
+  echo "BUMAYE, good to go!"
+fi
