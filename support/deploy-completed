@@ -1,0 +1,13 @@
+
+
+	#bold[Note:]
+
+	- Deployments are identified with the file #bold[config/cloud.json]
+	  - This file is automatically created if it does not exists.
+	  - Each deployment overwrites the previously deployed version.
+	  - To deploy multiple versions, just rename the cloud.json file.
+
+	- Deployments are user specific
+	  - The user who deployed the initial version becomes the owner of the app.
+	  - To deploy with multiple user accounts, each user should have their own cloud.json (symlinks and .gitignore helps).
+	  - We are working on full team support :)

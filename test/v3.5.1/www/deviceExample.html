@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cordova Device Properties Example</title>
+
+    <link rel="stylesheet" href="/vendor/ionic/css/ionic.css" />
+    <link rel="stylesheet" href="/stylesheets/application.css" />
+
+    <!-- cordova.js is served from localhost to ensure the correct version -->
+    <script src="http://localhost/cordova.js"></script>
+    <script src="/components/steroids-js/steroids.js"></script>
+
+    <script>
+
+    // Wait for Cordova to load
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // Cordova is ready
+    function onDeviceReady() {
+      var element = document.querySelector('#deviceProperties');
+
+      element.innerHTML = '<strong>Device Name:</strong> '     + device.name     + '<br>' +
+                          '<strong>Device Cordova:</strong> '  + device.cordova  + '<br>' +
+                          '<strong>Device Platform:</strong> ' + device.platform + '<br>' +
+                          '<strong>Device UUID:</strong> '     + device.uuid     + '<br>' +
+                          '<strong>Device Model:</strong> '    + device.model    + '<br>' +
+                          '<strong>Device Version:</strong> '  + device.version  + '<br>';
+    }
+
+    </script>
+  </head>
+  <body class="content">
+    <div class="padding">
+
+      <h2>Device Properties Example</h1>
+
+      <p id="deviceProperties">Loading device properties...</p>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+
+fs = require("fs");
+path = require("path");
+
+version = process.version;
+
+console.log("Checking for compatibility with Node.js version " + version + " ...");
+console.log("");
+
+if(/^v0\.10/.test(version)) {
+  console.log("... Node version OK");
+  process.exit(0);
+} else {
+  var errorBanner = fs.readFileSync(path.join(__dirname, "..", "support", "error-nocolors")).toString();
+  console.log(errorBanner);
+
+  console.log("\nIn version 3.5.11, Steroids was updated to work on Node.js version 0.10.x only. You are currently using Node.js " + version + ".");
+  console.log("\nIf you have NVM installed, you can use the '$ nvm install 0.10' command to install Node.js 0.10.x, and '$ nvm alias default 0.10' to make it your default Node.js version.");
+  console.log("\nSee the installation instructions at http://guides.appgyver.com/steroids/guides/steroids_npm/installing/ for more information.");
+  console.log("\nNOTE: After you have updated your Node.js version (check with '$ node -v'), you need to write '$ npm install steroids -g' (instead of 'npm update') to update Steroids npm.")
+  console.log("\n\nPress enter to continue...");
+
+  process.stdin.resume();
+  process.stdin.on('data', function (text) {
+    process.exit(1);
+  });
+}

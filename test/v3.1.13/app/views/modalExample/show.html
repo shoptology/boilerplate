@@ -1,0 +1,25 @@
+<script>
+
+  // Helper functions
+
+  function closeModal() {
+    steroids.modal.hide()
+  }
+
+  function askForCloseModal() {
+    var msg = { action: "closeModal" };
+    window.postMessage(msg, "*");
+  }
+
+</script>
+
+
+<div class="content-padded">
+  <h1>Modal</h1>
+
+  <div class="topcoat-button--cta center full" ontouchend="closeModal()">Close modal</div>
+  <br><br>
+  <div class="topcoat-button center full" ontouchend="askForCloseModal()">Ask layer beneath to close modal</div>
+
+</div>
+

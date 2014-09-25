@@ -1,0 +1,28 @@
+#bold[#magenta[Usage:]]
+
+  #bold[steroids data] command arguments
+
+#bold[#magenta[Commands]]:
+
+  #bold[data] #cyan[init]
+    Initialize your app to use Steroids Data, including provisioning a
+    SandboxDB and installing #bold[steroids.data.js].
+
+  #bold[data] #cyan[resources:add resourceName columnName:columnType]
+    Adds a resource to your app's SandboxDB. You can define multiple columns for your resource.
+
+  #bold[data] #cyan[resources:remove resourceName]
+    Removes a resource from your app's SandboxDB.
+
+  #bold[data] #cyan[resources:list]
+    Lists all resources defined in your app's SandboxDB
+
+  #bold[data] #cyan[scaffold resourceName]
+    Generates a show-and-create scaffold for the given resource name.
+    The scaffold is linked to actual data in your app's SandboxDB
+
+  #bold[data] #cyan[manage]
+    Opens the Steroids Data Manager in your web browser.
+
+  #bold[data] #cyan[reset]
+    Deletes your app's SandboxDB and associated local configs.

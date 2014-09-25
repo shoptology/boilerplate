@@ -1,0 +1,10 @@
+/templates/applications/default/www/components/myProject/
+/npm-debug.log
+/node_modules
+/testApp
+.DS_Store
+__test
+
+# WebStorm
+/.idea
+/*.iml

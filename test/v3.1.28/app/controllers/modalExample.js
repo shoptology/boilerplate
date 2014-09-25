@@ -1,0 +1,1 @@
+// JavaScript for the Modal example is inlined, to show more clearly how the HTML and JavaScript interact

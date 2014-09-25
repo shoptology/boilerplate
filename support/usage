@@ -1,0 +1,133 @@
+#bold[#magenta[Synopsis:]]
+
+  steroids #bold[command] arguments #cyan[--options]
+
+#bold[#magenta[Basic usage commands]]:
+
+  #bold[create] APP_PATH
+
+    Creates a new application from the default template.
+
+  #bold[connect]]
+
+    Starts server and allows to connect your iOS device or iOS Simulator to see your application.
+    Provides further instructions for connecting and enters a console for accepting further commands.
+
+    Options:
+
+    #cyan[--port=4567]
+
+      Sets the port for connecting devices.
+
+    #cyan[--ripple]
+
+      Opens Ripple Emulator
+
+      #cyan[--ripplePort=4400] can be used to specify port for the Ripple Emulator
+
+    #cyan[--no-qrcode]
+
+      Do not open the QR code in a separate browser window.
+
+    #cyan[--terminal-qrcode]
+
+      Show all QR codes in the console window instead of opening a separate browser window.
+
+    #cyan[--watch]
+
+      Automatically push code to connected devices on file updates in app/, config/ or www/ directories.
+
+      #cyan[--watchExclude=<path1,path2,path/to/file>] can be used to exclude paths and files, also see setting in application.coffee for permanent excludes
+
+    #cyan[--serve]
+
+      Starts a separate web server in http://localhost:4000 that serves files from dist/ for developing with a browser.
+      When a push is made, the browser refreshes. #underline[Note:] this currently only works if connect is running on the default port.
+
+      #cyan[--servePort=4000] can be used for setting the port for serve.
+
+    #cyan[--deviceType=<device>]
+
+      Specifies the type of iOS Simulator to launch inside connect. See "simulator" command for options.
+
+    #cyan[--weinrePort=31173]
+
+      If #bold[steroids weinre] is started with custom port, match that port here so that `connect` and `weinre` are in sync.
+
+
+  #bold[push]]
+
+    Pushes new version of your application to connected clients (iOS device or iOS Simulator).
+    #underline[Note:] connect needs to be running for push to work.
+
+
+#bold[#magenta[Other usage commands:]]
+
+  #bold[generate] #cyan[GENERATOR]
+
+    Run code generators. Lists all code generators if started without an argument.
+
+  #bold[simulator] #cyan[--deviceType=<deviceType>]
+
+    Launches the iOS Simulator (requires Xcode 6) or the Tizen Web Simulator. Default device is iPhone 4S.
+
+    Valid values for deviceType:
+      #cyan["iphone_4s", "iphone_5", "iphone_5s", "iphone_6", "iphone_6_plus"
+      "ipad_2", "ipad_retina", "ipad_air"]
+      or #cyan["tizenweb"]
+
+    Optionally, append #cyan['@<iOS-version>'] to launch the iOS simulator with a specific iOS version (assuming it is installed); e.g. #cyan['ipad@5.1']
+
+    #cyan[--port=4300]
+
+      Used with #cyan[--deviceType=tizenweb] to start the Tizen Web Simulator in the given port.
+
+  #bold[weinre] #cyan[--port=31173]
+
+    Starts Weinre debugger and waits for connections.
+
+    #underline[Note:] if you start with other port than the default, you must also specify the same debug port for connect process, see #bold[connect] and #cyan[--weinrePort]
+
+  #bold[safari] <part of the location path>
+
+    Opens the Safari Web Inspector (OS X only). Omit <part of the location path> to see a list of open webviews.
+
+    Example: `steroids #bold[safari] show` opens the Safari Web Inspector for a WebView that matches "show" in its location URL.
+
+    #underline[Note:] Enable Develop menu in: Safari -> Preferences -> Advanced
+
+  #bold[update]
+
+    Updates your bower components as defined in bower.json (in your project root).
+
+    Equal to running #bold[bower install] in your project directory. If you wish to use bower more, see installation instructions at: https://github.com/twitter/bower
+
+  #bold[login] #cyan[--port=4567]]
+
+    Logs you in to AppGyver Cloud. Use #cyan[--port] option to switch the local port used if it is already in use.
+
+  #bold[logout]
+
+    Logs you out from the AppGyver Cloud.
+
+  #bold[deploy]
+
+    Deploys your application to AppGyver Cloud.
+
+  #bold[test] #cyan[TYPE] #cyan[arguments]
+
+    Test types:
+      #cyan[karma]
+        Use Karma to run unit tests. Spec files are listed in the Karma configuration file (test/karma.coffee).
+
+        #cyan[init]
+          Create an initial configuration file and example spec for Karma in folder test/
+
+        #cyan[SPECFILE]
+          Run a single spec, e.g. $ #cyan[steroids test karma test/unit/exampleSpec.coffee]
+
+        Additional arguments for #cyan[karma] are:
+          #cyan[--simulator] - run Karma in the Simulator
+          #cyan[--deviceType=<deviceType>] - set simulator device type, see #bold[simulator] usage for device types
+          #cyan[--no-qrcode] - run Karma without showing the QR code web page
+          #cyan[--port=4567]  - set the port for connecting devices

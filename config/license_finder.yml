@@ -1,0 +1,10 @@
+---
+whitelist:
+- MIT
+- BSD
+- MIT/X11
+- Apache 2.0
+- LGPL
+ignore_groups: []
+dependencies_file_dir: ./doc/
+project_name: npm

@@ -1,0 +1,1 @@
+// JavaScript for the Layer stack example is inlined, to show more clearly how the HTML and JavaScript interact

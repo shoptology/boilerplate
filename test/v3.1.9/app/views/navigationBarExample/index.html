@@ -1,0 +1,60 @@
+<script>
+
+// Set up our login text element
+
+var loginText = null;
+
+document.addEventListener("DOMContentLoaded", function() {
+  loginText = document.querySelector("#login-text");
+});
+
+steroids.view.navigationBar.show("Phoenix Foundation");
+var navBarVisible = true;
+
+// Login and logout buttons
+
+var loginButton = new steroids.buttons.NavigationBarButton();
+loginButton.title = "Log in";
+
+var logoutButton = new steroids.buttons.NavigationBarButton();
+logoutButton.title = "Log out";
+
+loginButton.onTap = function() {
+  loginText.textContent = "Welcome, Agnus M.!";
+  steroids.view.navigationBar.setButtons({
+    right: [logoutButton]
+  });
+};
+
+logoutButton.onTap = function() {
+  loginText.textContent = "Please log in.";
+  steroids.view.navigationBar.setButtons({
+    right: [loginButton]
+  });
+}
+
+// Initially display the login button
+
+steroids.view.navigationBar.setButtons({
+  right: [loginButton]
+});
+
+function toggleNavBar() {
+  if (navBarVisible) {
+    steroids.view.navigationBar.hide();
+    navBarVisible = false;
+  } else {
+    steroids.view.navigationBar.show("Phoenix Foundation");
+    navBarVisible = true;
+  }
+}
+  
+</script>
+
+<div class="content-padded">
+
+  <h2 id="login-text">Please log in.</h2>
+
+  <div class="topcoat-button--cta center full" ontouchend="toggleNavBar()">Toggle navigation bar</div>
+
+</div>

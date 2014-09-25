@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width">
+    <title>Cordova Notification Example</title>
+
+    <link rel="stylesheet" href="/vendor/ionic/css/ionic.css" />
+    <link rel="stylesheet" href="/stylesheets/application.css" />
+
+    <!-- cordova.js is served from localhost to ensure the correct version -->
+    <script src="http://localhost/cordova.js"></script>
+    <script src="/components/steroids-js/steroids.js"></script>
+
+    <script>
+
+    steroids.view.navigationBar.show("Notification Example");
+
+    function alertDismissed() {
+      console.log("Alert dismissed!");
+    }
+
+    function showAlert() {
+      navigator.notification.alert(
+        'You are the winner!',  // message
+        alertDismissed,         // callback
+        'Game Over',            // title
+        'Done'                  // buttonName
+      );
+    }
+
+    function confirmDismissed(buttonIndex) {
+      console.log("User selected button number " + buttonIndex);
+    }
+
+    function showConfirm() {
+      navigator.notification.confirm(
+        'You are the winner!',  // message
+        confirmDismissed,       // callback
+        'Game Over',            // title
+        'Restart,Exit'          // buttonLabels
+      );
+    }
+
+    function promptDismissed(results) {
+      console.log("User selected button number " + results.buttonIndex + " and entered the text " + results.input1);
+    }
+
+    function showPrompt() {
+      navigator.notification.prompt(
+        'Please enter your name',  // message
+        promptDismissed,           // callback
+        'Registration',            // title
+        ['Ok','Exit'],             // buttonLabels
+        'Dolan Duck'               // defaultText
+      );
+    }
+
+    function vibrate() {
+      // Vibration duration set in milliseconds
+      navigator.notification.vibrate(500);
+    }
+
+    function beep() {
+      // Number of times to repeat beep as parameter
+      navigator.notification.beep(2);
+    }
+
+    </script>
+  </head>
+  <body class="content">
+    <div class="padding">
+
+      <button class="button button-block" onclick="showAlert()">Show alert dialogue</button>
+      <button class="button button-block" onclick="showConfirm()">Show confirm dialogue</button>
+      <button class="button button-block" onclick="showPrompt()">Show prompt dialogue</button>
+      <button class="button button-block" onclick="vibrate()">Vibrate the device</button>
+      <button class="button button-block" onclick="beep()">Play a sound alert</button>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+
+	#cyan[New version available]
+
+	There is a new version of Steroids CLI available.
+
+	Please update your global Steroids CLI installation with
+
+	$ #bold[npm update steroids -g]
+
