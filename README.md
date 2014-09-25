@@ -16,6 +16,16 @@ Additions and changes we have made to the hackathon-starter project:
 
 
 ## Get Started
+
+Initialize a new git repository. Add this boilerplate as a remote, fetch its history, and rebase `boilerplate/master` into your new project.
+```
+git remote add boilerplate git@github.com:shoptology/boilerplate.git
+git fetch boilerplate
+git rebase boilerplate/master
+```
+
+This gives you the option of merging in changes to the boilerplate. Also possible to just download the files here and remove .git directory and start fresh.
+
 To get started, just run 'gulp' from the root directory and get to work!
 
 ## Environment Files
