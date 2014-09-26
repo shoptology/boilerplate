@@ -55,7 +55,8 @@ db.on('reconnected', function () {
 	console.log('Database reconnected'.green);
 });
 
-mongoose.connect(config.db_url, {server: {auto_reconnect: true}});
+var mongodb_url = process.env.MONGODB || config.db_url;
+mongoose.connect(mongodb_url, {server: {auto_reconnect: true}});
 
 
 // Setup throttling to keep users from abusing the API
