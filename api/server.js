@@ -1,5 +1,5 @@
 /**
-* Sample API build using Swagger by Wordnik, based loosly on their 
+* Sample API build using Swagger by Wordnik, based loosly on their
 * swagger-node-express example at https://github.com/wordnik/swagger-node-express
 *
 * @author Dan Giulvezan
@@ -120,7 +120,7 @@ swagger.configureDeclaration("user", {
 // This is a sample validator.  It simply says that for _all_ POST, DELETE, PUT
 // methods, the header `api_key` OR query param `api_key` must be equal
 // to the string literal `1234`.  All other HTTP ops are A-OK
-swagger.addValidator(
+/*swagger.addValidator(
 	function validate(req, path, httpMethod) {
 		//  example, only allow POST for api_key="special-key"
 		if ("POST" == httpMethod || "DELETE" == httpMethod || "PUT" == httpMethod) {
@@ -129,13 +129,22 @@ swagger.addValidator(
 				apiKey = url.parse(req.url,true).query["api_key"];
 			}
 			if ("1234" == apiKey) {
-				return true; 
+				return true;
 			}
 			return false;
 		}
 		return true;
 	}
 );
+
+swagger.setAuthorizations({
+    apiKey: {
+        type: "apiKey",
+        passAs: "header"
+    }
+});
+
+*/
 
 // set api info
 swagger.setApiInfo({
@@ -147,12 +156,7 @@ swagger.setApiInfo({
 	//licenseUrl: "http://www.apache.org/licenses/LICENSE-2.0.html"
 });
 
-swagger.setAuthorizations({
-	apiKey: {
-		type: "apiKey",
-		passAs: "header"
-	}
-});
+
 
 // Configures the app's base path and api version.
 swagger.configureSwaggerPaths("", "api-docs", "")
