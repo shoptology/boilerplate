@@ -1,5 +1,3 @@
-*Heads up: This repo's a work in progress, so expect it to change while the idea is flushed out more*
-
 ### What is this
 
 This is a rather simple example of an API that can do CRUD operations on documents stored in a MongoDB database.
