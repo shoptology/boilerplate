@@ -8,10 +8,8 @@ gulp.task('watch', ['setWatch', 'browserSync'], function() {
     var lr = livereload();
 	gulp.watch(['app/public/sass/**/*.scss', '!app/public/sass/styles.scss'], ['processSCSS']);
     gulp.watch('app/patterns/**/*.scss', ['processSCSS']);
-    gulp.watch(['app/patterns/**/*.hbs', 'styleguide/source/images/**/*'], ['processPatterns', 'server']);
     gulp.watch(['./app.js', './app/**/*.js', './gulp/**/*.js'], ['server', 'browserify']);
     gulp.watch( [ './app/**/*.js' , './test/unit/**/*.js' , '!./test/unit/coverage/**/*.*' ] , [ 'unitTests' ] );
-    gulp.watch('styleguide/source/branding/**/*.hbs', ['brandingSite']);
 
 	/*gulp.watch('src/images/**', ['images']);
 	gulp.watch('src/htdocs/**', ['copy']);*/
@@ -21,8 +19,4 @@ gulp.task('watch', ['setWatch', 'browserSync'], function() {
         }
     );
 	// Note: The browserify task handles js recompiling with watchify
-});
-
-gulp.task('processPatterns', function() {
-    runSequence('movePatterns', 'processStyleguide');
 });

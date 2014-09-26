@@ -19,6 +19,19 @@
 
   },
   "devDependencies": {
-    "gulp": "^3.8.5"
+    "gulp": "^3.8.5",
+    "gulp-changed": "~0.3.0",
+    "gulp-compile-handlebars": "git+https://github.com/kaanon/gulp-compile-handlebars.git",
+    "gulp-filter": "^0.5.0",
+    "gulp-imagemin": "~0.1.5",
+    "gulp-livereload": "~2.1.0",
+    "gulp-notify": "~1.2.4",
+    "gulp-open": "~0.2.8",
+    "gulp-rename": "^1.2.0",
+    "gulp-rimraf": "^0.1.0",
+    "gulp-shell": "^0.2.9",
+    "gulp-uglify": "^1.0.1",
+    "gulp-util": "~2.2.19",
+    "gulp-watchify": "0.2.0"
   }
 }
