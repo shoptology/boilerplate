@@ -9,7 +9,10 @@
     "start": "node app.js",
     "test": "./node_modules/karma/bin/karma start test/unit/karma.conf.js",
     "unit": "./node_modules/karma/bin/karma start test/unit/karma.conf.js",
-    "integration": "node test/integration"
+    "integration": "node test/integration",
+    "pull-api": "git subtree pull --prefix=api --squash https://github.com/shoptology/api.git master",
+    "pull-admin": "git subtree pull --prefix=admin --squash https://github.com/shoptology/mongorilla.git config-manager"
+    "pull-native": "git subtree pull --prefix=native --squash https://github.com/AppGyver/steroids.git master"
   },
   "dependencies": {
     "MD5": "^1.2.1",
