@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
     _ = require('underscore');
 
 
-exports.getModel = function () {
+exports.getModel = function() {
     var model = mongoose.models['fs.files'];
 
     if (model) {
@@ -17,9 +17,11 @@ exports.getModel = function () {
 
     } else {
 
-        var ModelSchema = new Schema({ metadata: Object }, {
+        var ModelSchema = new Schema({
+            metadata: Object
+        }, {
             toJSON: {
-                transform: function (doc, ret) { 
+                transform: function(doc, ret) {
                     delete ret.length; // this causes problems on backbone forms
                     return ret;
                 }

@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
 
 require('./file').getModel();
 
-exports.getModel = function (collectionName) {
+exports.getModel = function(collectionName) {
     var model = mongoose.models[collectionName];
 
     if (model) {
@@ -18,7 +18,7 @@ exports.getModel = function (collectionName) {
 
     } else {
 
-        var collection = _(global.config.collections).find(function (col) {
+        var collection = _(global.config.collections).find(function(col) {
             return col.name === collectionName;
         });
 
@@ -44,7 +44,7 @@ exports.getModel = function (collectionName) {
                 Url
         */
 
-        _(collection.backboneForms.schema).each(function (def, key) {
+        _(collection.backboneForms.schema).each(function(def, key) {
             switch (def.type) {
                 default:
                 case 'Text':     schema[key] = String; break;
@@ -62,17 +62,23 @@ exports.getModel = function (collectionName) {
         });
 
         /// add custom relations
-        _(collection.relations).each(function (relation, key) {
+        _(collection.relations).each(function(relation, key) {
             if ('HasMany' === relation.type) {
-                schema[key] = [ { type: ObjectId, ref: relation.relatedCollection } ];
+                schema[key] = [{
+                    type: ObjectId,
+                    ref: relation.relatedCollection
+                }];
             } else if ('HasOne' === relation.type) {
-                schema[key] = { type: ObjectId, ref: relation.relatedCollection };
+                schema[key] = {
+                    type: ObjectId,
+                    ref: relation.relatedCollection
+                };
             }
         });
 
 
-        schema[collection.createdField.key] = global[collection.createdField.type||'Date'];
-        schema[collection.updatedField.key] = global[collection.updatedField.type||'Date'];
+        schema[collection.createdField.key] = global[collection.createdField.type || 'Date'];
+        schema[collection.updatedField.key] = global[collection.updatedField.type || 'Date'];
 
         var options = {
             // http://aaronheckmann.tumblr.com/post/48943525537/mongoose-v3-part-1-versioning
@@ -86,7 +92,7 @@ exports.getModel = function (collectionName) {
         mongoose.model(collectionName, ModelSchema, collectionName);
 
         // this is only for loading purposes: whitout this the refs may not work
-        _(collection.relations).each(function (relation, key) {
+        _(collection.relations).each(function(relation, key) {
             if (!mongoose.models[relation.relatedCollection] && 'fs.files' !== relation.relatedCollection) {
                 var relatedModel = exports.getModel(relation.relatedCollection);
             }

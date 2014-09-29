@@ -5,7 +5,7 @@
 
 var _ = require('underscore');
 
-exports.stringify = function (obj) {
+exports.stringify = function(obj) {
     var nobj = _(obj).clone();
     nobj = objToStringJS(nobj);
     var str = JSON.stringify(nobj);
@@ -19,28 +19,30 @@ exports.url = function(options) {
 };
 
 function deepClone(item) {
-    if (!item) { return item; } // null, undefined values check
+    if (!item) {
+        return item;
+    } // null, undefined values check
 
-    var types = [ Number, String, Boolean ], 
+    var types = [Number, String, Boolean],
         result;
 
     // normalizing primitives if someone did new String('aaa'), or new Number('444');
     types.forEach(function(type) {
         if (item instanceof type) {
-            result = type( item );
+            result = type(item);
         }
     });
 
     if (typeof result == "undefined") {
-        if (Object.prototype.toString.call( item ) === "[object Array]") {
+        if (Object.prototype.toString.call(item) === "[object Array]") {
             result = [];
-            item.forEach(function(child, index, array) { 
-                result[index] = deepClone( child );
+            item.forEach(function(child, index, array) {
+                result[index] = deepClone(child);
             });
         } else if (typeof item == "object") {
             // testing that this is DOM
             if (item.nodeType && typeof item.cloneNode == "function") {
-                var result = item.cloneNode( true );    
+                var result = item.cloneNode(true);
             } else if (!item.prototype) { // check that this is a literal
                 if (item instanceof Date) {
                     result = new Date(item);
@@ -48,7 +50,7 @@ function deepClone(item) {
                     // it is an object literal
                     result = {};
                     for (var i in item) {
-                        result[i] = deepClone( item[i] );
+                        result[i] = deepClone(item[i]);
                     }
                 }
             } else {
@@ -104,7 +106,7 @@ function objToPaths(obj) {
     return ret;
 }
 
-exports.toFlat = function (obj) {
+exports.toFlat = function(obj) {
     return objToPaths(obj);
 };
 
@@ -122,7 +124,7 @@ function objToJS__construct(constructor, args) {
 function objToStringJS(obj) {
 
     if (obj.__constructor) {
-        return '__js:'+objToJS__construct(global[obj.__constructor], obj.__arguments||[]).toString();
+        return '__js:' + objToJS__construct(global[obj.__constructor], obj.__arguments || []).toString();
     }
 
     for (var key in obj) {
@@ -142,7 +144,7 @@ function objToJS(obj, map) {
     if (obj.__constructor) {
         return objToJS__construct(
             global[obj.__constructor],
-            'function' === typeof map ? _(obj.__arguments||[]).map(map) : obj.__arguments||[]
+            'function' === typeof map ? _(obj.__arguments || []).map(map) : obj.__arguments || []
         );
     }
 
@@ -159,20 +161,20 @@ function objToJS(obj, map) {
 }
 
 // WARNING: use _().clone() before calling this against a config object
-exports.toJS = function (obj, map) {
+exports.toJS = function(obj, map) {
     return objToJS(obj, map);
 };
 
 // has sessionUser permission over a certain collection?
-exports.hasPermission = function (sessionUser, collectionName, crudActions) {
+exports.hasPermission = function(sessionUser, collectionName, crudActions) {
     var _ = require('underscore');
     // crudActions must be a string: eg. "r", "c", or "cr"
-    return sessionUser && sessionUser.roles && _(sessionUser.roles).any(function (roleName, i) {
-        return _(global.config.roles).find(function (role) {
-            return role.name === roleName 
-                && _(crudActions.split()).all(function (crudAction) {
-                        return !!~(role.permissions[collectionName]||'').indexOf(crudAction);
+    return sessionUser && sessionUser.roles && _(sessionUser.roles).any(function(roleName, i) {
+            return _(global.config.roles).find(function(role) {
+                return role.name === roleName
+                    && _(crudActions.split()).all(function(crudAction) {
+                        return !!~(role.permissions[collectionName] || '').indexOf(crudAction);
                     });
+            });
         });
-    });
 };
