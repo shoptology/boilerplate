@@ -1,106 +1,111 @@
-/*
- * patternlab-node - v0.1.5 - 2014
- *
+/* 
+ * patternlab-node - v0.1.2 - 2014-11-10 
+ * 
  * Brian Muenzenmeyer, and the web community.
- * Licensed under the MIT license.
- *
- * Many thanks to Brad Frost and Dave Olsen for inspiration, encouragement, and advice.
+ * Licensed under the MIT license. 
+ * 
+ * Many thanks to Brad Frost and Dave Olsen for inspiration, encouragement, and advice. 
  *
  */
 
-var patternlab_engine = function() {
+var patternlab_engine = function(grunt) {
     var path = require('path'),
-        fs = require('fs-extra'),
-        diveSync = require('diveSync'),
         hbs = require('handlebars'),
         of = require('./object_factory'),
         pa = require('./pattern_assembler'),
-        mh = require('./media_hunter'),
         patternlab = {};
 
-    patternlab.package = fs.readJSONSync('./package.json');
-    patternlab.config = fs.readJSONSync('./config.json');
+    patternlab.package = grunt.file.readJSON('package.json');
+    patternlab.config = grunt.file.readJSON('config.json');
+
+
+    /**
+     *  Boilerplate specific code
+     */
+
+    try {
+        var helpers = require('../../web/lib/helpers.js');
+        helpers.register(hbs);
+    } catch ( e ) {
+        console.log('Couldnt load external helpers');
+    }
+
+
+    // Goes in the BuildPatterns function.  Only lets handlebars files through
+    //
+    // grunt.file.recurse('../app/patterns/', function(abspath, rootdir, subdir, filename){
+    //
+    //if( ( filename.charAt(0) === '_' ) || !grunt.util._.str.include(filename, 'hbs') ){
+    //    return;
+    //}
+
+    /** End */
 
     function getVersion() {
-        console.log(patternlab.package.version);
+        grunt.log.ok(patternlab.package.version);
     }
 
     function help() {
-        console.log('Patternlab Node Help');
-        console.log('===============================');
-        console.log('Command Line Arguments');
-        console.log('patternlab:only_patterns');
-        console.log(' > Compiles the patterns only, outputting to ./public/patterns');
-        console.log('patternlab:v');
-        console.log(' > Retrieve the version of patternlab-node you have installed');
-        console.log('patternlab:help');
-        console.log(' > Get more information about patternlab-node, pattern lab in general, and where to report issues.');
-        console.log('===============================');
-        console.log('Visit http://patternlab.io/docs/index.html for general help on pattern-lab');
-        console.log('Visit https://github.com/pattern-lab/patternlab-node/issues to open a bug.');
+        grunt.log.subhead('Patternlab Node Help');
+        grunt.log.writeln('===============================');
+        grunt.log.writeln('Command Line Arguments');
+        grunt.log.writeln('patternlab:only_patterns');
+        grunt.log.writeln(' > Compiles the patterns only, outputting to ./public/patterns');
+        grunt.log.writeln('patternlab:v');
+        grunt.log.writeln(' > Retrieve the version of patternlab-node you have installed');
+        grunt.log.writeln('patternlab:help');
+        grunt.log.writeln(' > Get more information about patternlab-node, pattern lab in general, and where to report issues.');
+        grunt.log.writeln('===============================');
+        grunt.log.writeln('Visit http://patternlab.io/docs/index.html for general help on pattern-lab');
+        grunt.log.writeln('Visit https://github.com/pattern-lab/patternlab-node/issues to open a bug.');
     }
 
     function printDebug() {
         //debug file can be written by setting flag on config.json
         if (patternlab.config.debug) {
-            console.log('writing patternlab debug file to ./patternlab.json');
-            fs.outputFileSync('./patternlab.json', JSON.stringify(patternlab, null, 3));
+            var outputFilename = './patternlab.json';
+            grunt.file.write(outputFilename, JSON.stringify(patternlab, null, 3));
         }
     }
 
-    function buildPatterns(callback) {
-        patternlab.data = fs.readJSONSync('./source/_data/data.json');
-        patternlab.listitems = fs.readJSONSync('./source/_data/listitems.json');
-        patternlab.header = fs.readFileSync('./source/_patternlab-files/pattern-header-footer/header.html', 'utf8');
-        patternlab.footer = fs.readFileSync('./source/_patternlab-files/pattern-header-footer/footer.html', 'utf8');
+    function buildPatterns() {
+        patternlab.data = grunt.file.readJSON('./source/_data/data.json');
+        patternlab.listitems = grunt.file.readJSON('./source/_data/listitems.json');
+        patternlab.header = grunt.file.read('./source/_patternlab-files/pattern-header-footer/header.html');
+        patternlab.footer = grunt.file.read('./source/_patternlab-files/pattern-header-footer/footer.html');
         patternlab.patterns = [];
         patternlab.patternIndex = [];
         patternlab.partials = {};
 
-        diveSync('./source/_patterns', function(err, file) {
-
-            //log any errors
-            if (err) {
-                console.log(err);
-                return;
-            }
-
-            //extract some information
-            var abspath = file.substring(2);
-            var subdir = path.dirname(path.relative('./source/_patterns', file));
-            var filename = path.basename(file);
-
+        grunt.file.recurse(patternlab.config.patterns.source, function(abspath, rootdir, subdir, filename) {
             //check if the pattern already exists.
-            var patternName = filename.substring(0, filename.indexOf('.')),
-                patternIndex = patternlab.patternIndex.indexOf(subdir + '-' + patternName),
-                currentPattern,
-                flatPatternPath;
+            var patternName = filename.substring(0, filename.indexOf('.'));
+            var patternIndex = patternlab.patternIndex.indexOf(subdir + '-' + patternName);
+            var currentPattern;
+            var flatPatternPath;
 
-            //ignore _underscored patterns, json, and dotfiles
-            if (filename.charAt(0) === '_' || path.extname(filename) === '.json' || filename.charAt(0) === '.') {
+            //ignore _underscored patterns and json
+            if ((filename.charAt(0) === '_') || !grunt.util._.str.include(filename, 'hbs')) {
                 return;
             }
+
+            // we only want
+
 
             //make a new Pattern Object
-            var flatPatternName = subdir.replace(/[\/\\]/g, '-') + '-' + patternName;
-
-            flatPatternName = flatPatternName.replace(/\\/g, '-');
+            var flatPatternName = subdir.replace(/\//g, '-') + '-' + patternName;
+            flatPatternName = flatPatternName.replace(/\//g, '-');
             currentPattern = new of.oPattern(flatPatternName, subdir, filename, {});
             currentPattern.patternName = patternName.substring(patternName.indexOf('-') + 1);
             currentPattern.data = null;
 
-            //see if this file has a state
-            if (patternlab.config.patternStates[currentPattern.patternName]) {
-                currentPattern.patternState = patternlab.config.patternStates[currentPattern.patternName];
-            }
-
             //look for a json file for this template
             try {
                 var jsonFilename = abspath.substr(0, abspath.lastIndexOf(".")) + ".json";
-                currentPattern.data = fs.readJSONSync(jsonFilename);
+                currentPattern.data = grunt.file.readJSON(jsonFilename);
             } catch ( e ) {}
 
-            currentPattern.template = fs.readFileSync(abspath, 'utf8');
+            currentPattern.template = grunt.file.read(abspath);
 
             //render the pattern. pass partials object just in case.
             if (currentPattern.data) { // Pass JSON as data
@@ -115,12 +120,12 @@ var patternlab_engine = function() {
             //add footer info before writing
             var currentPatternFooter = renderPattern(patternlab.footer, currentPattern);
 
-            fs.outputFileSync('./public/patterns/' + flatPatternPath, patternlab.header + currentPattern.patternPartial + currentPatternFooter);
+            grunt.file.write('./public/patterns/' + flatPatternPath, patternlab.header + currentPattern.patternPartial + currentPatternFooter);
             currentPattern.patternLink = flatPatternPath;
 
             //add as a partial in case this is referenced later.  convert to syntax needed by existing patterns
             var sub = subdir.substring(subdir.indexOf('-') + 1);
-            var folderIndex = sub.indexOf(path.sep);
+            var folderIndex = sub.indexOf('/'); //THIS IS MOST LIKELY WINDOWS ONLY.  path.sep not working yet
             var cleanSub = sub.substring(0, folderIndex);
 
             //add any templates found to an object of partials, so downstream templates may use them too
@@ -129,6 +134,7 @@ var patternlab_engine = function() {
                 var partialname = cleanSub + '-' + patternName.substring(patternName.indexOf('-') + 1);
 
                 patternlab.partials[partialname] = currentPattern.template;
+                hbs.registerPartial(partialname, currentPattern.template);
 
                 //done
             }
@@ -136,6 +142,7 @@ var patternlab_engine = function() {
             //add to patternlab arrays so we can look these up later.  this could probably just be an object.
             patternlab.patternIndex.push(currentPattern.name);
             patternlab.patterns.push(currentPattern);
+
         });
 
     }
@@ -146,25 +153,20 @@ var patternlab_engine = function() {
         patternlab.patternPaths = {};
         patternlab.viewAllPaths = {};
 
-        //find mediaQueries
-        // var media_hunter = new mh();
-        // media_hunter.find_media_queries(patternlab);
-        // console.log(patternlab.mediaQueries);
-
         //build the styleguide
-        var styleguideTemplate = fs.readFileSync('./source/_patternlab-files/styleguide.hbs', 'utf8');
+        var styleguideTemplate = grunt.file.read('./source/_patternlab-files/styleguide.hbs');
         var styleguideHtml = renderPattern(styleguideTemplate, {
             partials: patternlab.patterns
         });
-        fs.outputFileSync('./public/styleguide/html/styleguide.html', styleguideHtml);
+        grunt.file.write('./public/styleguide/html/styleguide.html', styleguideHtml);
 
         //build the patternlab website
-        var patternlabSiteTemplate = fs.readFileSync('./source/_patternlab-files/index.hbs', 'utf8');
+        var patternlabSiteTemplate = grunt.file.read('./source/_patternlab-files/index.hbs');
 
         //loop through all patterns.  deciding to do this separate from the recursion, even at a performance hit, to attempt to separate the tasks of styleguide creation versus site menu creation
         for (var i = 0; i < patternlab.patterns.length; i++) {
             var pattern = patternlab.patterns[i];
-            var bucketName = pattern.name.replace(/\\/g, '-').split('-')[1];
+            var bucketName = pattern.name.replace(/\//g, '-').split('-')[1];
 
             //check if the bucket already exists
             var bucketIndex = patternlab.bucketIndex.indexOf(bucketName);
@@ -181,6 +183,8 @@ var patternlab_engine = function() {
                 //get the navSubItem
                 var navSubItemName = pattern.patternName.replace(/-/g, ' ');
 
+                //grunt.log.writeln('new bucket found: ' + bucketName + " " + navItemName + " " + navSubItemName);
+
                 //test whether the pattern struture is flat or not - usually due to a template or page
                 var flatPatternItem = false;
                 if (navItemName === bucketName) {
@@ -195,18 +199,13 @@ var patternlab_engine = function() {
                 navSubItem.patternPath = pattern.patternLink;
                 navSubItem.patternPartial = bucketName + "-" + pattern.patternName; //add the hyphenated name
 
-                //add the patternState if it exists
-                if (pattern.patternState) {
-                    navSubItem.patternState = pattern.patternState;
-                }
-
                 //if it is flat - we should not add the pattern to patternPaths
                 if (flatPatternItem) {
 
                     bucket.patternItems.push(navSubItem);
 
                     //add to patternPaths
-                    addToPatternPaths(bucketName, pattern);
+                    patternlab.patternPaths[bucketName][pattern.patternName] = pattern.subdir + "/" + pattern.filename.substring(0, pattern.filename.indexOf('.'));
 
                 } else {
 
@@ -216,7 +215,7 @@ var patternlab_engine = function() {
                     navItem.navSubItemsIndex.push(navSubItemName);
 
                     //add to patternPaths
-                    addToPatternPaths(bucketName, pattern);
+                    patternlab.patternPaths[bucketName][pattern.patternName] = pattern.subdir + "/" + pattern.filename.substring(0, pattern.filename.indexOf('.'));
 
                 }
 
@@ -241,11 +240,6 @@ var patternlab_engine = function() {
                 navSubItem.patternPath = pattern.patternLink;
                 navSubItem.patternPartial = bucketName + "-" + pattern.patternName; //add the hyphenated name
 
-                //add the patternState if it exists
-                if (pattern.patternState) {
-                    navSubItem.patternState = pattern.patternState;
-                }
-
                 //test whether the pattern struture is flat or not - usually due to a template or page
                 var flatPatternItem = false;
                 if (navItemName === bucketName) {
@@ -259,7 +253,7 @@ var patternlab_engine = function() {
                     bucket.patternItems.push(navSubItem);
 
                     //add to patternPaths
-                    addToPatternPaths(bucketName, pattern);
+                    patternlab.patternPaths[bucketName][pattern.patternName] = pattern.subdir + "/" + pattern.filename.substring(0, pattern.filename.indexOf('.'));
 
                 } else {
                     //check to see if navItem exists
@@ -282,40 +276,46 @@ var patternlab_engine = function() {
                     }
 
                     // just add to patternPaths
-                    addToPatternPaths(bucketName, pattern);
+                    patternlab.patternPaths[bucketName][pattern.patternName] = pattern.subdir + "/" + pattern.filename.substring(0, pattern.filename.indexOf('.'));
+
                 }
 
             }
 
         }
+        ;
 
         //the patternlab site requires a lot of partials to be rendered.
         //patternNav
-        var patternNavTemplate = fs.readFileSync('./source/_patternlab-files/partials/patternNav.hbs', 'utf8');
+        var patternNavTemplate = grunt.file.read('./source/_patternlab-files/partials/patternNav.hbs');
         var patternNavPartialHtml = renderPattern(patternNavTemplate, patternlab);
+        hbs.registerPartial('patternNav', patternNavPartialHtml);
 
         //ishControls
-        var ishControlsTemplate = fs.readFileSync('./source/_patternlab-files/partials/ishControls.hbs', 'utf8');
+        var ishControlsTemplate = grunt.file.read('./source/_patternlab-files/partials/ishControls.hbs');
         var ishControlsPartialHtml = renderPattern(ishControlsTemplate, patternlab.config);
+        hbs.registerPartial('ishControls', ishControlsPartialHtml);
 
         //patternPaths
-        var patternPathsTemplate = fs.readFileSync('./source/_patternlab-files/partials/patternPaths.hbs', 'utf8');
+        var patternPathsTemplate = grunt.file.read('./source/_patternlab-files/partials/patternPaths.hbs');
         var patternPathsPartialHtml = renderPattern(patternPathsTemplate, {
             'patternPaths': JSON.stringify(patternlab.patternPaths)
         });
+        hbs.registerPartial('patternPaths', patternPathsPartialHtml);
 
         //viewAllPaths
-        var viewAllPathsTemplate = fs.readFileSync('./source/_patternlab-files/partials/viewAllPaths.hbs', 'utf8');
+        var viewAllPathsTemplate = grunt.file.read('./source/_patternlab-files/partials/viewAllPaths.hbs');
         var viewAllPathersPartialHtml = renderPattern(viewAllPathsTemplate, {
             'viewallpaths': JSON.stringify(patternlab.viewAllPaths)
         });
+        hbs.registerPartial('viewAllPaths', viewAllPathersPartialHtml);
 
         //websockets
-        var websocketsTemplate = fs.readFileSync('./source/_patternlab-files/partials/websockets.hbs', 'utf8');
+        var websocketsTemplate = grunt.file.read('./source/_patternlab-files/partials/websockets.hbs');
         patternlab.contentsyncport = patternlab.config.contentSyncPort;
         patternlab.navsyncport = patternlab.config.navSyncPort;
-
         var websocketsPartialHtml = renderPattern(websocketsTemplate, patternlab);
+        hbs.registerPartial('websockets', websocketsPartialHtml);
 
         //render the patternlab template, with all partials
         var patternlabSiteHtml = renderPattern(patternlabSiteTemplate, {}, {
@@ -325,7 +325,8 @@ var patternlab_engine = function() {
             'websockets': websocketsPartialHtml,
             'viewAllPaths': viewAllPathersPartialHtml
         });
-        fs.outputFileSync('./public/index.html', patternlabSiteHtml);
+        grunt.file.write('./public/index.html', patternlabSiteHtml);
+
     }
 
     function renderPattern(name, data, partials) {
@@ -334,14 +335,12 @@ var patternlab_engine = function() {
         return source;
     }
 
-    function addToPatternPaths(bucketName, pattern) {
-        //this is messy, could use a refactor.
-        patternlab.patternPaths[bucketName][pattern.patternName] = pattern.subdir.replace(/\\/g, '/') + "/" + pattern.filename.substring(0, pattern.filename.indexOf('.'));
-    }
-
     return {
         version: function() {
             return getVersion();
+        },
+        setSource: function(src) {
+            patternlab.config.patterns.source = src;
         },
         build: function() {
             buildPatterns();
@@ -352,6 +351,7 @@ var patternlab_engine = function() {
             help();
         },
         build_patterns_only: function() {
+            grunt.log.ok('only_patterns argument not yet implemented');
             buildPatterns();
             printDebug();
         }
@@ -360,3 +360,38 @@ var patternlab_engine = function() {
 };
 
 module.exports = patternlab_engine;
+
+module.exports = function(grunt) {
+    grunt.registerTask('patternlab', 'create design systems with atomic design', function(arg) {
+
+        var patternlab = patternlab_engine(grunt);
+
+        if (arguments.length === 0) {
+            patternlab.build();
+        }
+
+        // SHOPTOLOGY
+        if (arg && arg === 'web') {
+            patternlab.setSource("../web/app/patterns/");
+            patternlab.build();
+        }
+
+        if (arg && arg === 'v') {
+            patternlab.version();
+        }
+
+        if (arg && arg === "only_patterns") {
+            patternlab.build_patterns_only();
+        }
+
+        if (arg && arg === "help") {
+            patternlab.help();
+        }
+
+        if (arg && (arg !== "v" && arg !== "only_patterns" && arg !== "help" && arg !== "web")) {
+            patternlab.help();
+        }
+
+    });
+
+};

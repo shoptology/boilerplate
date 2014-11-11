@@ -4,7 +4,9 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         clean: {
-            options: { force: true },
+            options: {
+                force: true
+            },
             files: ['./public/patterns']
         },
         concat: {
@@ -24,22 +26,43 @@ module.exports = function(grunt) {
         copy: {
             main: {
                 files: [
-                    { expand: true, cwd: './source/js/', src: '*', dest: './public/js/'},
-                    { expand: true, cwd: './source/css/', src: 'style.css', dest: './public/css/' },
-                    { expand: true, cwd: './source/images/', src: ['*.png', '*.jpg', '*.gif', '*.jpeg'], dest: './public/images/' },
-                    { expand: true, cwd: './source/images/sample/', src: ['*.png', '*.jpg', '*.gif', '*.jpeg'], dest: './public/images/sample/'},
-                    { expand: true, cwd: './source/images/branding/', src: ['*.png', '*.jpg', '*.gif', '*.jpeg'], dest: './public/images/branding/'},
-                    { expand: true, cwd: './source/fonts/', src: '*', dest: './public/fonts/'},
-                    { expand: true, cwd: './source/_data/', src: 'annotations.js', dest: './public/data/' }
+                    {
+                        expand: true,
+                        cwd: './source/js/',
+                        src: '*',
+                        dest: './public/js/'
+                    },
+                    {
+                        expand: true,
+                        cwd: './source/css/',
+                        src: 'style.css',
+                        dest: './public/css/'
+                    },
+                    {
+                        expand: true,
+                        cwd: './source/images/',
+                        src: ['*.png', '*.jpg', '*.gif', '*.jpeg'],
+                        dest: './public/images/'
+                    },
+                    {
+                        expand: true,
+                        cwd: './source/images/sample/',
+                        src: ['*.png', '*.jpg', '*.gif', '*.jpeg'],
+                        dest: './public/images/sample/'
+                    },
+                    {
+                        expand: true,
+                        cwd: './source/fonts/',
+                        src: '*',
+                        dest: './public/fonts/'
+                    },
+                    {
+                        expand: true,
+                        cwd: './source/_data/',
+                        src: 'annotations.js',
+                        dest: './public/data/'
+                    }
                 ]
-            }
-        },
-        'compile-handlebars': {
-            branding: {
-                template: 'source/branding/**/*.hbs',
-                templateData: {},
-                output: 'public/branding/**/*.html',
-                partials: ['source/branding/head-footer/head.hbs', 'source/branding/head-footer/footer.hbs'],
             }
         },
         jshint: {
@@ -94,6 +117,7 @@ module.exports = function(grunt) {
 
     //if you choose to use scss, or any preprocessor, you can add it here
     grunt.registerTask('default', ['clean', 'concat', 'patternlab', /*'sass',*/ 'copy']);
+    grunt.registerTask('webapp', ['clean', 'concat', 'patternlab:web', /*'sass',*/ 'copy']);
 
     //travis CI task
     grunt.registerTask('travis', ['clean', 'concat', 'patternlab', /*'sass',*/ 'copy', 'nodeunit']);
