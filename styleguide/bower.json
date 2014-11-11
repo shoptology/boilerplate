@@ -1,0 +1,14 @@
+{
+  "name": "boilerplate",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "font-awesome": "~4.1.0",
+    "bootstrap-social": "~4.5.1",
+    "bootstrap-sass-official": "~3.2.0"
+  }
+}
