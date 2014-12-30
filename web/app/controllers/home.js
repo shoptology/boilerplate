@@ -10,3 +10,10 @@ exports.index = function(req, res) {
         title: 'Home'
     });
 };
+
+exports.app = function(req, res) {
+    res.render('app', {
+        title: 'App',
+        layout: 'layout-app'
+    });
+};

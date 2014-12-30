@@ -30,3 +30,4 @@ node_modules
 data
 
 styleguide/source/_patterns
+bower_components

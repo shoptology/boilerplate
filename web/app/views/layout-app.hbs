@@ -1,0 +1,31 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7">
+<![endif]-->
+<!--[if IE 7]>
+<html lang="en" class="no-js lt-ie9 lt-ie8">
+<![endif]-->
+<!--[if IE 8]>
+<html lang="en" class="no-js lt-ie9">
+<![endif]-->
+<!--[if gt IE 8]>
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width" />
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+  {{#if dev.livereload}}
+    <script src="http://localhost:35729/livereload.js"></script>
+  {{/if}}
+</head>
+<body ng-controller="AppCtrl">
+
+    {{{body}}}
+
+    <script data-main="js/main" src="bower_components/requirejs/require.js"></script>
+
+</body>

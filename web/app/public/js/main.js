@@ -1,10 +1,25 @@
-'use strict';
+/*global requirejs, document, window, navigator, console */
 
-var Components = require('./lib/components');
-
-$(document).ready(function() {
-	// Component Controller
-	// Initialization registers all components in the DOM
-	// to their controllers
-	Components = new Components();
+requirejs.config({
+    paths: {
+        angular: '../../bower_components/angular/angular',
+        uiRouter: '../../bower_components/angular-ui-router/release/angular-ui-router'
+    },
+    shim: {
+        angular: {
+            exports: 'angular'
+        },
+        uiRouter: {
+            deps: ['angular']
+        },
+        socketIo: {
+            deps: ['angular']
+        }
+    },
+    priority: [
+        'angular'
+    ],
+    deps: [
+        'bootstrap'
+    ]
 });
