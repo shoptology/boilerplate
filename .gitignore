@@ -23,11 +23,21 @@ build/Release
 # Environments
 .env
 
-# Dependency directory
-# Deployed apps should consider commenting this line out:
-# see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
+# node-migrate
+.migrate
+
+# node modules (use npm-shrinkwrap)
 node_modules
-data
 
 styleguide/source/_patterns
 bower_components
+
+# Sublime workspaces
+*.sublime-workspace
+
+# SublimeTasks documents
+*.TODO
+
+# Cordova/Phonegap
+native/hooks/after_prepare/*
+native/platforms/*
