@@ -6,14 +6,12 @@
  */
 
 exports.index = function(req, res) {
-    res.render('home', {
-        title: 'Home'
+    res.render('single-page-app/app', {
+        title: 'App',
+        layout: 'layout-spa'
     });
 };
 
 exports.app = function(req, res) {
-    res.render('app', {
-        title: 'App',
-        layout: 'layout-app'
-    });
+
 };

@@ -3,8 +3,7 @@
 var gulp = require('gulp'),
     compass = require('gulp-compass'),
     path = require('path'),
-    rename = require('gulp-rename'),
-    browserSync = require('browser-sync');
+    rename = require('gulp-rename');
 
 gulp.task('compass', function() {
 
@@ -17,6 +16,6 @@ gulp.task('compass', function() {
             style : 'compact'
         }) )
         .pipe(gulp.dest('./app/public/css/'))
-        .pipe(browserSync.reload({stream:true}));
+        //.pipe(browserSync.reload({stream:true}));
 
 });

@@ -1,6 +1,6 @@
 'use strict';
 
-var browserSync = require('browser-sync');
+/*var browserSync = require('browser-sync');
 var gulp = require('gulp');
 
 gulp.task('browserSync', ['build'], function() {
@@ -10,3 +10,4 @@ gulp.task('browserSync', ['build'], function() {
 		}
 	});
 });
+*/
