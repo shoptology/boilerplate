@@ -1,6 +1,0 @@
---reporter list
---globals suite,test,suiteSetup,setup,teardown,suiteTeardown
---ui tdd
---timeout 4000
---debug
---growl

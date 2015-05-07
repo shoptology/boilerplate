@@ -10,18 +10,8 @@
 
     // Custom globals.
     "predef"        : [
-        "suite",
-        "test",
-        "suiteSetup",
-        "setup",
-        "teardown",
-        "suiteTeardown",
-        "describe",
-        "it",
-        "before",
-        "after",
-        "beforeEach",
-        "afterEach"
+        "define",
+        "require"
     ],
 
     // Development.
@@ -44,7 +34,7 @@
     "eqeqeq"        : true,   // Require triple equals i.e. `===`.
     "eqnull"        : true,   // Tolerate use of `== null`.
     "evil"          : false,  // Tolerate use of `eval`.
-    "expr"          : true,  // Tolerate `ExpressionStatement` as Programs.
+    "expr"          : false,  // Tolerate `ExpressionStatement` as Programs.
     "forin"         : false,  // Tolerate `for in` loops without `hasOwnPrototype`.
     "immed"         : true,   // Require immediate invocations to be wrapped in parens e.g. `( function(){}() );`
     "indent"        : 4,      // This option enforces specific tab width for your code.
