@@ -1,0 +1,32 @@
+{
+  "name": "webpack-browsersync-reload",
+  "version": "0.1.0",
+  "author": {
+    "name": "Rob Marscher @rmarscher"
+  },
+  "description": "Offers a dev middleware for webpack, which arguments a live bundle to a directory",
+  "homepage": "http://github.com/shoptology/webpack-browsersync-reload",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shoptology/webpack-browsersync-reload.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shoptology/shoptology/webpack-browsersync-reload/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/mit-license.php"
+    }
+  ],
+  "engines": {
+    "node": ">=0.6"
+  },
+  "peerDependencies": {
+    "webpack": "1.x",
+    "browser-sync": "^2.7.0"
+  },
+  "dependencies": {
+  },
+  "main": "webpack-browsersync-reload.js"
+}

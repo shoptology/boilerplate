@@ -1,0 +1,15 @@
+{
+  "name": "@shoptology/globals",
+  "version": "1.0.0",
+  "description": "Registers a couple very convenient global vars.",
+  "main": "globals.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shoptology",
+  "license": "ISC",
+  "dependencies": {
+    "@shoptology/config": "^1.0.1",
+    "@shoptology/log": "^1.0.0"
+  }
+}

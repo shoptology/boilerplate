@@ -1,0 +1,14 @@
+{
+  "name": "@shoptology/express-error-handling",
+  "version": "1.0.0",
+  "description": "Handles errors in express routes the Shoptology way.",
+  "main": "express-error-handling.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shoptology",
+  "license": "ISC",
+  "dependencies": {
+    "@shoptology/api-envelope": "^1.0.1"
+  }
+}

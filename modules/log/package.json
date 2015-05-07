@@ -1,0 +1,15 @@
+{
+  "name": "@shoptology/log",
+  "version": "1.0.0",
+  "description": "Initializes a logging object the Shoptology way.",
+  "main": "log.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shoptology",
+  "license": "ISC",
+  "dependencies": {
+    "@shoptology/config": "^1.0.1",
+    "bunyan": "^1.3.5"
+  }
+}

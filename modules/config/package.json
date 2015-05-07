@@ -1,0 +1,16 @@
+{
+  "name": "@shoptology/config",
+  "version": "1.0.1",
+  "description": "Initializes a config object the Shoptology way.",
+  "main": "config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shoptology",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^1.1.0",
+    "nconf": "^0.7.1",
+    "newrelic": "^1.19.0"
+  }
+}
