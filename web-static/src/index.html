@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-cloak>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>Webpack Angular</title>
+  </head>
+  <body class="app">
+    <div class="container-fluid">
+        <ui-view></ui-view>
+    </div>
+
+    {% for (var chunk in o.htmlWebpackPlugin.assets) { %}
+    <script src="{%=o.htmlWebpackPlugin.assets[chunk]%}"></script>
+    {% } %}
+  </body>
+</html>
