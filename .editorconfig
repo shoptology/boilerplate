@@ -15,23 +15,11 @@ insert_final_newline = true
 indent_style = space
 indent_size = 4
 
-[Gruntfile.js]
-indent_style = space
+[.jsfmtrc]
+indent_style = tab
 indent_size = 4
 trim_trailing_whitespace = true
 insert_final_newline = true
-
-[html_templates/**.js]
-indent_style = tab
-indent_size = 4
-trim_trailing_whitespace = false
-insert_final_newline = false
-
-[html_templates/**.scss]
-indent_style = tab
-indent_size = 4
-trim_trailing_whitespace = false
-insert_final_newline = false
 
 [**.js]
 indent_style = space
@@ -41,25 +29,37 @@ insert_final_newline = true
 
 [**.html]
 indent_style = tab
-indent_size = 4
+indent_size = 2
 trim_trailing_whitespace = true
 insert_final_newline = true
 
 [**.hbs]
-indent_style = space
-indent_size = 4
+indent_style = tab
+indent_size = 2
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[plugins/**.scss]
+[**.scss]
 indent_style = space
-indent_size = 4
+indent_size = 2
 trim_trailing_whitespace = true
 insert_final_newline = true
 
 [**.css]
 indent_style = space
 indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[gulpfile.js]
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[Gruntfile.js]
+indent_style = space
+indent_size = 4
 trim_trailing_whitespace = true
 insert_final_newline = true
 
