@@ -1,5 +1,5 @@
 /* 
- * patternlab-node - v0.1.2 - 2014-11-10 
+ * patternlab-node - v0.10.0 - 2015 
  * 
  * Brian Muenzenmeyer, and the web community.
  * Licensed under the MIT license. 
@@ -8,390 +8,343 @@
  *
  */
 
-var patternlab_engine = function(grunt) {
-    var path = require('path'),
-        hbs = require('handlebars'),
-        of = require('./object_factory'),
-        pa = require('./pattern_assembler'),
-        patternlab = {};
+var patternlab_engine = function () {
+  'use strict';
 
-    patternlab.package = grunt.file.readJSON('package.json');
-    patternlab.config = grunt.file.readJSON('config.json');
+  var path = require('path'),
+  fs = require('fs-extra'),
+  extend = require('util')._extend,
+  diveSync = require('diveSync'),
+  mustache = require('mustache'),
+  glob = require('glob'),
+  of = require('./object_factory'),
+  pa = require('./pattern_assembler'),
+  mh = require('./media_hunter'),
+  pe = require('./pattern_exporter'),
+  he = require('html-entities').AllHtmlEntities,
+  patternlab = {};
 
+  patternlab.package = fs.readJSONSync('./package.json');
+  patternlab.config = fs.readJSONSync('./config.json');
 
-    /**
-     *  Boilerplate specific code
-     */
+  function getVersion() {
+    console.log(patternlab.package.version);
+  }
 
-    try {
-        var helpers = require('../../web/lib/helpers.js');
-        helpers.register(hbs);
-    } catch ( e ) {
-        console.log('Couldnt load external helpers');
+  function help(){
+    console.log('Patternlab Node Help');
+    console.log('===============================');
+    console.log('Command Line Arguments');
+    console.log('patternlab:only_patterns');
+    console.log(' > Compiles the patterns only, outputting to ./public/patterns');
+    console.log('patternlab:v');
+    console.log(' > Retrieve the version of patternlab-node you have installed');
+    console.log('patternlab:help');
+    console.log(' > Get more information about patternlab-node, pattern lab in general, and where to report issues.');
+    console.log('===============================');
+    console.log('Visit http://patternlab.io/docs/index.html for general help on pattern-lab');
+    console.log('Visit https://github.com/pattern-lab/patternlab-node/issues to open a bug.');
+  }
+
+  function printDebug() {
+    //debug file can be written by setting flag on config.json
+    if(patternlab.config.debug){
+      console.log('writing patternlab debug file to ./patternlab.json');
+      fs.outputFileSync('./patternlab.json', JSON.stringify(patternlab, null, 3));
     }
+  }
 
+  function buildPatterns(callback){
+    patternlab.data = fs.readJSONSync('./source/_data/data.json');
+    patternlab.listitems = fs.readJSONSync('./source/_data/listitems.json');
+    patternlab.header = fs.readFileSync('./source/_patternlab-files/pattern-header-footer/header.html', 'utf8');
+    patternlab.footer = fs.readFileSync('./source/_patternlab-files/pattern-header-footer/footer.html', 'utf8');
+    patternlab.patterns = [];
+    patternlab.partials = {};
+    patternlab.data.link = {};
 
-    // Goes in the BuildPatterns function.  Only lets handlebars files through
-    //
-    // grunt.file.recurse('../app/patterns/', function(abspath, rootdir, subdir, filename){
-    //
-    //if( ( filename.charAt(0) === '_' ) || !grunt.util._.str.include(filename, 'hbs') ){
-    //    return;
-    //}
+    var pattern_assembler = new pa(),
+    entity_encoder = new he(),
+    pattern_exporter = new pe();
 
-    /** End */
+    diveSync('./source/_patterns', function(err, file){
+      //log any errors
+      if(err){
+        console.log(err);
+        return;
+      }
 
-    function getVersion() {
-        grunt.log.ok(patternlab.package.version);
-    }
+      pattern_assembler.process_pattern_file(file, patternlab);
 
-    function help() {
-        grunt.log.subhead('Patternlab Node Help');
-        grunt.log.writeln('===============================');
-        grunt.log.writeln('Command Line Arguments');
-        grunt.log.writeln('patternlab:only_patterns');
-        grunt.log.writeln(' > Compiles the patterns only, outputting to ./public/patterns');
-        grunt.log.writeln('patternlab:v');
-        grunt.log.writeln(' > Retrieve the version of patternlab-node you have installed');
-        grunt.log.writeln('patternlab:help');
-        grunt.log.writeln(' > Get more information about patternlab-node, pattern lab in general, and where to report issues.');
-        grunt.log.writeln('===============================');
-        grunt.log.writeln('Visit http://patternlab.io/docs/index.html for general help on pattern-lab');
-        grunt.log.writeln('Visit https://github.com/pattern-lab/patternlab-node/issues to open a bug.');
-    }
+    });
+    //render all patterns last, so lineageR works
+    patternlab.patterns.forEach(function(pattern, index, patterns){
+      //render the pattern, but first consolidate any data we may have
+      var allData =  JSON.parse(JSON.stringify(patternlab.data));
+      allData = pattern_assembler.merge_data(allData, pattern.jsonFileData);
+      allData = pattern_assembler.merge_data(allData, pattern.data);
 
-    function printDebug() {
-        //debug file can be written by setting flag on config.json
-        if (patternlab.config.debug) {
-            var outputFilename = './patternlab.json';
-            grunt.file.write(outputFilename, JSON.stringify(patternlab, null, 3));
+      pattern.patternPartial = pattern_assembler.renderPattern(pattern.extendedTemplate, allData);
+
+      //add footer info before writing
+      var patternFooter = pattern_assembler.renderPattern(patternlab.footer, pattern);
+
+      //write the compiled template to the public patterns directory
+      fs.outputFileSync('./public/patterns/' + pattern.patternLink, patternlab.header + pattern.patternPartial + patternFooter);
+
+      //write the mustache file too
+      fs.outputFileSync('./public/patterns/' + pattern.patternLink.replace('.html', '.mustache'), entity_encoder.encode(pattern.template));
+
+      //write the encoded version too
+      fs.outputFileSync('./public/patterns/' + pattern.patternLink.replace('.html', '.escaped.html'), entity_encoder.encode(pattern.patternPartial));
+    });
+
+    //export patterns if necessary
+    pattern_exporter.export_patterns(patternlab);
+
+  }
+
+  function buildFrontEnd(){
+    var pattern_assembler = new pa(),
+    media_hunter = new mh();
+    patternlab.buckets = [];
+    patternlab.bucketIndex = [];
+    patternlab.patternPaths = {};
+    patternlab.viewAllPaths = {};
+
+    //find mediaQueries
+    media_hunter.find_media_queries(patternlab);
+
+    //build the styleguide
+    var styleguideTemplate = fs.readFileSync('./source/_patternlab-files/styleguide.mustache', 'utf8'),
+    styleguideHtml = pattern_assembler.renderPattern(styleguideTemplate, {partials: patternlab.patterns});
+    fs.outputFileSync('./public/styleguide/html/styleguide.html', styleguideHtml);
+
+    //build the viewall pages
+    var prevSubdir = '',
+    i;
+
+    for (i = 0; i < patternlab.patterns.length; i++) {
+      var pattern = patternlab.patterns[i];
+
+      // check if the current sub section is different from the previous one
+      if (pattern.subdir !== prevSubdir) {
+        prevSubdir = pattern.subdir;
+
+        var viewAllPatterns = [],
+        patternPartial = "viewall-" + pattern.patternGroup + "-" + pattern.patternSubGroup,
+        j;
+
+        for (j = 0; j < patternlab.patterns.length; j++) {
+          if (patternlab.patterns[j].subdir === pattern.subdir) {
+            viewAllPatterns.push(patternlab.patterns[j]);
+          }
         }
+
+        var viewAllTemplate = fs.readFileSync('./source/_patternlab-files/viewall.mustache', 'utf8');
+        var viewAllHtml = pattern_assembler.renderPattern(viewAllTemplate, {partials: viewAllPatterns, patternPartial: patternPartial});
+        fs.outputFileSync('./public/patterns/' + pattern.flatPatternPath + '/index.html', viewAllHtml);
+      }
     }
 
-    function buildPatterns() {
-        patternlab.data = grunt.file.readJSON('./source/_data/data.json');
-        patternlab.listitems = grunt.file.readJSON('./source/_data/listitems.json');
-        patternlab.header = grunt.file.read('./source/_patternlab-files/pattern-header-footer/header.html');
-        patternlab.footer = grunt.file.read('./source/_patternlab-files/pattern-header-footer/footer.html');
-        patternlab.patterns = [];
-        patternlab.patternIndex = [];
-        patternlab.partials = {};
+    //build the patternlab website
+    var patternlabSiteTemplate = fs.readFileSync('./source/_patternlab-files/index.mustache', 'utf8');
 
-        grunt.file.recurse(patternlab.config.patterns.source, function(abspath, rootdir, subdir, filename) {
-            //check if the pattern already exists.
-            var patternName = filename.substring(0, filename.indexOf('.'));
-            var patternIndex = patternlab.patternIndex.indexOf(subdir + '-' + patternName);
-            var currentPattern;
-            var flatPatternPath;
+    //loop through all patterns.to build the navigation
+    //todo: refactor this someday
+    for(var i = 0; i < patternlab.patterns.length; i++){
+      var pattern = patternlab.patterns[i];
+      var bucketName = pattern.name.replace(/\\/g, '-').split('-')[1];
 
-            //ignore _underscored patterns and json
-            if ((filename.charAt(0) === '_') || !grunt.util._.str.include(filename, 'hbs')) {
-                return;
-            }
+      //check if the bucket already exists
+      var bucketIndex = patternlab.bucketIndex.indexOf(bucketName);
+      if(bucketIndex === -1){
+        //add the bucket
+        var bucket = new of.oBucket(bucketName);
 
-            // we only want
+        //add patternPath and viewAllPath
+        patternlab.patternPaths[bucketName] = {};
+        patternlab.viewAllPaths[bucketName] = {};
 
+        //get the navItem
+        var navItemName = pattern.subdir.split('-').pop();
 
-            //make a new Pattern Object
-            var flatPatternName = subdir.replace(/\//g, '-') + '-' + patternName;
-            flatPatternName = flatPatternName.replace(/\//g, '-');
-            currentPattern = new of.oPattern(flatPatternName, subdir, filename, {});
-            currentPattern.patternName = patternName.substring(patternName.indexOf('-') + 1);
-            currentPattern.data = null;
+        //get the navSubItem
+        var navSubItemName = pattern.patternName.replace(/-/g, ' ');
 
-            //look for a json file for this template
-            try {
-                var jsonFilename = abspath.substr(0, abspath.lastIndexOf(".")) + ".json";
-                currentPattern.data = grunt.file.readJSON(jsonFilename);
-            } catch ( e ) {}
+        //test whether the pattern struture is flat or not - usually due to a template or page
+        var flatPatternItem = false;
+        if(navItemName === bucketName){
+          flatPatternItem = true;
+        }
 
-            currentPattern.template = grunt.file.read(abspath);
+        //assume the navItem does not exist.
+        var navItem = new of.oNavItem(navItemName);
 
-            //render the pattern. pass partials object just in case.
-            if (currentPattern.data) { // Pass JSON as data
-                currentPattern.patternPartial = renderPattern(currentPattern.template, currentPattern.data, patternlab.partials);
-            } else { // Pass global patternlab data
-                currentPattern.patternPartial = renderPattern(currentPattern.template, patternlab.data, patternlab.partials);
-            }
+        //assume the navSubItem does not exist.
+        var navSubItem = new of.oNavSubItem(navSubItemName);
+        navSubItem.patternPath = pattern.patternLink;
+        navSubItem.patternPartial = bucketName + "-" + pattern.patternName; //add the hyphenated name
 
-            //write the compiled template to the public patterns directory
-            flatPatternPath = currentPattern.name + '/' + currentPattern.name + '.html';
+        //add the patternState if it exists
+        if(pattern.patternState){
+          navSubItem.patternState = pattern.patternState;
+        }
 
-            //add footer info before writing
-            var currentPatternFooter = renderPattern(patternlab.footer, currentPattern);
+        //if it is flat - we should not add the pattern to patternPaths
+        if(flatPatternItem){
 
-            grunt.file.write('./public/patterns/' + flatPatternPath, patternlab.header + currentPattern.patternPartial + currentPatternFooter);
-            currentPattern.patternLink = flatPatternPath;
+          bucket.patternItems.push(navSubItem);
 
-            //add as a partial in case this is referenced later.  convert to syntax needed by existing patterns
-            var sub = subdir.substring(subdir.indexOf('-') + 1);
-            var folderIndex = sub.indexOf('/'); //THIS IS MOST LIKELY WINDOWS ONLY.  path.sep not working yet
-            var cleanSub = sub.substring(0, folderIndex);
+          //add to patternPaths
+          addToPatternPaths(bucketName, pattern);
 
-            //add any templates found to an object of partials, so downstream templates may use them too
-            //exclude the template patterns - we don't need them as partials because pages will just swap data
-            if (cleanSub !== '') {
-                var partialname = cleanSub + '-' + patternName.substring(patternName.indexOf('-') + 1);
+        } else{
 
-                patternlab.partials[partialname] = currentPattern.template;
-                hbs.registerPartial(partialname, currentPattern.template);
+          bucket.navItems.push(navItem);
+          bucket.navItemsIndex.push(navItemName);
+          navItem.navSubItems.push(navSubItem);
+          navItem.navSubItemsIndex.push(navSubItemName);
 
-                //done
-            }
-
-            //add to patternlab arrays so we can look these up later.  this could probably just be an object.
-            patternlab.patternIndex.push(currentPattern.name);
-            patternlab.patterns.push(currentPattern);
-
-        });
-
-    }
-
-    function buildFrontEnd() {
-        patternlab.buckets = [];
-        patternlab.bucketIndex = [];
-        patternlab.patternPaths = {};
-        patternlab.viewAllPaths = {};
-
-        //build the styleguide
-        var styleguideTemplate = grunt.file.read('./source/_patternlab-files/styleguide.hbs');
-        var styleguideHtml = renderPattern(styleguideTemplate, {
-            partials: patternlab.patterns
-        });
-        grunt.file.write('./public/styleguide/html/styleguide.html', styleguideHtml);
-
-        //build the patternlab website
-        var patternlabSiteTemplate = grunt.file.read('./source/_patternlab-files/index.hbs');
-
-        //loop through all patterns.  deciding to do this separate from the recursion, even at a performance hit, to attempt to separate the tasks of styleguide creation versus site menu creation
-        for (var i = 0; i < patternlab.patterns.length; i++) {
-            var pattern = patternlab.patterns[i];
-            var bucketName = pattern.name.replace(/\//g, '-').split('-')[1];
-
-            //check if the bucket already exists
-            var bucketIndex = patternlab.bucketIndex.indexOf(bucketName);
-            if (bucketIndex === -1) {
-                //add the bucket
-                var bucket = new of.oBucket(bucketName);
-
-                //add paternPath
-                patternlab.patternPaths[bucketName] = {};
-
-                //get the navItem
-                var navItemName = pattern.subdir.split('-').pop();
-
-                //get the navSubItem
-                var navSubItemName = pattern.patternName.replace(/-/g, ' ');
-
-                //grunt.log.writeln('new bucket found: ' + bucketName + " " + navItemName + " " + navSubItemName);
-
-                //test whether the pattern struture is flat or not - usually due to a template or page
-                var flatPatternItem = false;
-                if (navItemName === bucketName) {
-                    flatPatternItem = true;
-                }
-
-                //assume the navItem does not exist.
-                var navItem = new of.oNavItem(navItemName);
-
-                //assume the navSubItem does not exist.
-                var navSubItem = new of.oNavSubItem(navSubItemName);
-                navSubItem.patternPath = pattern.patternLink;
-                navSubItem.patternPartial = bucketName + "-" + pattern.patternName; //add the hyphenated name
-
-                //if it is flat - we should not add the pattern to patternPaths
-                if (flatPatternItem) {
-
-                    bucket.patternItems.push(navSubItem);
-
-                    //add to patternPaths
-                    patternlab.patternPaths[bucketName][pattern.patternName] = pattern.subdir + "/" + pattern.filename.substring(0, pattern.filename.indexOf('.'));
-
-                } else {
-
-                    bucket.navItems.push(navItem);
-                    bucket.navItemsIndex.push(navItemName);
-                    navItem.navSubItems.push(navSubItem);
-                    navItem.navSubItemsIndex.push(navSubItemName);
-
-                    //add to patternPaths
-                    patternlab.patternPaths[bucketName][pattern.patternName] = pattern.subdir + "/" + pattern.filename.substring(0, pattern.filename.indexOf('.'));
-
-                }
-
-                //add the bucket.
-                patternlab.buckets.push(bucket);
-                patternlab.bucketIndex.push(bucketName);
-
-            //done
-
-            } else {
-                //find the bucket
-                var bucket = patternlab.buckets[bucketIndex];
-
-                //get the navItem
-                var navItemName = pattern.subdir.split('-').pop();
-
-                //get the navSubItem
-                var navSubItemName = pattern.patternName.replace(/-/g, ' ');
-
-                //assume the navSubItem does not exist.
-                var navSubItem = new of.oNavSubItem(navSubItemName);
-                navSubItem.patternPath = pattern.patternLink;
-                navSubItem.patternPartial = bucketName + "-" + pattern.patternName; //add the hyphenated name
-
-                //test whether the pattern struture is flat or not - usually due to a template or page
-                var flatPatternItem = false;
-                if (navItemName === bucketName) {
-                    flatPatternItem = true;
-                }
-
-                //if it is flat - we should not add the pattern to patternPaths
-                if (flatPatternItem) {
-
-                    //add the navItem to patternItems
-                    bucket.patternItems.push(navSubItem);
-
-                    //add to patternPaths
-                    patternlab.patternPaths[bucketName][pattern.patternName] = pattern.subdir + "/" + pattern.filename.substring(0, pattern.filename.indexOf('.'));
-
-                } else {
-                    //check to see if navItem exists
-                    var navItemIndex = bucket.navItemsIndex.indexOf(navItemName);
-                    if (navItemIndex === -1) {
-
-                        var navItem = new of.oNavItem(navItemName);
-
-                        //add the navItem and navSubItem
-                        navItem.navSubItems.push(navSubItem);
-                        navItem.navSubItemsIndex.push(navSubItemName);
-                        bucket.navItems.push(navItem);
-                        bucket.navItemsIndex.push(navItemName);
-
-                    } else {
-                        //add the navSubItem
-                        var navItem = bucket.navItems[navItemIndex];
-                        navItem.navSubItems.push(navSubItem);
-                        navItem.navSubItemsIndex.push(navSubItemName);
-                    }
-
-                    // just add to patternPaths
-                    patternlab.patternPaths[bucketName][pattern.patternName] = pattern.subdir + "/" + pattern.filename.substring(0, pattern.filename.indexOf('.'));
-
-                }
-
-            }
+          //add to patternPaths
+          addToPatternPaths(bucketName, pattern);
 
         }
-        ;
 
-        //the patternlab site requires a lot of partials to be rendered.
-        //patternNav
-        var patternNavTemplate = grunt.file.read('./source/_patternlab-files/partials/patternNav.hbs');
-        var patternNavPartialHtml = renderPattern(patternNavTemplate, patternlab);
-        hbs.registerPartial('patternNav', patternNavPartialHtml);
+        //add the bucket.
+        patternlab.buckets.push(bucket);
+        patternlab.bucketIndex.push(bucketName);
 
-        //ishControls
-        var ishControlsTemplate = grunt.file.read('./source/_patternlab-files/partials/ishControls.hbs');
-        var ishControlsPartialHtml = renderPattern(ishControlsTemplate, patternlab.config);
-        hbs.registerPartial('ishControls', ishControlsPartialHtml);
+        //done
 
-        //patternPaths
-        var patternPathsTemplate = grunt.file.read('./source/_patternlab-files/partials/patternPaths.hbs');
-        var patternPathsPartialHtml = renderPattern(patternPathsTemplate, {
-            'patternPaths': JSON.stringify(patternlab.patternPaths)
-        });
-        hbs.registerPartial('patternPaths', patternPathsPartialHtml);
+      } else{
+        //find the bucket
+        var bucket = patternlab.buckets[bucketIndex];
 
-        //viewAllPaths
-        var viewAllPathsTemplate = grunt.file.read('./source/_patternlab-files/partials/viewAllPaths.hbs');
-        var viewAllPathersPartialHtml = renderPattern(viewAllPathsTemplate, {
-            'viewallpaths': JSON.stringify(patternlab.viewAllPaths)
-        });
-        hbs.registerPartial('viewAllPaths', viewAllPathersPartialHtml);
+        //get the navItem
+        var navItemName = pattern.subdir.split('-').pop();
 
-        //websockets
-        var websocketsTemplate = grunt.file.read('./source/_patternlab-files/partials/websockets.hbs');
-        patternlab.contentsyncport = patternlab.config.contentSyncPort;
-        patternlab.navsyncport = patternlab.config.navSyncPort;
-        var websocketsPartialHtml = renderPattern(websocketsTemplate, patternlab);
-        hbs.registerPartial('websockets', websocketsPartialHtml);
+        //get the navSubItem
+        var navSubItemName = pattern.patternName.replace(/-/g, ' ');
 
-        //render the patternlab template, with all partials
-        var patternlabSiteHtml = renderPattern(patternlabSiteTemplate, {}, {
-            'ishControls': ishControlsPartialHtml,
-            'patternNav': patternNavPartialHtml,
-            'patternPaths': patternPathsPartialHtml,
-            'websockets': websocketsPartialHtml,
-            'viewAllPaths': viewAllPathersPartialHtml
-        });
-        grunt.file.write('./public/index.html', patternlabSiteHtml);
+        //assume the navSubItem does not exist.
+        var navSubItem = new of.oNavSubItem(navSubItemName);
+        navSubItem.patternPath = pattern.patternLink;
+        navSubItem.patternPartial = bucketName + "-" + pattern.patternName; //add the hyphenated name
 
-    }
-
-    function renderPattern(name, data, partials) {
-        var template = hbs.compile(name);
-        var source = template(data);
-        return source;
-    }
-
-    return {
-        version: function() {
-            return getVersion();
-        },
-        setSource: function(src) {
-            patternlab.config.patterns.source = src;
-        },
-        build: function() {
-            buildPatterns();
-            buildFrontEnd();
-            printDebug();
-        },
-        help: function() {
-            help();
-        },
-        build_patterns_only: function() {
-            grunt.log.ok('only_patterns argument not yet implemented');
-            buildPatterns();
-            printDebug();
+        //add the patternState if it exists
+        if(pattern.patternState){
+          navSubItem.patternState = pattern.patternState;
         }
-    };
+
+        //test whether the pattern struture is flat or not - usually due to a template or page
+        var flatPatternItem = false;
+        if(navItemName === bucketName){
+          flatPatternItem = true;
+        }
+
+        //if it is flat - we should not add the pattern to patternPaths
+        if(flatPatternItem){
+
+          //add the navItem to patternItems
+          bucket.patternItems.push(navSubItem);
+
+          //add to patternPaths
+          addToPatternPaths(bucketName, pattern);
+
+        } else{
+          //check to see if navItem exists
+          var navItemIndex = bucket.navItemsIndex.indexOf(navItemName);
+          if(navItemIndex === -1){
+
+            var navItem = new of.oNavItem(navItemName);
+
+            //add the navItem and navSubItem
+            navItem.navSubItems.push(navSubItem);
+            navItem.navSubItemsIndex.push(navSubItemName);
+            bucket.navItems.push(navItem);
+            bucket.navItemsIndex.push(navItemName);
+
+          } else{
+            //add the navSubItem
+            var navItem = bucket.navItems[navItemIndex];
+            navItem.navSubItems.push(navSubItem);
+            navItem.navSubItemsIndex.push(navSubItemName);
+          }
+
+          //add the navViewAllSubItem
+          var navViewAllSubItem = new of.oNavSubItem("");
+          navViewAllSubItem.patternName = "View All";
+          navViewAllSubItem.patternPath = pattern.flatPatternPath + "/index.html";
+          navViewAllSubItem.patternPartial = "viewall-" + pattern.patternGroup + "-" + pattern.patternSubGroup;
+
+          //check if we are moving to a new sub section in the next loop
+          if (!patternlab.patterns[i + 1] || pattern.patternSubGroup !== patternlab.patterns[i + 1].patternSubGroup) {
+            navItem.navSubItems.push(navViewAllSubItem);
+            navItem.navSubItemsIndex.push("View All");
+          }
+
+          // just add to patternPaths
+          addToPatternPaths(bucketName, pattern);
+        }
+
+      }
+
+      patternlab.viewAllPaths[bucketName][pattern.patternSubGroup] = pattern.flatPatternPath;
+
+    }
+
+    //the patternlab site requires a lot of partials to be rendered.
+    //patternNav
+    var patternNavTemplate = fs.readFileSync('./source/_patternlab-files/partials/patternNav.mustache', 'utf8');
+    var patternNavPartialHtml = pattern_assembler.renderPattern(patternNavTemplate, patternlab);
+
+    //ishControls
+    var ishControlsTemplate = fs.readFileSync('./source/_patternlab-files/partials/ishControls.mustache', 'utf8');
+    patternlab.config.mqs = patternlab.mediaQueries;
+    var ishControlsPartialHtml = pattern_assembler.renderPattern(ishControlsTemplate, patternlab.config);
+
+    //patternPaths
+    var patternPathsTemplate = fs.readFileSync('./source/_patternlab-files/partials/patternPaths.mustache', 'utf8');
+    var patternPathsPartialHtml = pattern_assembler.renderPattern(patternPathsTemplate, {'patternPaths': JSON.stringify(patternlab.patternPaths)});
+
+    //viewAllPaths
+    var viewAllPathsTemplate = fs.readFileSync('./source/_patternlab-files/partials/viewAllPaths.mustache', 'utf8');
+    var viewAllPathsPartialHtml = pattern_assembler.renderPattern(viewAllPathsTemplate, {'viewallpaths': JSON.stringify(patternlab.viewAllPaths)});
+
+    //render the patternlab template, with all partials
+    var patternlabSiteHtml = pattern_assembler.renderPattern(patternlabSiteTemplate, {}, {
+      'ishControls': ishControlsPartialHtml,
+      'patternNav': patternNavPartialHtml,
+      'patternPaths': patternPathsPartialHtml,
+      'viewAllPaths': viewAllPathsPartialHtml
+    });
+    fs.outputFileSync('./public/index.html', patternlabSiteHtml);
+  }
+
+  function addToPatternPaths(bucketName, pattern){
+    //this is messy, could use a refactor.
+    patternlab.patternPaths[bucketName][pattern.patternName] = pattern.subdir.replace(/\\/g, '/') + "/" + pattern.fileName;
+  }
+
+  return {
+    version: function(){
+      return getVersion();
+    },
+    build: function(){
+      buildPatterns();
+      buildFrontEnd();
+      printDebug();
+    },
+    help: function(){
+      help();
+    },
+    build_patterns_only: function(){
+      buildPatterns();
+      printDebug();
+    }
+  };
 
 };
 
 module.exports = patternlab_engine;
-
-module.exports = function(grunt) {
-    grunt.registerTask('patternlab', 'create design systems with atomic design', function(arg) {
-
-        var patternlab = patternlab_engine(grunt);
-
-        if (arguments.length === 0) {
-            patternlab.build();
-        }
-
-        // SHOPTOLOGY
-        if (arg && arg === 'web') {
-            patternlab.setSource("../web/app/patterns/");
-            patternlab.build();
-        }
-
-        if (arg && arg === 'v') {
-            patternlab.version();
-        }
-
-        if (arg && arg === "only_patterns") {
-            patternlab.build_patterns_only();
-        }
-
-        if (arg && arg === "help") {
-            patternlab.help();
-        }
-
-        if (arg && (arg !== "v" && arg !== "only_patterns" && arg !== "help" && arg !== "web")) {
-            patternlab.help();
-        }
-
-    });
-
-};

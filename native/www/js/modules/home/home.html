@@ -1,0 +1,43 @@
+<ion-view view-title="Home">
+	<ion-content>
+    <!-- Update Overlay -->
+    <div id="system-update-overlay" class="fixed-overlay system-overlay">
+      <div class="system-overlay-status">
+        <span class="current-operation"></span>
+        <hr>
+        <span class="current-operation-status"></span>
+      </div>
+    </div>
+		<div class="home-hello">
+			<div class="item item-text-wrap">
+				<h1>ABC Corp Inc...</h1>
+				50 Market Street, San Francisco, California 94103, United States
+			</div>
+		</div>
+
+		</div>
+
+		<div class="list card">
+			<a href="tel:{{vm.phoneNumber}}" class="item item-icon-left">
+				<i class="icon ion-ios-telephone"></i>
+				Call us
+			</a>
+
+			<a class="item item-icon-left" ng-click="vm.sendEmail()">
+				<i class="icon ion-email"></i>
+				Send us and Email
+			</a>
+
+			<a href="#" class="item item-icon-left" ng-click="vm.getDirections()">
+				<i class="icon ion-compass"></i>
+				Find us / Get directions
+			</a>
+
+			<a ng-click="vm.openFacebookPage()" class="item item-icon-left">
+				<i class="icon ion-social-facebook"></i>
+				Visit us on Facebook
+			</a>
+		</div>
+
+	</ion-content>
+</ion-view>

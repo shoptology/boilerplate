@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'MyriadPro';
+    src: url("MyriadPro-Regular.eot?#iefix") format("embedded-opentype"), url("MyriadPro-Regular.ttf") format("truetype"), url("myriadpro-semibold-webfont.svg#svgFontName") format("svg");
+}
+
+
+@font-face {
+    font-family: 'MyriadPro';
+    font-style: normal;
+    font-weight: bold;
+    src: url("myriadpro-semibold-webfont.eot?#iefix") format("embedded-opentype"), url("myriadpro-semibold-webfont.woff") format("woff"), url("myriadpro-semibold-webfont.ttf") format("truetype"), url("myriadpro-semibold-webfont.svg#svgFontName") format("svg");
+}

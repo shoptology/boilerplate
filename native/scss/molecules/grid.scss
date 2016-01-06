@@ -1,0 +1,168 @@
+@import "../_variables";
+
+.grid {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border: 4px solid #DFDFDF;
+
+    &.no-border {
+        border: none;
+
+        .item {
+            border: none;
+        }
+    }
+
+    .item {
+        @extend .noselect;
+        float: left;
+        width: 50%;
+        border: 3px solid $gray;
+        color: $white;
+        text-align: center;
+        height: 50%;
+        background: $blue;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        cursor: pointer;
+        transition: $anim-highlight;
+
+        &:active {
+            background: darken($blue, $color-darken);
+        }
+
+        &.disabled:active {
+            background: inherit;
+        }
+    }
+
+    /*
+      Grid Sizes
+    */
+    &.items-1 .item {
+        width: 100%;
+        height: 100%;
+    }
+
+    &.items-2 .item {
+        height: 100%;
+    }
+
+    &.items-3 .item {
+        height: 100%;
+        width: 33.3333%;
+    }
+
+    &.items-3.hero {
+        .item {
+            width: 50%;
+            height: 50%;
+        }
+        .item:first-child {
+            height: 100%;
+        }
+    }
+
+    &.items-5 {
+        .item {
+            width: 33.3333%;
+            height: 40%;
+        }
+
+        .item:first-child, .item:nth-child(2) {
+            width: 50%;
+            height: 60%;
+        }
+    }
+
+    &.items-6 .item {
+        width: 33.3333%;
+    }
+
+    &.items-7 {
+        .item {
+            width: 25%;
+            height: 40%;
+        }
+
+        .item:first-child, .item:nth-child(2), .item:nth-child(3) {
+            width: 33.3333%;
+            height: 60%;
+        }
+    }
+
+    &.items-8 .item {
+        height: 50%;
+        width: 25%;
+    }
+
+    &.items-9 .item {
+        height: 33.3333%;
+        width: 33.3333%;
+    }
+
+    // Grid Content
+    .content {
+        display: block;
+        padding: 0 1%;
+        width: 70%;
+
+        img, span {
+            display: block;
+            margin: 0 auto;
+        }
+
+        img {
+            max-width: 20%;
+            margin-bottom: 20px;
+
+            &.small {
+                max-width: 10%;
+            }
+        }
+
+        .title {
+            font-weight: 700;
+            font-size: 3.1vmax;
+            line-height: 36px;
+            margin-bottom: 12px;
+
+            &.large {
+                font-size: 7.1vmax;
+                line-height: 97px;
+            }
+        }
+
+        .subtitle {
+            font-size: 18px;
+            width: 80%;
+
+            &.large {
+                font-size: 28px;
+            }
+        }
+    }
+
+    .pin {
+        position: absolute;
+
+        &.top-left {
+            top: 0;
+            left: 0;
+            right: auto;
+            bottom: auto;
+        }
+    }
+}

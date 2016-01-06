@@ -1,8 +1,0 @@
-#!/usr/bin/env node
-
-require("../node_modules/coffee-script");
-
-global.Steroids = require("../src/steroids");
-
-Steroids.run()
-

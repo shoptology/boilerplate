@@ -1,0 +1,88 @@
+.grid {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  .item {
+    float: left;
+    width: 50%;
+    border: 1px solid;
+    color: #ccc;
+    text-align: center;
+    height: 50%;
+    background: $gray-darker;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /*
+    Grid Sizes
+  */
+  &.items-2 .item {
+    height: 100%;
+  }
+  &.items-3 .item:first-child {
+    height:100%;
+  }
+  &.items-5 {
+    .item {
+      width:33.3333%;
+      height: 40%;
+    }
+    .item:first-child, .item:nth-child(2) {
+      width:50%;
+      height:60%;
+    }
+  }
+  &.items-6 .item {
+    width: 33.3333%;
+  }
+  &.items-7 {
+    .item {
+      width:25%;
+      height: 40%;
+    }
+    .item:first-child, .item:nth-child(2), .item:nth-child(3) {
+      width:33.3333%;
+      height:60%;
+    }
+  }
+  &.items-8 .item {
+    height: 50%;
+    width: 25%;
+  }
+  &.items-9 .item {
+    height: 33.3333%;
+    width: 33.3333%;
+  }
+  // End Grid Sizes
+
+
+  .content {
+    display:block;
+    padding: 0 1%;
+
+    img, span {
+      display:block;
+      margin: 0 auto;
+    }
+
+    .title {
+      font-weight: 700;
+      font-size: 3.1vmax;
+      margin-top:8px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      width: 80%;
+    }
+
+  }
+
+}

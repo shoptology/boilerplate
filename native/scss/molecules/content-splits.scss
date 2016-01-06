@@ -1,0 +1,86 @@
+@import "../_variables";
+
+.content.v-split {
+    width: 100%;
+    height: 100%;
+		
+	> div {
+		padding: 2%;
+		text-align: center;
+		display: flex;
+		align-items: center;
+	}
+
+    .head {
+    	height:15%;
+    	background: $gray-dark;
+    }
+    .body {
+    	height:70%;
+    }
+    .footer {
+    	height:15%;
+    }
+}
+
+
+/*
+	Height Sizes for rows
+ */
+.h-1 {
+	height: 10% !important;
+}
+.h-15 {
+	height: 15% !important;
+}
+.h-2 {
+	height: 20% !important;
+}
+.h-25 {
+	height: 25% !important;
+}
+.h-3 {
+	height: 30% !important;
+}
+.h-35 {
+	height: 35% !important;
+}
+.h-4 {
+	height: 40% !important;
+}
+.h-45 {
+	height: 45% !important;
+}
+.h-5 {
+	height: 50% !important;
+}
+.h-55 {
+	height: 55% !important;
+}
+.h-6 {
+	height: 60% !important;
+}
+.h-65 {
+	height: 65% !important;
+}
+.h-7 {
+	height: 70% !important;
+}
+.h-75 {
+	height: 75% !important;
+}
+.h-8 {
+	height: 80% !important;
+}
+.h-85 {
+	height: 85% !important;
+}
+.h-9 {
+	height: 90% !important;
+}
+.h-95 {
+	height: 95% !important;
+}
+.h-1o {
+	height: 100% !important;
+}

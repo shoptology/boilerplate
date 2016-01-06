@@ -1,0 +1,68 @@
+// Navbar
+// -------------------------
+.navbar {
+  position: fixed;
+  bottom: 0;
+  height: $navbar-height;
+  background-color: $gray-lighter;
+  color: white;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+
+  &.top {
+    top: 0;
+  }
+
+  .buttons {
+    z-index: 5;
+    height: 100%;
+    float: left;
+    display: flex;
+    justify-content: flex-start;
+    width: 50%;
+  }
+
+  .button {
+    z-index: 5;
+    height: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $gray-light;
+    min-width: 20%;
+    cursor: pointer;
+    margin-right: 1px;
+
+    span {
+      font-size: 1.6vmax;
+      padding-top: 5px;
+    }
+
+    &.skinny {
+      padding: 0 9%;
+    }
+
+    &.next {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 1;
+      background-color: $gray-dark;
+      color: white;
+      justify-content: flex-end;
+      padding: 0 1%;
+      margin: 0;
+
+      span {
+        font-size: 30px;
+        line-height: 30px;
+      }
+    }
+  }
+}

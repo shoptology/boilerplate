@@ -44,6 +44,13 @@ module.exports = {
         loader: 'ng-cache'
       },
       {
+          test: /\.(gif|png|jpe?g|svg)$/i,
+          loaders: [
+              'file?name=[name].[ext]',
+              'image-webpack?{progressive:true, optimizationLevel: 7, interlaced: false, pngquant:{quality: "65-90", speed: 4}}'
+          ]
+      },
+      {
         // required for bootstrap icons
         test: /\.(woff|woff2)(\?(.*))?$/,
         loader: 'url?prefix=factorynts/&limit=5000&mimetype=application/font-woff'
@@ -122,5 +129,5 @@ module.exports = {
 
   ],
 
-  devtool: 'eval'
+  //devtool: 'eval'
 }

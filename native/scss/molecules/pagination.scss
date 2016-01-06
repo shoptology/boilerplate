@@ -1,0 +1,34 @@
+@import "../_variables";
+
+.pagination {
+	display: flex;
+	align-items: center;
+
+	.dot {
+		width:12px;
+		height:12px;
+		display:block;
+		background: $gray-dark;
+		border-radius: 10px;
+		margin: 0 4px;
+
+		&.active {
+			background: $black;
+		}
+	}
+
+	.next, .prev {
+		margin:0 40px;
+		transition: opacity 300ms;
+		cursor: pointer;
+
+		&:active, &:focus {
+			opacity: 0.2;
+		}
+	}
+	
+	img, svg {
+		height:50px;
+		width: 50px;
+	}
+}

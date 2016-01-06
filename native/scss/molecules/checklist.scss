@@ -1,0 +1,43 @@
+@import "../_variables";
+
+.checklist {
+    padding-left: 0;
+    list-style-type: none;
+    font-size: 24px;
+    padding: 10px 0;
+
+    li {
+        padding-bottom: 10px;
+    }
+
+    .checkbox {
+        width: 24px;
+        height: 24px;
+        background-color: $yellow;
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 14px;
+        background-image: url(/assets/images/icons/check.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 70%;
+        position: relative;
+
+        &.active {
+            &:before {
+                width: 1px;
+                left: 23px;
+            }
+        }
+
+        &:before {
+            content: '';
+            width: 23px;
+            height: 24px;
+            background-color: $yellow;
+            position: absolute;
+            left: 0px;
+            transition: all 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+    }
+}

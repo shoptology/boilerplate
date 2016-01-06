@@ -1,0 +1,117 @@
+@import "../../www/fonts/MyriadPro/stylesheet.css";
+
+/* Colors */
+/* Core Colors */
+$black: #000000;
+$white: #ffffff;
+$blue: #117dc2;
+
+/* UI Elements */
+$red: #cc2027;
+$yellow: #f2af3a;
+$green: #3cb54a;
+$gray-light: #ededed;
+$gray: #d6d6d6;
+$gray-2: #bbbbbb;
+$gray-dark: #BBBBBB;
+$gray-darker: #656565;
+
+/* Section Colors */
+$color-registry: #16afc7;
+$color-returns: #00549c;
+$color-pickup: #e55525;
+$color-money-services: #3cb54a;
+
+// Make sure you add any new colors into this list
+$colors: "black" $black, "white" $white, "blue" $blue, "red" $red, "yellow" $yellow, "green" $green, "gray-light" $gray-light, "gray" $gray, "gray-2" $gray-2, "gray-dark" $gray-dark, "gray-darker" $gray-darker, "color-registry" $color-registry, "color-returns" $color-returns, "color-money-services" $color-money-services, "color-pickup" $color-pickup;
+$color-darken: 20%;
+
+// Makes classes for each color
+// ex. .red for red color, .red-bg for background color
+// Add .active to get the active color
+@each $i in $colors {
+    .#{nth($i, 1)}-bg {
+        background: nth($i, 2) !important;
+    }
+
+    .#{nth($i, 1)}-bg-dark {
+        background: darken(nth($i, 2), $color-darken) !important;
+    }
+
+    .#{nth($i, 1)}-bg.touchable:active {
+        background: darken(nth($i, 2), $color-darken) !important;
+    }
+
+    .#{nth($i, 1)} {
+        color: nth($i, 2) !important;
+    }
+
+    // Icon colors
+    svg.#{nth($i, 1)} {
+        fill: nth($i, 2) !important;
+    }
+}
+
+/* Typography */
+$primary-font-weight: 600;
+
+$secondary-font-family: "MyriadPro", arial, sans-serif;
+$secondary-font-weight: 400;
+
+$font-family-sans-serif: "MyriadPro", arial, sans-serif !default;
+$font-family-serif: "MyriadPro", arial, sans-serif !default;
+
+$font-family-base: $font-family-sans-serif !default;
+
+$font-size-base: 14px !default;
+$font-size-large: ceil($font-size-base * 1.25) !default;
+
+// ~18px
+$font-size-small: ceil($font-size-base * 0.85) !default;
+
+// ~12px
+
+$font-size-h1: floor($font-size-base * 2.6) !default;
+
+// ~36px
+$font-size-h2: floor($font-size-base * 2.15) !default;
+
+// ~30px
+$font-size-h3: ceil($font-size-base * 1.7) !default;
+
+// ~24px
+$font-size-h4: ceil($font-size-base * 1.25) !default;
+
+// ~18px
+$font-size-h5: $font-size-base !default;
+$font-size-h6: ceil($font-size-base * 0.85) !default;
+
+// ~12px
+
+//** Unit-less `line-height` for use in components like buttons.
+$line-height-base: 1.42857 !default;
+
+// 20/14
+//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+$line-height-computed: floor($font-size-base * $line-height-base) !default;
+
+// ~20px
+
+//** By default, this inherits from the `<body>`.
+$headings-font-family: inherit !default;
+$headings-font-weight: 500 !default;
+$headings-line-height: 1.1 !default;
+$headings-color: inherit !default;
+
+/* Structure */
+$header-height: 70px;
+$progress-height: 12px;
+$navbar-height: 12%;
+
+/* Animations */
+$anim-highlight: color 100ms, background 100ms;
+
+// Breakpoints
+$bp-small: "only screen and (max-width : 40em)";
+$bp-medium: "only screen and (min-width : 40.063em)";
+$bp-large: "only screen and (min-width : 64.063em)";

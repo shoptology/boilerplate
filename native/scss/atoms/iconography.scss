@@ -1,0 +1,490 @@
+@import "animations";
+
+.preloader {
+  height: 50px;
+  width:  50px;
+  border-width: 8px;
+  border-style: solid;
+  border-color: hsla(0, 0%, 100%, 0.75)
+    hsla(0, 0%, 100%, 0.75) hsla(0, 0%, 100%, 0.25) hsla(0, 0%, 100%, 0.25);
+  border-radius: 100%;
+  animation: clockwise 1s linear infinite;
+}
+
+
+/* To add more icons just copy these three lines */
+/* Icons */
+
+.icon-check-outline,
+.icon-left-check-outline:before,
+.icon-right-check-outline {
+    background-image: url(/assets/images/icons/check-outline-green.svg);
+}
+
+.icon-associate,
+.icon-left-associate:before,
+.icon-right-associate {
+    background-image: url(/assets/images/icons/associate-outline.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/associate-outline.svg);
+    }
+}
+
+.icon-associate-white,
+.icon-left-associate-white:before,
+.icon-right-associate-white {
+    background-image: url(/assets/images/icons/associate-outline-white.svg);
+}
+
+.icon-readability,
+.icon-left-readability:before,
+.icon-right-readability {
+    background-image: url(/assets/images/icons/readability-outline-black.svg);
+}
+
+.icon-baby_registry,
+.icon-left-baby_registry:before,
+.icon-right-baby_registry {
+    background-image: url(/assets/images/icons/base/icon-baby_registry.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-baby_registry.svg);
+    }
+}
+
+.icon-bill_pay,
+.icon-left-bill_pay:before,
+.icon-right-bill_pay {
+    background-image: url(/assets/images/icons/base/icon-bill_pay.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-bill_pay.svg);
+    }
+}
+
+.icon-canada,
+.icon-left-canada:before,
+.icon-right-canada {
+    background-image: url(/assets/images/icons/base/icon-canada.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-canada.svg);
+    }
+}
+
+.icon-card_cashing,
+.icon-left-card_cashing:before,
+.icon-right-card_cashing {
+    background-image: url(/assets/images/icons/base/icon-card_cashing.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-card_cashing.svg);
+    }
+}
+
+.icon-cash,
+.icon-left-cash:before,
+.icon-right-cash {
+    background-image: url(/assets/images/icons/base/icon-cash.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-cash.svg);
+    }
+}
+
+.icon-common_company,
+.icon-left-common_company:before,
+.icon-right-common_company {
+    background-image: url(/assets/images/icons/base/icon-common_company.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-common_company.svg);
+    }
+}
+
+.icon-company,
+.icon-left-company:before,
+.icon-right-company {
+    background-image: url(/assets/images/icons/base/icon-company.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-company.svg);
+    }
+}
+
+.icon-confirmation,
+.icon-left-confirmation:before,
+.icon-right-confirmation {
+    background-image: url(/assets/images/icons/base/icon-confirmation.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-confirmation.svg);
+    }
+}
+
+.icon-debit_card,
+.icon-left-debit_card:before,
+.icon-right-debit_card {
+    background-image: url(/assets/images/icons/base/icon-debit_card.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-debit_card.svg);
+    }
+}
+
+.icon-destination,
+.icon-left-destination:before,
+.icon-right-destination {
+    background-image: url(/assets/images/icons/base/icon-destination.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-destination.svg);
+    }
+}
+
+.icon-direct2cash,
+.icon-left-direct2cash:before,
+.icon-right-direct2cash {
+    background-image: url(/assets/images/icons/base/icon-direct2cash.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-direct2cash.svg);
+    }
+}
+
+.icon-email,
+.icon-left-email:before,
+.icon-right-email {
+    background-image: url(/assets/images/icons/base/icon-email.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-email.svg);
+    }
+}
+
+.icon-ereceipt,
+.icon-left-ereceipt:before,
+.icon-right-ereceipt {
+    background-image: url(/assets/images/icons/base/icon-ereceipt.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-ereceipt.svg);
+    }
+}
+
+.icon-error,
+.icon-left-error:before,
+.icon-right-error {
+    background-image: url(/assets/images/icons/base/icon-error.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-error.svg);
+    }
+}
+
+.icon-gift_card,
+.icon-left-gift_card:before,
+.icon-right-gift_card {
+    background-image: url(/assets/images/icons/base/icon-gift_card.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-gift_card.svg);
+    }
+}
+
+.icon-keyword,
+.icon-left-keyword:before,
+.icon-right-keyword {
+    background-image: url(/assets/images/icons/base/icon-keyword.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-keyword.svg);
+    }
+}
+
+.icon-list,
+.icon-left-list:before,
+.icon-right-list {
+    background-image: url(/assets/images/icons/base/icon-list.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-list.svg);
+    }
+}
+
+.icon-money_order,
+.icon-left-money_order:before,
+.icon-right-money_order {
+    background-image: url(/assets/images/icons/base/icon-money_order.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-money_order.svg);
+    }
+}
+
+.icon-money_services,
+.icon-left-money_services:before,
+.icon-right-money_services {
+    background-image: url(/assets/images/icons/base/icon-money_services.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-money_services.svg);
+    }
+}
+
+.icon-name,
+.icon-left-name:before,
+.icon-right-name {
+    background-image: url(/assets/images/icons/base/icon-name.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-name.svg);
+    }
+}
+
+.icon-order_number,
+.icon-left-order_number:before,
+.icon-right-order_number {
+    background-image: url(/assets/images/icons/base/icon-order_number.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-order_number.svg);
+    }
+}
+
+.icon-phone_number,
+.icon-left-phone_number:before,
+.icon-right-phone_number {
+    background-image: url(/assets/images/icons/base/icon-phone_number.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-phone_number.svg);
+    }
+}
+
+.icon-receipt,
+.icon-left-receipt:before,
+.icon-right-receipt {
+    background-image: url(/assets/images/icons/base/icon-receipt.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-receipt.svg);
+    }
+}
+
+.icon-registry,
+.icon-left-registry:before,
+.icon-right-registry {
+    background-image: url(/assets/images/icons/base/icon-registry.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-registry.svg);
+    }
+}
+
+.icon-returns,
+.icon-left-returns:before,
+.icon-right-returns {
+    background-image: url(/assets/images/icons/base/icon-returns.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-returns.svg);
+    }
+}
+
+.icon-send_money,
+.icon-left-send_money:before,
+.icon-right-send_money {
+    background-image: url(/assets/images/icons/base/icon-send_money.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-send_money.svg);
+    }
+}
+
+.icon-spark,
+.icon-left-spark:before,
+.icon-right-spark {
+    background-image: url(/assets/images/icons/base/icon-spark.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-spark.svg);
+    }
+}
+
+.icon-united_states,
+.icon-left-united_states:before,
+.icon-right-united_states {
+    background-image: url(/assets/images/icons/base/icon-united_states.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-united_states.svg);
+    }
+}
+
+.icon-verify_id,
+.icon-left-verify_id:before,
+.icon-right-verify_id {
+    background-image: url(/assets/images/icons/base/icon-verify_id.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-verify_id.svg);
+    }
+}
+
+.icon-walmart_com_order,
+.icon-left-walmart_com_order:before,
+.icon-right-walmart_com_order {
+    background-image: url(/assets/images/icons/base/icon-walmart_com_order.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-walmart_com_order.svg);
+    }
+}
+
+.icon-wedding_registry,
+.icon-left-wedding_registry:before,
+.icon-right-wedding_registry {
+    background-image: url(/assets/images/icons/base/icon-wedding_registry.svg);
+
+    &.outline {
+        background-image: url(/assets/images/icons/outlined/icon-wedding_registry.svg);
+    }
+}
+
+/* Interface Icons */
+.icon-money-services,
+.icon-left-money-services:before,
+.icon-right-money-services:after {
+    background-image: url(/assets/images/icons/money_sign.svg);
+}
+
+.icon-pickup,
+.icon-left-pickup:before,
+.icon-right-pickup:after {
+    background-image: url(/assets/images/icons/spark.svg);
+}
+
+.icon-close-outline,
+.icon-left-close-outline:before,
+.icon-right-close-outline:after {
+    background-image: url(/assets/images/icons/close-outline.svg);
+}
+
+.icon-arrow-left-outline,
+.icon-left-arrow-left-outline:before,
+.icon-right-arrow-left-outline:after {
+    background-image: url(/assets/images/icons/arrow-left-outline.svg);
+}
+
+.icon-arrow-right-outline,
+.icon-left-arrow-right-outline:before,
+.icon-right-arrow-right-outline:after {
+    background-image: url(/assets/images/icons/arrow-right-outline.svg);
+}
+
+.icon-arrow-up-outline,
+.icon-left-arrow-up-outline:before,
+.icon-right-arrow-up-outline:after {
+    background-image: url(/assets/images/icons/arrow-up-outline.svg);
+}
+
+.icon-arrow-down-outline,
+.icon-left-arrow-down-outline:before,
+.icon-right-arrow-down-outline:after {
+    background-image: url(/assets/images/icons/arrow-down-outline.svg);
+}
+
+/* Generic icon stuff */
+
+.icon,
+[class*="icon-right-"]:after,
+[class*="icon-left-"]:before {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    width: 32px;
+    height: 32px;
+}
+
+/*
+ *  If you're not supporting ie8 you can use `[class*="icon-"]:not([class*="icon-left"]):not([class*="icon-right"])` 
+ *  rather than `.icon` in the block above. It's a little longer but it means you don't need to use an extra "icon" 
+ *  class name for inline icons. Don't forget to replace this in the size modifiers as well.
+ */
+
+[class*="icon-left-"] {
+    position: relative;
+    padding-left: 52px !important;
+}
+
+[class*="icon-right-"] {
+    position: relative;
+    padding-right: 52px !important;
+}
+
+[class*="icon-left-"]:before,
+[class*="icon-right-"]:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+}
+
+[class*="icon-left-"]:before {
+    left: 10px;
+}
+
+[class*="icon-right-"]:after {
+    right: 10px;
+}
+
+/* Icon size modifiers */
+
+.icon.icon-small,
+.icon-small:before,
+.icon-small:after {
+    width: 16px;
+    height: 16px;
+}
+
+.icon-small[class*="icon-left-"] {
+    padding-left: 27px !important;
+}
+
+.icon-small[class*="icon-left-"]:before {
+    left: 5px;
+}
+
+.icon-small[class*="icon-right-"] {
+    padding-right: 27px !important;
+}
+
+.icon-small[class*="icon-right-"]:after {
+    right: 5px;
+}
+
+.icon.icon-large,
+.icon-large:before,
+.icon-large:after {
+    width: 64px;
+    height: 64px;
+}
+
+.icon-large[class*="icon-left-"] {
+    padding-left: 94px !important;
+}
+
+.icon-large[class*="icon-left-"]:before {
+    left: 15px;
+}
+
+.icon-large[class*="icon-right-"] {
+    padding-right: 94px !important;
+}
+
+.icon-large[class*="icon-right-"]:after {
+    right: 15px;
+}

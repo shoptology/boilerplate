@@ -1,0 +1,156 @@
+@import "../_variables";
+
+.tooltip {
+    position: absolute;
+    z-index: 1070;
+    display: block;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: left;
+    text-align: start;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    letter-spacing: normal;
+    word-break: normal;
+    word-spacing: normal;
+    word-wrap: normal;
+    white-space: normal;
+    filter: alpha(opacity = 0);
+    opacity: 0;
+    line-break: auto;
+}
+
+.tooltip.in {
+    filter: alpha(opacity = 90);
+    opacity: .9;
+}
+
+.tooltip.top {
+    padding: 5px 0;
+    margin-top: -6px;
+}
+
+.tooltip.right {
+    padding: 0 5px;
+    margin-left: 3px;
+}
+
+.tooltip.bottom {
+    padding: 5px 0;
+    margin-top: 3px;
+}
+
+.tooltip.left {
+    padding: 0 5px;
+    margin-left: -3px;
+}
+
+.tooltip-inner {
+    padding: 4px 8px;
+    color: #fff;
+    text-align: center;
+    background-color: $gray-light;
+    color: $black;
+    font-size: 16px;
+}
+
+.tooltip-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.tooltip.top .tooltip-arrow {
+    bottom: 0;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px 5px 0;
+    border-top-color: $gray-light;
+}
+
+.tooltip.top-left .tooltip-arrow {
+    right: 5px;
+    bottom: 0;
+    margin-bottom: -5px;
+    border-width: 5px 5px 0;
+    border-top-color: $gray-light;
+}
+
+.tooltip.top-right .tooltip-arrow {
+    bottom: 0;
+    left: 5px;
+    margin-bottom: -5px;
+    border-width: 5px 5px 0;
+    border-top-color: $gray-light;
+}
+
+.tooltip.right .tooltip-arrow {
+    top: 50%;
+    left: 0;
+    margin-top: -5px;
+    border-width: 5px 5px 5px 0;
+    border-right-color: $gray-light;
+}
+
+.tooltip.left .tooltip-arrow {
+    top: 50%;
+    right: 0;
+    margin-top: -5px;
+    border-width: 5px 0 5px 5px;
+    border-left-color: $gray-light;
+}
+
+.tooltip.bottom .tooltip-arrow {
+    top: 0;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 0 5px 5px;
+    border-bottom-color: $gray-light;
+}
+
+.tooltip.bottom-left .tooltip-arrow {
+    top: 0;
+    right: 5px;
+    margin-top: -5px;
+    border-width: 0 5px 5px;
+    border-bottom-color: $gray-light;
+}
+
+.tooltip.bottom-right .tooltip-arrow {
+    top: 0;
+    left: 5px;
+    margin-top: -5px;
+    border-width: 0 5px 5px;
+    border-bottom-color: $gray-light;
+}
+
+// Invalid inputs
+.tooltip.invalid .tooltip-inner, input.invalid ~ .tooltip .tooltip-inner {
+    background-color: $red;
+    color: $white;
+}
+
+.tooltip.invalid.top .tooltip-arrow, input.invalid ~ .tooltip.top .tooltip-arrow,
+.tooltip.invalid.top-left .tooltip-arrow, input.invalid ~ .tooltip.top-left .tooltip-arrow,
+.tooltip.invalid.top-right .tooltip-arrow, input.invalid ~ .tooltip.top-right .tooltip-arrow {
+    border-top-color: $red;
+}
+
+.tooltip.invalid.right .tooltip-arrow, input.invalid ~ .tooltip.right .tooltip-arrow {
+    border-right-color: $red;
+}
+
+.tooltip.invalid.left .tooltip-arrow, input.invalid ~ .tooltip.left .tooltip-arrow {
+    border-left-color: $red;
+}
+
+.tooltip.invalid.bottom .tooltip-arrow, input.invalid ~ .tooltip.bottom .tooltip-arrow,
+.tooltip.invalid.bottom-left .tooltip-arrow, input.invalid ~ .tooltip.bottom-left .tooltip-arrow,
+.tooltip.invalid.bottom-right .tooltip-arrow, input.invalid ~ .tooltip.bottom-right .tooltip-arrow {
+    border-bottom-color: $red;
+}

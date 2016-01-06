@@ -1,5 +1,9 @@
 @import "global/bootstrap-variables";
 @import "global/bootstrap";
-@import "../bower_components/font-awesome/scss/font-awesome";
-@import "../bower_components/bootstrap-social/bootstrap-social";
+//@import "../bower_components/font-awesome/scss/font-awesome";
 @import "global/global.scss";
+
+
+// Application Specific
+@import "navbar.scss";
+@import "grid.scss";

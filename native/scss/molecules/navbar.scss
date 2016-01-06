@@ -1,0 +1,144 @@
+@import "../_variables";
+
+// Navbar
+// -------------------------
+.navbar {
+    @extend .noselect;
+    position: fixed;
+    bottom: 0;
+    height: $navbar-height;
+    background-color: $black;
+    color: $white;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    z-index: 10;
+
+    &.top {
+        top: 0;
+    }
+
+    .buttons {
+        z-index: 5;
+        height: 100%;
+        float: left;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+
+        &.right {
+            float: right;
+
+            .button {
+                border-left: 1px solid $gray-darker;
+                border-right: 0;
+            }
+        }
+
+        &.center {
+            float: none;
+            position: absolute;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+
+            .button {
+                border: none;
+            }
+        }
+    }
+
+    .button {
+        z-index: 5;
+        height: 100%;
+        float: left;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        padding: 0 16px;
+        background: $black;
+        color: white;
+        cursor: pointer;
+        border-right: 1px solid $gray-darker;
+        transition: $anim-highlight;
+
+        span {
+            font-size: 1.6vmax;
+            padding: 5px 20px 0;
+        }
+
+        img {
+            width: 70%;
+            height: 70%;
+        }
+
+        &.skinny {
+            padding: 0 9%;
+        }
+
+        &.next {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 1;
+            background-color: $black;
+            color: white;
+            -webkit-justify-content: flex-end;
+            -ms-flex-pack: end;
+            justify-content: flex-end;
+            padding: 0 3%;
+            margin: 0;
+            border: none;
+            transition: background 800ms cubic-bezier(0.645, 0.045, 0.355, 1);
+
+            &.disabled {
+                &:active {
+                    background: inherit;
+                }
+            }
+
+            &.invalid {
+                img {
+                    opacity: 0;
+                    transform: translate3d(-30px, 0, 0);
+                }
+            }
+
+            &.valid {
+                background-color: $green;
+            }
+
+            span {
+                font-size: 30px;
+                line-height: 30px;
+                padding: 5px 0 0 0;
+            }
+
+            img, .svg {
+                width: 34px;
+                transition: all 800ms cubic-bezier(0.645, 0.045, 0.355, 1);
+            }
+
+            > * {
+                margin-left: 16px;
+            }
+        }
+
+        &:active {
+            background: lighten($black, 25%);
+        }
+    }
+}

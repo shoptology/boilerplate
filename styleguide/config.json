@@ -7,17 +7,17 @@
  	"ignored-directories" : ["scss"],
  	"contentSyncPort" : 8002,
  	"navSyncPort" : 8003,
- 	"debug": false,
+ 	"debug": true,
  	"ishControlsVisible": {
  		"s": true,
  		"m": true,
  		"l": true,
  		"full": true,
- 		"ranndom": true,
+ 		"random": true,
  		"disco": true,
  		"hay": true,
- 		"mqs": false,
- 		"find": false,
+ 		"mqs": true,
+ 		"find": true,
  		"views-all": true,
  		"views-annotations": true,
  		"views-code": true,
@@ -25,7 +25,13 @@
  		"tools-all": true,
  		"tools-follow": false,
  		"tools-reload": false,
- 		"tools-shortcuts": false,
+ 		"tools-shortcuts": true,
  		"tools-docs": true
- 	}
+ 	},
+  "patternStates": {
+      "homepage-emergency" : "inprogress"
+  },
+  "patternExportKeys": [],
+  "patternExportDirectory": "./pattern_exports/",
+  "baseurl" : ""
  }

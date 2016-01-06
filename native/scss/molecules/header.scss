@@ -1,0 +1,77 @@
+@import "../_variables";
+
+.header {
+    position: absolute;
+    top: 0;
+    transform: translate3d(100%, 0, 0);
+    -moz-transform: translate3d(100%, 0, 0);
+    -webkit-transform: translate3d(100%, 0, 0);
+    z-index: 1;
+    height: $header-height;
+    width: 100%;
+    background: $blue;
+    color: $white;
+    padding-top: $progress-height;
+    -webkit-transition: all 800ms cubic-bezier(0.645, 0.045, 0.355, 1);
+    -moz-transition: all 800ms cubic-bezier(0.645, 0.045, 0.355, 1);
+    -o-transition: all 800ms cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 800ms cubic-bezier(0.645, 0.045, 0.355, 1);
+
+    &.active {
+        transform: translate3d(0, 0, 0);
+        -moz-transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+
+    &.exiting {
+        transform: translate3d(-100%, 0, 0);
+        -moz-transform: translate3d(-100%, 0, 0);
+        -webkit-transform: translate3d(-100%, 0, 0);
+    }
+
+    &.notransition {
+        transition: none;
+    }
+
+    .progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: $progress-height;
+        width: 10%;
+        background: darken($blue, $color-darken);
+        -webkit-transition: width 800ms cubic-bezier(0.645, 0.045, 0.355, 1);
+        -moz-transition: width 800ms cubic-bezier(0.645, 0.045, 0.355, 1);
+        -o-transition: width 800ms cubic-bezier(0.645, 0.045, 0.355, 1);
+        transition: width 800ms cubic-bezier(0.645, 0.045, 0.355, 1);
+        /* easeInOutCubic */
+    }
+
+    .info {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-line-pack: center;
+        -webkit-align-content: center;
+        align-content: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        height: 100%;
+        padding: 10px;
+        font-size: 20px;
+
+        > * {
+            margin-right: 12px;
+        }
+
+        img, svg {
+            width: 40px;
+        }
+
+        .title {
+            font-weight: 700;
+            margin-right: 12px;
+        }
+    }
+}

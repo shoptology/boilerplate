@@ -381,7 +381,7 @@ module.exports = function(grunt) {
             'sass',
             'replace',
             'connect:livereload',
-            'browserSync',
+            //'browserSync',
             'watch'
         ]);
     });

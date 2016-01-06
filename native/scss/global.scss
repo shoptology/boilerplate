@@ -1,0 +1,194 @@
+@import "_variables";
+@import "vendor/_normalize";
+@import "vendor/_bootstrap-grids";
+
+@import "atoms/animations";
+@import "atoms/typography";
+@import "atoms/iconography";
+@import "atoms/forms";
+@import "atoms/buttons";
+
+@import "molecules/grid";
+@import "molecules/checklist";
+@import "molecules/header";
+@import "molecules/navbar";
+@import "molecules/overlays";
+@import "molecules/content-splits";
+@import "molecules/tooltips";
+@import "molecules/pagination";
+
+@import "templates/intro-outro";
+@import "templates/delivery-option";
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: $font-family-sans-serif;
+    overflow-x: hidden;
+    background: $gray;
+}
+
+body.app {
+    overflow: hidden;
+}
+
+img.svg,
+svg {
+    width: 50px;
+}
+
+.system-overlay {
+    display: none;
+    /*background: green;*/
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: white;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 9999;
+    .system-overlay-status {
+        width: 100%;
+        margin-top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        text-align: center;
+        hr {
+            border: none;
+            border-top: 1px solid gray;
+            -webkit-transition: all 100ms;
+            transition: all 100ms;
+        }
+    }
+}
+
+// Global Structure
+.screen {
+    @extend .noselect;
+    position: absolute;
+    top: $header-height;
+    transform: translate3d(100%, 0, 0);
+    -moz-transform: translate3d(100%, 0, 0);
+    -webkit-transform: translate3d(100%, 0, 0);
+    bottom: $navbar-height;
+    width: 100%;
+    background: $gray;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    transition: transform 800ms cubic-bezier(0.645, 0.045, 0.355, 1), -webkit-transform 800ms cubic-bezier(0.645, 0.045, 0.355, 1);
+
+    &.fullscreen {
+        top: 0;
+        z-index: 10;
+    }
+
+    &.active {
+        //left: 0 !important;
+        transform: translate3d(0, 0, 0);
+        -moz-transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
+        //right: 0;
+
+    }
+
+    &.exiting {
+        //left: -100%;
+        transform: translate3d(-100%, 0, 0);
+        -moz-transform: translate3d(-100%, 0, 0);
+        -webkit-transform: translate3d(-100%, 0, 0);
+    }
+
+    &.notransition {
+        transition: none;
+    }
+
+    .content {
+        width: 80%;
+        margin: 0 auto;
+
+        .title {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 42px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .subtitle {
+            font-size: 30px;
+        }
+
+        .side-icon {
+            width: 120px;
+        }
+
+        svg {
+            width: 100%;
+            max-height: 118px;
+        }
+
+        svg path, svg circle {
+            fill: $black;
+        }
+    }
+}
+
+/*
+    Android Zoom Input States
+ */
+@media only screen and (max-height: 450px) and (min-width: 450px) {
+    .screen {
+        display: block;
+        overflow-y: scroll;
+        padding-top: 30px;
+        bottom: 0;
+    }
+
+    .navbar {
+        display: none;
+    }
+}
+
+.no-flex {
+    display: block !important;
+}
+
+.centered {
+    margin: 0 auto;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+// Readability class
+.transform-readable {
+    transform: translate3d(0, 40%, 0) !important;
+    -moz-transform: translate3d(0, 40%, 0) !important;
+    -webkit-transform: translate3d(0, 40%, 0) !important;
+}
+
+.noselect {
+    // Disable all selections
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

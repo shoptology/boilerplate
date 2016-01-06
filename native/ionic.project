@@ -1,0 +1,8 @@
+{
+  "name": "wmt-ybm-kiosk",
+  "app_id": "ee1d894d",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ]
+}
